@@ -18,6 +18,33 @@ html,
   object-fit: contain;
 }
 
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #6c1a80 0%,
+    #26d0ce 51%,
+    #af16a8 100%
+  );
+}
+.btn-grad {
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
 .background-video {
   position: fixed;
   top: 0;
@@ -26,7 +53,7 @@ html,
   height: 100vh;
   object-fit: cover;
   z-index: -1;
-  pointer-events: none; 
+  pointer-events: none;
 }
 
 .overlay {
