@@ -13,7 +13,7 @@ const Next = () => {
         }
         return prev + 1;
       });
-    }, 100); // Increase the speed of the progress bar
+    }, 25); // Increase the speed of the progress bar
   }, []);
 
   return (
