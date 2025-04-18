@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Symptoms_form = () => {
   const navigate = useNavigate();
-  const [oldSymptoms, setOldSymptoms] = useState([
+  const defaultNewSymptoms = [
     { name: "fever", value: false },
     { name: "cough", value: false },
     { name: "soreThroat", value: false },
@@ -14,8 +14,8 @@ const Symptoms_form = () => {
     { name: "lossOfTasteOrSmell", value: false },
     { name: "nauseaOrVomiting", value: false },
     { name: "diarrhea", value: false },
-  ]);
-  const [newSymptoms, setNewSymptoms] = useState([
+  ];
+  const defaultOldSymptoms = [
     { name: "fever", value: false },
     { name: "cough", value: false },
     { name: "soreThroat", value: false },
@@ -26,7 +26,17 @@ const Symptoms_form = () => {
     { name: "lossOfTasteOrSmell", value: false },
     { name: "nauseaOrVomiting", value: false },
     { name: "diarrhea", value: false },
-  ]);
+  ];
+
+  const [oldSymptoms, setOldSymptoms] = useState(() => {
+    const saved = localStorage.getItem("oldSymptoms");
+    return saved ? JSON.parse(saved) : defaultOldSymptoms;
+  });
+
+  const [newSymptoms, setNewSymptoms] = useState(() => {
+    const saved = localStorage.getItem("newSymptoms");
+    return saved ? JSON.parse(saved) : defaultNewSymptoms;
+  });
 
   return (
     <div className="main d-flex flex-column justify-content-center align-items-center">

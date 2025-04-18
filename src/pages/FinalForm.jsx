@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 
 const FinalForm = () => {
-  const [userData, setUserData] = useState({
+  const defaultUserData = {
     name: "",
     age: "",
     gender: "",
     weight: "",
     email: "",
     phone: "",
+  };
+
+  const [userData, setUserData] = useState(() => {
+    const saved = localStorage.getItem("userData");
+    return saved ? JSON.parse(saved) : defaultUserData;
   });
 
   const handleChange = (e) => {
@@ -32,6 +37,7 @@ const FinalForm = () => {
       newSymptoms: JSON.parse(localStorage.getItem("newSymptoms")),
     };
     console.log("Final Data:", finalData);
+    alert("Form submitted successfully!");
   };
 
   return (

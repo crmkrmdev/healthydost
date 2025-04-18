@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Daily_routine = () => {
   const navigate = useNavigate();
-  const [dailyRoutine, setDailyRoutine] = useState([
+  const defaultDailyRoutine = [
     {
       name: "Job type",
       value: "",
@@ -23,7 +23,12 @@ const Daily_routine = () => {
     { name: "Do you drink?", value: "", options: ["Yes", "No"] },
     { name: "Sleep hours per night", value: "", options: ["5-6", "6-8", "8+"] },
     { name: "Stress level", value: "", options: ["Low", "Medium", "High"] },
-  ]);
+  ];
+
+  const [dailyRoutine, setDailyRoutine] = useState(() => {
+    const saved = localStorage.getItem("dailyRoutine");
+    return saved ? JSON.parse(saved) : defaultDailyRoutine;
+  });
 
   return (
     <div className="main d-flex flex-column justify-content-center align-items-center">
