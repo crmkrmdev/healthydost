@@ -31,8 +31,15 @@ html,
 
 .overlay {
   z-index: 1;
-  padding: 20px;
   text-align: center;
+}
+
+.overlay-content {
+  background-color: rgba(0, 0, 0, 0.75); /* bg-dark with bg-opacity-75 */
+  padding: 1.5rem; /* p-4 (Bootstrap padding class) */
+  border-radius: 0.25rem; /* rounded */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow */
+  text-align: center; /* center text */
 }
 
 .footer {
