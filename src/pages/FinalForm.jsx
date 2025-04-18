@@ -6,7 +6,6 @@ const FinalForm = () => {
     age: "",
     gender: "",
     weight: "",
-    height: "",
     email: "",
     phone: "",
   });
