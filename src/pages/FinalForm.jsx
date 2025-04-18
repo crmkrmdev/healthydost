@@ -6,7 +6,6 @@ const FinalForm = () => {
     age: "",
     gender: "",
     weight: "",
-    height: "",
     email: "",
     phone: "",
   });
@@ -17,7 +16,7 @@ const FinalForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    alert("Data saved successfully!");
     console.log(formData);
   };
 
