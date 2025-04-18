@@ -57,11 +57,11 @@ html,
 }
 
 .overlay-content {
-  background-color: rgba(0, 0, 0, 0.75); /* bg-dark with bg-opacity-75 */
-  padding: 1.5rem; /* p-4 (Bootstrap padding class) */
-  border-radius: 0.25rem; /* rounded */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow */
-  text-align: center; /* center text */
+  background-color: rgba(0, 0, 0, 0.6); /* bg-dark with bg-opacity-60 */
+  padding: 1.5rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .footer {
@@ -74,9 +74,34 @@ html,
   background: rgba(0, 0, 0, 0.3);
   font-size: 0.9rem;
 }
-/* src/components/UserForm.css */
+
+/* form */
+.form-check-label {
+  cursor: pointer;
+}
+
+.form-check-input {
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #1e2b3d;
+  border-color: #0d6efd;
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+.form-control {
+  font-size: 0.8rem;
+}
+.form-select {
+  font-size: 0.8rem;
+}
+
+/* card */
 .glass-card {
-  max-width: 600px;
   margin: auto;
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.05);
