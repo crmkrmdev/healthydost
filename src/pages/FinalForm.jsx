@@ -5,10 +5,10 @@ const FinalForm = () => {
     <div className="d-flex justify-content-center align-items-center my-5">
       <div
         className="glass-card p-4"
-        style={{ width: "700px", minHeight: "100px" }}
+        style={{ width: "600px", minHeight: "100px" }}
       >
         {/* <h3 className="mb-4 text-center">User Details</h3> */}
-        <form>
+        <form className="FinalForm">
           <div className="mb-2">
             <label className="form-label text-white">Name</label>
             <input
@@ -18,7 +18,6 @@ const FinalForm = () => {
               placeholder="Enter full name"
             />
           </div>
-
           <div className="mb-2">
             <label className="form-label text-white">Age</label>
             <input
@@ -29,7 +28,6 @@ const FinalForm = () => {
               placeholder="Enter age"
             />
           </div>
-
           <div className="mb-2">
             <label className="form-label text-white">Gender</label>
             <select
@@ -42,7 +40,6 @@ const FinalForm = () => {
               <option>Other</option>
             </select>
           </div>
-
           <div className="mb-2">
             <label className="form-label text-white">Weight (approx)</label>
             <input
@@ -52,7 +49,6 @@ const FinalForm = () => {
               placeholder="In kg"
             />
           </div>
-
           <div className="mb-2">
             <label className="form-label text-white">Email</label>
             <input
@@ -62,7 +58,6 @@ const FinalForm = () => {
               placeholder="example@email.com"
             />
           </div>
-
           <div className="mb-2">
             <label className="form-label text-white">Phone</label>
             <input
@@ -72,10 +67,11 @@ const FinalForm = () => {
               placeholder="Enter phone number"
             />
           </div>
-
-          <button type="submit" className="btn btn-light w-100 mt-3 rounded-3">
-            Submit
-          </button>
+          <div className="d-flex justify-content-center">
+            <button type="submit" className=" btn btn-light w-50 mt-3">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>

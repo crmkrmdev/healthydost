@@ -75,6 +75,21 @@ html,
   font-size: 0.9rem;
 }
 
+.FinalForm {
+  ::placeholder {
+    color: lightgray !important;
+    opacity: 1; /* Ensure the color isn't faded */
+  }
+
+  :-ms-input-placeholder {
+    color: red !important;
+  }
+
+  ::-ms-input-placeholder {
+    color: red !important;
+  }
+}
+
 /* form */
 .form-check-label {
   cursor: pointer;
