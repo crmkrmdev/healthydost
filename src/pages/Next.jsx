@@ -17,7 +17,7 @@ const Next = () => {
   }, []);
 
   return (
-    <div className="main w-100wh vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div className="main d-flex flex-column justify-content-center align-items-center">
       <div className="overlay">
         <div className="overlay-content d-flex flex-column justify-content-center align-items-center gap-4">
           <h1 className="text-white fw-bold">
@@ -46,6 +46,10 @@ const Next = () => {
           </div>
         </div>
       </div>
+      <h3 className="mt-4 bg-dark opacity-75 p-2">
+        Get 100% Customized Diet Plan for you | Healthier Future | Improved
+        Quality of life
+      </h3>
     </div>
   );
 };
