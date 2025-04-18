@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 const FinalForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+  });
   return (
     <div className="d-flex justify-content-center align-items-center my-5">
       <div
         className="glass-card p-4"
         style={{ width: "600px", minHeight: "100px" }}
       >
-        {/* <h3 className="mb-4 text-center">User Details</h3> */}
+        <h3 className="mb-4 text-center">User Details</h3>
         <form className="FinalForm">
           <div className="mb-2">
             <label className="form-label text-white">Name</label>
