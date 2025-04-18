@@ -18,6 +18,28 @@ html,
   object-fit: contain;
 }
 
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #6c1a80 0%,
+    #26d0ce 51%,
+    #af16a8 100%
+  );
+}
+.btn-grad {
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
 .background-video {
   position: fixed;
   top: 0;
@@ -26,7 +48,7 @@ html,
   height: 100vh;
   object-fit: cover;
   z-index: -1;
-  pointer-events: none; 
+  pointer-events: none;
 }
 
 .overlay {
