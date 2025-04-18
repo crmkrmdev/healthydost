@@ -3,22 +3,23 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center vh-100 w-100">
+    <div className="main d-flex flex-column justify-content-center align-items-center vh-100 w-100">
       <div className="overlay">
-        <div className="content-box bg-dark bg-opacity-75 p-4 rounded shadow text-center">
+        <div className="overlay-content">
           <h1 className="text-white fw-bold mb-2">
             India's First AI Enabled Dietitian!
           </h1>
           <p className="text-warning mb-4">
             स्वस्थस्य स्वास्थ्य रक्षणं, आतुरस्य विकार प्रशमनं
           </p>
-
-          <div className="mb-3 px-5 d-flex flex-column gap-3">
-            <div className="d-flex gap-5">
-              {/* <div className=""> */}
-                <img src="/Healthy Dost Logo.png" alt="Logo" style={{height:"90px"}} />
-              {/* </div> */}
-              <div className="gap-2 d-flex flex-column justify-content-center align-items-center">
+          <div className="mb-3 px-5 d-flex flex-column">
+            <div className="d-flex gap-3">
+              <img
+                src="/Healthy Dost Logo.png"
+                alt="Logo"
+                style={{ height: "150px" }}
+              />
+              <div className="gap-2 d-flex flex-column justify-content-center align-items-center w-100">
                 <select className="form-select">
                   <option value="">Choose your purpose</option>
                   <option value="weight-loss">Weight Loss</option>
