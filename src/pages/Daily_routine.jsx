@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFormContext } from "../context/Form_context";
 
 const Daily_routine = () => {
   const navigate = useNavigate();
-  const { dailyRoutine, setDailyRoutine } = useFormContext();
+  const [dailyRoutine, setDailyRoutine] = useState([
+    {
+      name: "Job type",
+      value: "",
+      options: ["Sitting", "Standing", "Travel", "Remote"],
+    },
+    {
+      name: "Water consumption",
+      value: "",
+      options: ["1L", "2-3L", "3-5L", "6L"],
+    },
+    {
+      name: "Coffee or tea per day",
+      value: "",
+      options: ["1", "2", "3", "4+"],
+    },
+    { name: "Do you smoke?", value: "", options: ["Yes", "No"] },
+    { name: "Do you drink?", value: "", options: ["Yes", "No"] },
+    { name: "Sleep hours per night", value: "", options: ["5-6", "6-8", "8+"] },
+    { name: "Stress level", value: "", options: ["Low", "Medium", "High"] },
+  ]);
 
   return (
     <div className="main d-flex flex-column justify-content-center align-items-center">
@@ -13,6 +32,7 @@ const Daily_routine = () => {
           className="d-flex gap-4"
           onSubmit={(e) => {
             e.preventDefault();
+            localStorage.setItem("dailyRoutine", JSON.stringify(dailyRoutine));
             navigate("/final-form");
           }}
           onKeyDown={(e) => {
@@ -46,6 +66,10 @@ const Daily_routine = () => {
                             const updated = [...dailyRoutine];
                             updated[index].value = option;
                             setDailyRoutine(updated);
+                            localStorage.setItem(
+                              "dailyRoutine",
+                              JSON.stringify(updated)
+                            );
                           }}
                         />
                         {option}

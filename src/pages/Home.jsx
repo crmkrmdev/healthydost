@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useFormContext } from "../context/Form_context";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { purpose, setPurpose } = useFormContext();
+  const navigate = useNavigate();
+  const [purpose, setPurpose] = useState("");
 
   return (
     <div className="main d-flex flex-column justify-content-center align-items-center vh-100 w-100">
@@ -35,9 +35,20 @@ const Home = () => {
                   <option value="muscle-gain">Muscle Gain</option>
                   <option value="general-health">General Health</option>
                 </select>
-                <Link className="btn btn-grad w-100" to="/next">
+                <button
+                  type="button"
+                  className="btn btn-grad w-100"
+                  onClick={() => {
+                    if (purpose) {
+                      localStorage.setItem("purpose", purpose);
+                      navigate("/symptoms-form");
+                    } else {
+                      alert("Please select a purpose.");
+                    }
+                  }}
+                >
                   Send
-                </Link>
+                </button>
               </div>
             </div>
           </div>

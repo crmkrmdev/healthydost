@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFormContext } from "../context/Form_context";
 
 const Symptoms_form = () => {
   const navigate = useNavigate();
-  const { oldSymptoms, setOldSymptoms, newSymptoms, setNewSymptoms } =
-    useFormContext();
+  const [oldSymptoms, setOldSymptoms] = useState([
+    { name: "fever", value: false },
+    { name: "cough", value: false },
+    { name: "soreThroat", value: false },
+    { name: "fatigue", value: false },
+    { name: "headache", value: false },
+    { name: "musclePain", value: false },
+    { name: "shortnessOfBreath", value: false },
+    { name: "lossOfTasteOrSmell", value: false },
+    { name: "nauseaOrVomiting", value: false },
+    { name: "diarrhea", value: false },
+  ]);
+  const [newSymptoms, setNewSymptoms] = useState([
+    { name: "fever", value: false },
+    { name: "cough", value: false },
+    { name: "soreThroat", value: false },
+    { name: "fatigue", value: false },
+    { name: "headache", value: false },
+    { name: "musclePain", value: false },
+    { name: "shortnessOfBreath", value: false },
+    { name: "lossOfTasteOrSmell", value: false },
+    { name: "nauseaOrVomiting", value: false },
+    { name: "diarrhea", value: false },
+  ]);
 
   return (
     <div className="main d-flex flex-column justify-content-center align-items-center">
@@ -13,6 +34,8 @@ const Symptoms_form = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            localStorage.setItem("oldSymptoms", JSON.stringify(oldSymptoms));
+            localStorage.setItem("newSymptoms", JSON.stringify(newSymptoms));
             navigate("/daily-routine");
           }}
           onKeyDown={(e) => {
@@ -42,6 +65,10 @@ const Symptoms_form = () => {
                           const updatedSymptoms = [...oldSymptoms];
                           updatedSymptoms[index].value = e.target.checked;
                           setOldSymptoms(updatedSymptoms);
+                          localStorage.setItem(
+                            "oldSymptoms",
+                            JSON.stringify(updatedSymptoms)
+                          );
                         }}
                       />
                     </label>
@@ -70,6 +97,10 @@ const Symptoms_form = () => {
                           const updatedSymptoms = [...newSymptoms];
                           updatedSymptoms[index].value = e.target.checked;
                           setNewSymptoms(updatedSymptoms);
+                          localStorage.setItem(
+                            "newSymptoms",
+                            JSON.stringify(updatedSymptoms)
+                          );
                         }}
                       />
                     </label>

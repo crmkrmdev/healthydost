@@ -1,15 +1,15 @@
-import React from "react";
-import { useFormContext } from "../context/Form_context";
+import React, { useState } from "react";
 
 const FinalForm = () => {
-  const {
-    userData,
-    setUserData,
-    purpose,
-    oldSymptoms,
-    newSymptoms,
-    dailyRoutine,
-  } = useFormContext();
+  const [userData, setUserData] = useState({
+    name: "",
+    age: "",
+    gender: "",
+    weight: "",
+    height: "",
+    email: "",
+    phone: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,18 +20,19 @@ const FinalForm = () => {
     } else {
       setUserData((prevFormData) => ({ ...prevFormData, [name]: value }));
     }
+    localStorage.setItem("userData", JSON.stringify(userData));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const finalData = [
-      { userData: userData },
-      { purpose: purpose },
-      { oldSymptoms: oldSymptoms },
-      { newSymptoms: newSymptoms },
-      { dailyRoutine: dailyRoutine },
-    ];
-    console.log(finalData);
+    const finalData = {
+      userData: localStorage.getItem("userData"),
+      purpose: localStorage.getItem("purpose"),
+      dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")),
+      oldSymptoms: JSON.parse(localStorage.getItem("oldSymptoms")),
+      newSymptoms: JSON.parse(localStorage.getItem("newSymptoms")),
+    };
+    console.log("Final Data:", finalData);
   };
 
   return (
