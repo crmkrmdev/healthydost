@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Daily_routine = () => {
+  const navigate = useNavigate();
   const [dailyRoutine, setDailyRoutine] = useState([
     {
       name: "Job type",
@@ -24,6 +26,7 @@ const Daily_routine = () => {
           onSubmit={(e) => {
             e.preventDefault();
             console.log("Daily Routine Data:", dailyRoutine);
+            navigate("/final-form");
           }}
         >
           <div className="text-start " style={{ width: "500px" }}>

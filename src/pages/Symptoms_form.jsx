@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Symptoms_form = () => {
+  const navigate = useNavigate();
   const [oldSymptoms, setOldSymptoms] = useState([
     { name: "fever", value: false },
     { name: "cough", value: false },
@@ -35,6 +37,7 @@ const Symptoms_form = () => {
             e.preventDefault();
             console.log("Old Symptoms Data:", oldSymptoms);
             console.log("New Symptoms Data:", newSymptoms);
+            navigate("/daily-routine");
           }}
         >
           <div className="d-flex gap-4">
