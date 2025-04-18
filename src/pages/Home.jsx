@@ -12,12 +12,14 @@ const Home = () => {
           <p className="text-warning mb-4">
             स्वस्थस्य स्वास्थ्य रक्षणं, आतुरस्य विकार प्रशमनं
           </p>
-          <div className="mb-3 px-5 d-flex flex-column gap-3">
-            <div className="d-flex gap-5">
-              {/* <div className=""> */}
-                <img src="/Healthy Dost Logo.png" alt="Logo" style={{height:"90px"}} />
-              {/* </div> */}
-              <div className="gap-2 d-flex flex-column justify-content-center align-items-center">
+          <div className="mb-3 px-5 d-flex flex-column">
+            <div className="d-flex gap-3">
+              <img
+                src="/Healthy Dost Logo.png"
+                alt="Logo"
+                style={{ height: "150px" }}
+              />
+              <div className="gap-2 d-flex flex-column justify-content-center align-items-center w-100">
                 <select className="form-select">
                   <option value="">Choose your purpose</option>
                   <option value="weight-loss">Weight Loss</option>
