@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useFormContext } from "../context/Form_context";
 
 const Home = () => {
-  const [purpose, setPurpose] = useState("");
+  const { purpose, setPurpose } = useFormContext();
 
   return (
     <div className="main d-flex flex-column justify-content-center align-items-center vh-100 w-100">
@@ -23,7 +24,7 @@ const Home = () => {
               />
               <div className="gap-2 d-flex flex-column justify-content-center align-items-center w-100">
                 <select
-                  className="form-select"
+                  className="form-select text-white border-light"
                   value={purpose || ""}
                   onChange={(e) => setPurpose(e.target.value)}
                 >

@@ -1,29 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useFormContext } from "../context/Form_context";
 
 const Daily_routine = () => {
   const navigate = useNavigate();
-  const [dailyRoutine, setDailyRoutine] = useState([
-    {
-      name: "Job type",
-      value: "",
-      options: ["Sitting", "Standing", "Travel", "Remote"],
-    },
-    {
-      name: "Water consumption",
-      value: "",
-      options: ["1L", "2-3L", "3-5L", "6L"],
-    },
-    {
-      name: "Coffee or tea per day",
-      value: "",
-      options: ["1", "2", "3", "4+"],
-    },
-    { name: "Do you smoke?", value: "", options: ["Yes", "No"] },
-    { name: "Do you drink?", value: "", options: ["Yes", "No"] },
-    { name: "Sleep hours per night", value: "", options: ["5-6", "6-8", "8+"] },
-    { name: "Stress level", value: "", options: ["Low", "Medium", "High"] },
-  ]);
+  const { dailyRoutine, setDailyRoutine } = useFormContext();
 
   return (
     <div className="main d-flex flex-column justify-content-center align-items-center">
@@ -32,8 +13,10 @@ const Daily_routine = () => {
           className="d-flex gap-4"
           onSubmit={(e) => {
             e.preventDefault();
-            console.log("Daily Routine Data:", dailyRoutine);
             navigate("/final-form");
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") e.preventDefault();
           }}
         >
           <div className="text-start " style={{ width: "600px" }}>

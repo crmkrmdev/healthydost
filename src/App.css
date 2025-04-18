@@ -106,10 +106,12 @@ html,
 
 .form-select {
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .form-control {
   font-size: 0.8rem;
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 .form-select {
   font-size: 0.8rem;

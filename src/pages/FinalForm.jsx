@@ -1,43 +1,59 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormContext } from "../context/Form_context";
 
 const FinalForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    gender: "",
-    weight: "",
-    height: "",
-    email: "",
-    phone: "",
-  });
+  const {
+    userData,
+    setUserData,
+    purpose,
+    oldSymptoms,
+    newSymptoms,
+    dailyRoutine,
+  } = useFormContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    if (name === "phone") {
+      if (/^\d*$/.test(value)) {
+        setUserData((prevFormData) => ({ ...prevFormData, [name]: value }));
+      }
+    } else {
+      setUserData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+    const finalData = [
+      { userData: userData },
+      { purpose: purpose },
+      { oldSymptoms: oldSymptoms },
+      { newSymptoms: newSymptoms },
+      { dailyRoutine: dailyRoutine },
+    ];
+    console.log(finalData);
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center my-5">
-      <div
-        className="glass-card p-4"
-        style={{ width: "600px", minHeight: "100px" }}
-      >
+    <div className="main d-flex justify-content-center align-items-center">
+      <div className="glass-card p-4" style={{ width: "500px" }}>
         <h3 className="mb-4 text-center">User Details</h3>
-        <form className="FinalForm" onSubmit={handleSubmit}>
+        <form
+          className="FinalForm"
+          onSubmit={handleSubmit}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") e.preventDefault();
+          }}
+        >
           <div className="mb-2">
             <label className="form-label text-white">Name</label>
             <input
               name="name"
-              value={formData.name}
+              value={userData.name}
               onChange={handleChange}
               required
               type="text"
-              className="form-control bg-transparent text-white border-light"
+              className="form-control text-white border-light"
               placeholder="Enter full name"
             />
           </div>
@@ -45,12 +61,12 @@ const FinalForm = () => {
             <label className="form-label text-white">Age</label>
             <input
               name="age"
-              value={formData.age}
+              value={userData.age}
               onChange={handleChange}
               required
               minvalue={0}
               type="number"
-              className="form-control bg-transparent text-white border-light"
+              className="form-control text-white border-light"
               placeholder="Enter age"
             />
           </div>
@@ -58,9 +74,9 @@ const FinalForm = () => {
             <label className="form-label text-white">Gender</label>
             <select
               name="gender"
-              value={formData.gender}
+              value={userData.gender}
               onChange={handleChange}
-              className="form-select bg-transparent text-white border-light"
+              className="form-select text-white border-light"
               required
             >
               <option value="">Select gender</option>
@@ -74,10 +90,10 @@ const FinalForm = () => {
             <input
               name="weight"
               onChange={handleChange}
-              value={formData.weight}
+              value={userData.weight}
               required
               type="number"
-              className="form-control bg-transparent text-white border-light"
+              className="form-control text-white border-light"
               placeholder="In kg"
             />
           </div>
@@ -86,23 +102,24 @@ const FinalForm = () => {
             <input
               name="email"
               onChange={handleChange}
-              value={formData.email}
+              value={userData.email}
               required
               type="email"
-              className="form-control bg-transparent text-white border-light"
+              className="form-control text-white border-light"
               placeholder="example@email.com"
             />
           </div>
           <div className="mb-2">
             <label className="form-label text-white">Phone</label>
             <input
+              type="text"
               name="phone"
+              value={userData.phone}
               onChange={handleChange}
-              value={formData.phone}
-              required
-              type="tel"
-              className="form-control bg-transparent text-white border-light"
+              maxLength={10}
+              className="form-control text-white border-light"
               placeholder="Enter phone number"
+              required
             />
           </div>
           <div className="d-flex justify-content-center">
