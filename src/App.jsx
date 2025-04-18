@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Next from "./pages/Next";
 import videoBg from "./assets/video.mp4";
 import "./App.css";
+import Symptoms_form from "./pages/Symptoms_form";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/next" element={<Next />} />
+          <Route path="/symptoms-form" element={<Symptoms_form />} />
         </Routes>
       </div>
     </Router>
