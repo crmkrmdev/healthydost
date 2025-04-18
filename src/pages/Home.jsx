@@ -14,15 +14,22 @@ const Home = () => {
           </p>
 
           <div className="mb-3 px-5 d-flex flex-column gap-3">
-            <select className="form-select">
-              <option value="">Choose your purpose</option>
-              <option value="weight-loss">Weight Loss</option>
-              <option value="muscle-gain">Muscle Gain</option>
-              <option value="general-health">General Health</option>
-            </select>
-            <Link className="btn btn-success w-100" to="/next">
-              Send
-            </Link>
+            <div className="d-flex gap-5">
+              {/* <div className=""> */}
+                <img src="/Healthy Dost Logo.png" alt="Logo" style={{height:"90px"}} />
+              {/* </div> */}
+              <div className="gap-2 d-flex flex-column justify-content-center align-items-center">
+                <select className="form-select">
+                  <option value="">Choose your purpose</option>
+                  <option value="weight-loss">Weight Loss</option>
+                  <option value="muscle-gain">Muscle Gain</option>
+                  <option value="general-health">General Health</option>
+                </select>
+                <Link className="btn btn-success w-100" to="/next">
+                  Send
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
