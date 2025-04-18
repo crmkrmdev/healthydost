@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const [purpose, setPurpose] = useState("");
+
   return (
     <div className="main d-flex flex-column justify-content-center align-items-center vh-100 w-100">
       <div className="overlay">
@@ -20,8 +22,14 @@ const Home = () => {
                 style={{ height: "150px" }}
               />
               <div className="gap-2 d-flex flex-column justify-content-center align-items-center w-100">
-                <select className="form-select">
-                  <option value="">Choose your purpose</option>
+                <select
+                  className="form-select"
+                  value={purpose || ""}
+                  onChange={(e) => setPurpose(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Choose your purpose
+                  </option>
                   <option value="weight-loss">Weight Loss</option>
                   <option value="muscle-gain">Muscle Gain</option>
                   <option value="general-health">General Health</option>
