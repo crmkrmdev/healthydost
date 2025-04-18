@@ -9,12 +9,19 @@ const Daily_routine = () => {
       value: "",
       options: ["Sitting", "Standing", "Travel", "Remote"],
     },
-    { name: "Water consumption", value: "", options: ["1L", "2L", "3L"] },
-    { name: "Coffee or tea per day", value: "", options: ["1", "2", "3"] },
+    {
+      name: "Water consumption",
+      value: "",
+      options: ["1L", "2-3L", "3-5L", "6L"],
+    },
+    {
+      name: "Coffee or tea per day",
+      value: "",
+      options: ["1", "2", "3", "4+"],
+    },
     { name: "Do you smoke?", value: "", options: ["Yes", "No"] },
     { name: "Do you drink?", value: "", options: ["Yes", "No"] },
-    { name: "Exercise per week", value: "", options: ["1", "2", "3"] },
-    { name: "Sleep hours per night", value: "", options: ["5", "6", "7"] },
+    { name: "Sleep hours per night", value: "", options: ["5-6", "6-8", "8+"] },
     { name: "Stress level", value: "", options: ["Low", "Medium", "High"] },
   ]);
 
@@ -29,13 +36,20 @@ const Daily_routine = () => {
             navigate("/final-form");
           }}
         >
-          <div className="text-start " style={{ width: "500px" }}>
+          <div className="text-start " style={{ width: "600px" }}>
             <div className="mb-4">
               <h3 className="text-center">Daily Routine</h3>
             </div>
             {dailyRoutine.map((item, index) => (
               <div key={index} className="mb-3 d-flex gap-3">
-                <label className="form-label">{item.name} : </label>
+                <label
+                  className="form-label"
+                  style={{
+                    width: "200px",
+                  }}
+                >
+                  {item.name}
+                </label>
                 <div className="d-flex gap-3">
                   {item.options.map((option, optIndex) => (
                     <div key={optIndex} className="form-check">
