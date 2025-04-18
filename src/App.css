@@ -23,7 +23,7 @@ html,
   height: 100vh;
   object-fit: cover;
   z-index: -1;
-  pointer-events: none; /* Optional: ensures no interaction with video */
+  pointer-events: none; 
 }
 
 .home-container {
@@ -36,13 +36,7 @@ html,
   align-items: center;
 }
 
-.overlay {
-  z-index: 1;
-  max-width: 500px;
-  width: 100%;
-  padding: 20px;
-  text-align: center;
-}
+
 
 .content-box {
   width: 100%;
