@@ -6,6 +6,7 @@ import FinalForm from "./pages/FinalForm";
 import videoBg from "./assets/video.mp4";
 import "./App.css";
 import Symptoms_form from "./pages/Symptoms_form";
+import Daily_routine from "./pages/Daily_routine";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/next" element={<Next />} />
           <Route path="/symptoms-form" element={<Symptoms_form />} />
+          <Route path="/daily-routine" element={<Daily_routine />} />
           <Route path="/final-form" element={<FinalForm />} />
         </Routes>
       </div>
