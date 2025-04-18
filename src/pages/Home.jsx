@@ -34,7 +34,7 @@ const Home = () => {
                   <option value="muscle-gain">Muscle Gain</option>
                   <option value="general-health">General Health</option>
                 </select>
-                <Link className="btn btn-success w-100" to="/next">
+                <Link className="btn btn-grad w-100" to="/next">
                   Send
                 </Link>
               </div>
