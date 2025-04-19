@@ -2,8 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Next from "./pages/Next";
+import FinalForm from "./pages/FinalForm";
 import videoBg from "./assets/video.mp4";
 import "./App.css";
+import Symptoms_form from "./pages/Symptoms_form";
+import Daily_routine from "./pages/Daily_routine";
 
 const App = () => {
   return (
@@ -19,6 +22,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/next" element={<Next />} />
+          <Route path="/symptoms-form" element={<Symptoms_form />} />
+          <Route path="/daily-routine" element={<Daily_routine />} />
+          <Route path="/final-form" element={<FinalForm />} />
         </Routes>
       </div>
     </Router>
