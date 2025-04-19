@@ -25,7 +25,7 @@ const Next = () => {
           </h1>
           <div className="d-flex gap-3">
             <div className="" style={{ width: "150px" }}>
-              <img src="/Healthy Dost Logo.png" alt="Logo" className="logo" />
+              <img src="/Healthy Dost Logo.jpeg" alt="Logo" className="logo" />
             </div>
             <div className="d-flex flex-column justify-content-center gap-2">
               <h4 className="">You are just one step away</h4>

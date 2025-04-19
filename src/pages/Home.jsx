@@ -17,7 +17,7 @@ const Home = () => {
           <div className="mb-3 px-5 d-flex flex-column">
             <div className="d-flex gap-3">
               <img
-                src="/Healthy Dost Logo.png"
+                src="/Healthy Dost Logo.jpeg"
                 alt="Logo"
                 style={{ height: "150px" }}
               />
@@ -28,11 +28,15 @@ const Home = () => {
                   onChange={(e) => setPurpose(e.target.value)}
                 >
                   <option value="" disabled>
-                    Choose your purpose
+                  Choose your purpose of getting a  Complimentary Diet / Health Plan
+
                   </option>
-                  <option value="weight-loss">Weight Loss</option>
-                  <option value="muscle-gain">Muscle Gain</option>
-                  <option value="general-health">General Health</option>
+                  <option value="weight-loss">I have one or more disease and want to get rid of that</option>
+                  <option value="weight-loss">I am healthy and I don't want to get ill</option>
+                  <option value="weight-loss">I only want to loose weight</option>
+
+                  <option value="muscle-gain">I want to gain weight</option>
+                  <option value="general-health"> Lifestyle Improvement</option>
                 </select>
                 <Link className="btn btn-grad w-100" to="/next">
                   Send
