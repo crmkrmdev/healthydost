@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [purpose, setPurpose] = useState("");
 
   return (
@@ -23,7 +24,7 @@ const Home = () => {
               />
               <div className="gap-2 d-flex flex-column justify-content-center align-items-center w-100">
                 <select
-                  className="form-select"
+                  className="form-select text-white border-light"
                   value={purpose || ""}
                   onChange={(e) => setPurpose(e.target.value)}
                 >
@@ -38,9 +39,20 @@ const Home = () => {
                   <option value="muscle-gain">I want to gain weight</option>
                   <option value="general-health"> Lifestyle Improvement</option>
                 </select>
-                <Link className="btn btn-grad w-100" to="/next">
+                <button
+                  type="button"
+                  className="btn btn-grad w-100"
+                  onClick={() => {
+                    if (purpose) {
+                      localStorage.setItem("purpose", purpose);
+                      navigate("/symptoms-form");
+                    } else {
+                      alert("Please select a purpose.");
+                    }
+                  }}
+                >
                   Send
-                </Link>
+                </button>
               </div>
             </div>
           </div>

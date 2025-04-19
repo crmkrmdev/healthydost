@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Next = () => {
+  const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
 
   // continuously increase the progress bar
@@ -41,6 +43,19 @@ const Next = () => {
                   aria-valuemin="0"
                   aria-valuemax="100"
                 ></div>
+              </div>
+
+              {/* temporary navigation button */}
+              <div className="d-flex justify-content-center">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={() => {
+                    navigate("/symptoms-form");
+                  }}
+                >
+                  Next
+                </button>
               </div>
             </div>
           </div>

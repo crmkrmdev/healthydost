@@ -57,11 +57,11 @@ html,
 }
 
 .overlay-content {
-  background-color: rgba(0, 0, 0, 0.75); /* bg-dark with bg-opacity-75 */
-  padding: 1.5rem; /* p-4 (Bootstrap padding class) */
-  border-radius: 0.25rem; /* rounded */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow */
-  text-align: center; /* center text */
+  background-color: rgba(0, 0, 0, 0.6); /* bg-dark with bg-opacity-60 */
+  padding: 1.5rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .footer {
@@ -73,4 +73,59 @@ html,
   z-index: 2;
   background: rgba(0, 0, 0, 0.3);
   font-size: 0.9rem;
+}
+
+.FinalForm {
+  ::placeholder {
+    color: lightgray !important;
+    opacity: 1; /* Ensure the color isn't faded */
+  }
+
+  :-ms-input-placeholder {
+    color: red !important;
+  }
+
+  ::-ms-input-placeholder {
+    color: red !important;
+  }
+}
+
+/* form */
+.form-check-label {
+  cursor: pointer;
+}
+
+.form-check-input {
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #1e2b3d;
+  border-color: #0d6efd;
+}
+
+.form-select {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.form-control {
+  font-size: 0.8rem;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+.form-select {
+  font-size: 0.8rem;
+}
+
+/* card */
+.glass-card {
+  margin: auto;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
 }
