@@ -57,7 +57,7 @@ const Daily_routine = () => {
           <div className="text-start " style={{ width: "600px" }}>
             <div className="mb-4">
               <h3 className="text-center">
-                Do any of your acquaintances have a medical condition?
+                Do any of your family members are suffering from these diseases?
               </h3>
             </div>
             {acquaintance.map((item, index) => (

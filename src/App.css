@@ -7,9 +7,9 @@ html,
 }
 
 .main {
-  /* min-width: 100vw; */
+  min-width: 100vw;
   min-height: 100vh;
-  padding: 15px;
+  padding: 5px;
   color: white;
 }
 

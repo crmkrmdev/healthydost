@@ -4,16 +4,16 @@ import { useNavigate } from "react-router-dom";
 const Acquaintance_symptoms = () => {
   const navigate = useNavigate();
   const createDefaultSymptoms = () => [
-    { name: "fever", value: false },
-    { name: "cough", value: false },
-    { name: "soreThroat", value: false },
-    { name: "fatigue", value: false },
+    { name: "Indigestion", value: false },
+    { name: "Muscles/Joint pain ", value: false },
+    { name: "Less/Frequent urine ", value: false },
+    { name: "Headache", value: false },
     { name: "headache", value: false },
-    { name: "musclePain", value: false },
-    { name: "shortnessOfBreath", value: false },
-    { name: "lossOfTasteOrSmell", value: false },
-    { name: "nauseaOrVomiting", value: false },
-    { name: "diarrhea", value: false },
+    { name: "Dehydration", value: false },
+    { name: "Swelling", value: false },
+    { name: "Breathing issue", value: false },
+    { name: "High/Low BP", value: false },
+    { name: "Lack of appetite", value: false },
   ];
 
   const [acquaintance, setAcquaintance] = useState(() => {
