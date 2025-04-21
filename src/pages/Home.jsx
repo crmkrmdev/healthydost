@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import LOGO from "../assets/LOGO.png";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -50,11 +51,7 @@ const Home = () => {
           </p>
           <div className="mb-3 px-5 d-flex flex-column">
             <div className="d-flex gap-3 flex-wrap justify-content-center">
-              <img
-                src="/Healthy Dost Logo.png"
-                alt="Logo"
-                style={{ height: "150px" }}
-              />
+              <img src={LOGO} alt="Logo" style={{ height: "150px" }} />
               <div className="gap-2 d-flex flex-column justify-content-center align-items-center w-100">
                 <select
                   className="form-select text-white border-light bg-dark bg-opacity-50"
@@ -83,7 +80,6 @@ const Home = () => {
                   <input
                     ref={inputRef}
                     type="text"
-                    // className="form-control text-white border-light bg-dark bg-opacity-50"
                     className="form-control text-white border-light bg-dark bg-opacity-50 custom-placeholder"
                     placeholder="Please specify your purpose"
                     value={customPurpose}
