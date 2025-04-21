@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "./header";
+
 const Next = () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
