@@ -44,7 +44,11 @@ const Daily_routine = () => {
           onSubmit={(e) => {
             e.preventDefault();
             localStorage.setItem("acquaintance", JSON.stringify(acquaintance));
-            navigate("/acquaintance-symptoms");
+            //  fi all are false then navigate to final page
+            const allFalse = acquaintance.every((item) => !item.value);
+            allFalse
+              ? navigate("/final-form")
+              : navigate("/acquaintance-symptoms");
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") e.preventDefault();

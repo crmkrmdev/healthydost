@@ -3,19 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Acquaintance_symptoms = () => {
   const navigate = useNavigate();
-  const defaultNewSymptoms = [
-    { name: "fever", value: false },
-    { name: "cough", value: false },
-    { name: "soreThroat", value: false },
-    { name: "fatigue", value: false },
-    { name: "headache", value: false },
-    { name: "musclePain", value: false },
-    { name: "shortnessOfBreath", value: false },
-    { name: "lossOfTasteOrSmell", value: false },
-    { name: "nauseaOrVomiting", value: false },
-    { name: "diarrhea", value: false },
-  ];
-  const defaultOldSymptoms = [
+  const createDefaultSymptoms = () => [
     { name: "fever", value: false },
     { name: "cough", value: false },
     { name: "soreThroat", value: false },
@@ -34,11 +22,11 @@ const Acquaintance_symptoms = () => {
       ...item,
       oldSymptoms:
         Object.keys(item.oldSymptoms || {}).length === 0
-          ? defaultOldSymptoms
+          ? createDefaultSymptoms()
           : item.oldSymptoms,
       newSymptoms:
         Object.keys(item.newSymptoms || {}).length === 0
-          ? defaultNewSymptoms
+          ? createDefaultSymptoms()
           : item.newSymptoms,
     }));
   });
@@ -91,10 +79,6 @@ const Acquaintance_symptoms = () => {
                                     : item
                                 )
                               );
-                              localStorage.setItem(
-                                "acquaintance",
-                                JSON.stringify(acquaintance)
-                              );
                             }}
                           />
                         </label>
@@ -132,10 +116,6 @@ const Acquaintance_symptoms = () => {
                                     ? { ...item, newSymptoms: updatedSymptoms }
                                     : item
                                 )
-                              );
-                              localStorage.setItem(
-                                "acquaintance",
-                                JSON.stringify(acquaintance)
                               );
                             }}
                           />
