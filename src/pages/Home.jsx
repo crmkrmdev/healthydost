@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [purpose, setPurpose] = useState("");
+  const [purpose, setPurpose] = useState(localStorage.getItem("purpose") || "");
 
   return (
     <div className="main d-flex flex-column justify-content-center align-items-center vh-100 w-100">
