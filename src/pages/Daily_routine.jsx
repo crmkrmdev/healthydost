@@ -38,7 +38,7 @@ const Daily_routine = () => {
           onSubmit={(e) => {
             e.preventDefault();
             localStorage.setItem("dailyRoutine", JSON.stringify(dailyRoutine));
-            navigate("/final-form");
+            navigate("/acquaintance");
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") e.preventDefault();

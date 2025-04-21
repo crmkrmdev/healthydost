@@ -70,6 +70,7 @@ const Symptoms_form = () => {
                         className="form-check-input"
                         type="checkbox"
                         value={symptom.name}
+                        checked={symptom.value}
                         id="flexCheckDefault"
                         onChange={(e) => {
                           const updatedSymptoms = [...oldSymptoms];
@@ -102,6 +103,7 @@ const Symptoms_form = () => {
                         className="form-check-input"
                         type="checkbox"
                         value={symptom.name}
+                        checked={symptom.value}
                         id="flexCheckDefault"
                         onChange={(e) => {
                           const updatedSymptoms = [...newSymptoms];
