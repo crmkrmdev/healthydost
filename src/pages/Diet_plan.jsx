@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "./header";
 import PDF from "../assets/PDF_file_icon.svg";
 
-const Buttons = () => {
+const Diet_plan = () => {
   const herbs = [
     {
       name: "Ashwagandha",
@@ -221,4 +221,4 @@ const Buttons = () => {
   );
 };
 
-export default Buttons;
+export default Diet_plan;

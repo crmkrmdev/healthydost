@@ -43,7 +43,7 @@ const FinalForm = () => {
       userData: JSON.parse(localStorage.getItem("userData")),
     };
     console.log("Final Data:", finalData);
-    navigate("/buttons");
+    navigate("/diet-plan");
   };
 
   return (

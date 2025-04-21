@@ -9,7 +9,7 @@ import Symptoms_form from "./pages/Symptoms_form";
 import Daily_routine from "./pages/Daily_routine";
 import Acquaintance_form from "./pages/Acquaintance_form";
 import Acquaintance_symptoms from "./pages/Acquaintance_symptoms";
-import Buttons from "./pages/Buttons";
+import Diet_plan from "./pages/Diet_plan";
 
 const App = () => {
   return (
@@ -22,7 +22,6 @@ const App = () => {
 
       {/* All Routes */}
       <Routes>
-        
         <Route path="/" element={<Home />} />
         <Route path="/next" element={<Next />} />
         <Route path="/symptoms-form" element={<Symptoms_form />} />
@@ -33,7 +32,7 @@ const App = () => {
           path="/acquaintance-symptoms"
           element={<Acquaintance_symptoms />}
         />
-        <Route path="/buttons" element={<Buttons />} />
+        <Route path="/diet-plan" element={<Diet_plan />} />
       </Routes>
     </Router>
   );
