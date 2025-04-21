@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "./header";
 
 const Buttons = () => {
   const herbs = [
@@ -91,87 +92,96 @@ const Buttons = () => {
   ];
 
   return (
-    <div className="main d-flex flex-column justify-content-center align-items-center">
-      {/* Buttons */}
-      <div className="d-flex flex-column justify-content-center gap-3">
-        {/* download pdf button */}
-        <Link
-          type="button"
-          className="btn btn-primary"
-          target="_blank"
-          to="https://drive.google.com/file/d/1C_zyZINNrU3K3hL-ZfgHhsx3pJlhVqGz/view?usp=sharing"
-        >
-          Your PDF is ready! Click to download
-        </Link>
-        <div className="d-flex gap-3">
-          {/* usefull herbs */}
-          <div
-            className="glass-card p-4"
-            style={{ width: "500px", margin: "0" }}
+    <>
+      <Header />
+      <div
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 1,
+        }}
+        className="main d-flex flex-column justify-content-center align-items-center"
+      >
+        {/* Buttons */}
+        <div className="d-flex flex-column justify-content-center gap-3">
+          {/* download pdf button */}
+          <Link
+            type="button"
+            className="btn btn-primary"
+            target="_blank"
+            to="https://drive.google.com/file/d/1C_zyZINNrU3K3hL-ZfgHhsx3pJlhVqGz/view?usp=sharing"
           >
-            <h3 className="mb-4 text-center">Useful Herbs for You</h3>
-            <div className="text-start">
-              {herbs.map((herb, index) => (
-                <div key={index} className="mb-2">
-                  <strong>{herb.name}</strong>: {herb.description}
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* home remedies */}
-          <div
-            className="glass-card p-4"
-            style={{ width: "500px", margin: "0" }}
-          >
-            <h3 className="mb-4 text-center">Home Remedies for You</h3>
-            <div className="text-start">
-              {remedies.map((remedy, index) => (
-                <div key={index} className="mb-2">
-                  <strong>{remedy.name}</strong>: {remedy.description}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* suggested yogas */}
-        <div className="d-flex flex-wrap justify-content-between">
-          {yogaPoses.map((yoga, index) => (
+            Your PDF is ready! Click to download
+          </Link>
+          <div className="d-flex gap-3">
+            {/* usefull herbs */}
             <div
-              key={index}
               className="glass-card p-4"
-              style={{ width: "330px", margin: "0" }}
+              style={{ width: "500px", margin: "0" }}
             >
-              <h4 className="mb-2 text-center">{yoga.name}</h4>
-              <p className="text-center fst-italic mb-2">
-                {yoga.sanskrit_name}
-              </p>
-              <img
-                src={yoga.photo_url}
-                alt={yoga.name}
-                style={{
-                  width: "100%",
-                  borderRadius: "8px",
-                  marginBottom: "10px",
-                }}
-              />
-              <p className="mb-2" style={{ fontSize: "0.9rem" }}>
-                {yoga.description}
-              </p>
-              <p className="mb-1">
-                <strong>Level:</strong> {yoga.expertise_level}
-              </p>
-              <p>
-                <strong>Type:</strong> {yoga.pose_type.join(", ")}
-              </p>
+              <h3 className="mb-4 text-center">Useful Herbs for You</h3>
+              <div className="text-start">
+                {herbs.map((herb, index) => (
+                  <div key={index} className="mb-2">
+                    <strong>{herb.name}</strong>: {herb.description}
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+            {/* home remedies */}
+            <div
+              className="glass-card p-4"
+              style={{ width: "500px", margin: "0" }}
+            >
+              <h3 className="mb-4 text-center">Home Remedies for You</h3>
+              <div className="text-start">
+                {remedies.map((remedy, index) => (
+                  <div key={index} className="mb-2">
+                    <strong>{remedy.name}</strong>: {remedy.description}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* suggested yogas */}
+          <div className="d-flex flex-wrap justify-content-between">
+            {yogaPoses.map((yoga, index) => (
+              <div
+                key={index}
+                className="glass-card p-4"
+                style={{ width: "330px", margin: "0" }}
+              >
+                <h4 className="mb-2 text-center">{yoga.name}</h4>
+                <p className="text-center fst-italic mb-2">
+                  {yoga.sanskrit_name}
+                </p>
+                <img
+                  src={yoga.photo_url}
+                  alt={yoga.name}
+                  style={{
+                    width: "100%",
+                    borderRadius: "8px",
+                    marginBottom: "10px",
+                  }}
+                />
+                <p className="mb-2" style={{ fontSize: "0.9rem" }}>
+                  {yoga.description}
+                </p>
+                <p className="mb-1">
+                  <strong>Level:</strong> {yoga.expertise_level}
+                </p>
+                <p>
+                  <strong>Type:</strong> {yoga.pose_type.join(", ")}
+                </p>
+              </div>
+            ))}
+          </div>
+          {/* call button */}
+          <button type="button" className="btn btn-primary" onClick={() => {}}>
+            For any other discussion / clarification, please call us: ??
+          </button>
         </div>
-        {/* call button */}
-        <button type="button" className="btn btn-primary" onClick={() => {}}>
-          For any other discussion / clarification, please call us: ??
-        </button>
       </div>
-    </div>
+    </>
   );
 };
 
