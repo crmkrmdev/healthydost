@@ -129,3 +129,7 @@ html,
   border-radius: 1rem;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
 }
+
+.custom-placeholder::placeholder {
+  color: #bbb !important;
+}
