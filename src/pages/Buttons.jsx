@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./header";
+import { CircleLoader } from "react-spinners";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Buttons = () => {
+  const loadingTexts = [
+    "Analyzing your dietary needs...",
+    "Preparing your personalized diet...",
+    "Balancing your nutrition...",
+    "Generating healthy meal options...",
+    "Loading your AI-powered meal plan...",
+    "Customizing meals just for you...",
+    "Fetching your data...",
+    "Initializing...",
+    "Almost there...",
+  ];
+  const [currentIndex, setCurrentIndex] = useState(0);
   const herbs = [
     {
       name: "Ashwagandha",
@@ -88,10 +102,48 @@ const Buttons = () => {
       photo_url: "https://pocketyoga.com/assets/images/full/Turtle.png",
     },
   ];
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % loadingTexts.length);
+    }, 2000); // Change text every 2 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 10000); // 10 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div
+        className="d-flex flex-column justify-content-center align-items-center vh-100"
+        style={{ backgroundColor: "black", width: "108%" }}
+      >
+        <CircleLoader color="#36d7b7" size={80} />
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
+            className="text-light mt-3 fs-5"
+          >
+            {loadingTexts[currentIndex]}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    );
+  }
 
   return (
     <>
-      <div className="main d-flex flex-column justify-content-center align-items-center">
+      {/* <CircleLoader color="#36d7b7" size={80} /> */}
+      <div className="main d-flex flex-column justify-content-center align-items-center ">
         <Header />
         {/* Buttons */}
         <div className="d-flex flex-column justify-content-center gap-3 mt-5">

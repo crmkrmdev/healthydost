@@ -33,7 +33,7 @@ const Daily_routine = () => {
 
   return (
     <>
-      <div className="main d-flex flex-column justify-content-center align-items-center">
+      <div className="main d-flex flex-column justify-content-center align-items-center ">
         <Header />
         <div className="glass-card">
           <form

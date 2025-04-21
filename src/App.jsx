@@ -22,7 +22,6 @@ const App = () => {
 
       {/* All Routes */}
       <Routes>
-        
         <Route path="/" element={<Home />} />
         <Route path="/next" element={<Next />} />
         <Route path="/symptoms-form" element={<Symptoms_form />} />
