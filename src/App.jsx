@@ -7,6 +7,8 @@ import videoBg from "./assets/newvideo.mp4";
 import "./App.css";
 import Symptoms_form from "./pages/Symptoms_form";
 import Daily_routine from "./pages/Daily_routine";
+import Acquaintance_form from "./pages/Acquaintance_form";
+import Acquaintance_symptoms from "./pages/Acquaintance_symptoms";
 
 const App = () => {
   return (
@@ -24,7 +26,12 @@ const App = () => {
           <Route path="/next" element={<Next />} />
           <Route path="/symptoms-form" element={<Symptoms_form />} />
           <Route path="/daily-routine" element={<Daily_routine />} />
+          <Route path="/acquaintance" element={<Acquaintance_form />} />
           <Route path="/final-form" element={<FinalForm />} />
+          <Route
+            path="/acquaintance-symptoms"
+            element={<Acquaintance_symptoms />}
+          />
         </Routes>
       </div>
     </Router>
