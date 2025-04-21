@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Symptoms_form = () => {
   const navigate = useNavigate();
 
-  const defaultSymptoms = [
+  const defaultNewSymptoms = [
     { name: "Indigestion", value: false },
     { name: "Muscles/Joint pain ", value: false },
     { name: "Less/Frequent urine ", value: false },
@@ -17,14 +17,29 @@ const Symptoms_form = () => {
     { name: "Lack of appetite", value: false },
   ];
 
+  const defaultOldSymptoms = [
+    { name: "saansFulna", value: false },
+    { name: "frequentUrination", value: false },
+    { name: "lowUrination", value: false },
+    { name: "excessiveThirst", value: false },
+    { name: "lowThirst", value: false },
+    { name: "swelling", value: false },
+    { name: "headache", value: false },
+    { name: "muscleOrJointPain", value: false },
+    { name: "indigestionOrBloating", value: false },
+    { name: "fatigueOrLowEnergy", value: false },
+    { name: "backPain", value: false },
+    { name: "neckPain", value: false },
+  ];
+
   const [oldSymptoms, setOldSymptoms] = useState(() => {
     const saved = localStorage.getItem("oldSymptoms");
-    return saved ? JSON.parse(saved) : defaultSymptoms;
+    return saved ? JSON.parse(saved) : defaultOldSymptoms;
   });
 
   const [newSymptoms, setNewSymptoms] = useState(() => {
     const saved = localStorage.getItem("newSymptoms");
-    return saved ? JSON.parse(saved) : defaultSymptoms;
+    return saved ? JSON.parse(saved) : defaultNewSymptoms;
   });
 
   return (
@@ -45,8 +60,8 @@ const Symptoms_form = () => {
             <div className="text-start " style={{ width: "400px" }}>
               <div className="mb-3">
                 <h5>
-                  Have you experienced any of the following symptoms in the last
-                  90 days?
+                  Have you experienced any of these symptoms in the last 90
+                  days?
                 </h5>
               </div>
               {oldSymptoms.map((symptom, index) => {
