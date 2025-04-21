@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "./header";
 
 const Daily_routine = () => {
   const navigate = useNavigate();
@@ -31,68 +32,80 @@ const Daily_routine = () => {
   });
 
   return (
-    <div className="main d-flex flex-column justify-content-center align-items-center">
-      <div className="glass-card">
-        <form
-          className="d-flex gap-4"
-          onSubmit={(e) => {
-            e.preventDefault();
-            localStorage.setItem("dailyRoutine", JSON.stringify(dailyRoutine));
-            navigate("/acquaintance");
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") e.preventDefault();
-          }}
-        >
-          <div className="text-start " style={{ width: "600px" }}>
-            <div className="mb-4">
-              <h3 className="text-center">Daily Routine</h3>
-            </div>
-            {dailyRoutine.map((item, index) => (
-              <div key={index} className="mb-3 d-flex gap-3">
-                <label
-                  className="form-label"
-                  style={{
-                    width: "200px",
-                  }}
-                >
-                  {item.name}
-                </label>
-                <div className="d-flex gap-3">
-                  {item.options.map((option, optIndex) => (
-                    <div key={optIndex} className="form-check">
-                      <label className="form-check-label">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          id={`${item.name}-${option}`}
-                          checked={item.value === option}
-                          onChange={() => {
-                            const updated = [...dailyRoutine];
-                            updated[index].value = option;
-                            setDailyRoutine(updated);
-                            localStorage.setItem(
-                              "dailyRoutine",
-                              JSON.stringify(updated)
-                            );
-                          }}
-                        />
-                        {option}
-                      </label>
-                    </div>
-                  ))}
-                </div>
+    <>
+      <Header />
+      <div
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 1,
+        }}
+        className="main d-flex flex-column justify-content-center align-items-center"
+      >
+        <div className="glass-card">
+          <form
+            className="d-flex gap-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              localStorage.setItem(
+                "dailyRoutine",
+                JSON.stringify(dailyRoutine)
+              );
+              navigate("/acquaintance");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") e.preventDefault();
+            }}
+          >
+            <div className="text-start " style={{ width: "600px" }}>
+              <div className="mb-4">
+                <h3 className="text-center">Daily Routine</h3>
               </div>
-            ))}
-            <div className="d-flex justify-content-center">
-              <button type="submit" className="btn btn-success">
-                Submit
-              </button>
+              {dailyRoutine.map((item, index) => (
+                <div key={index} className="mb-3 d-flex gap-3">
+                  <label
+                    className="form-label"
+                    style={{
+                      width: "200px",
+                    }}
+                  >
+                    {item.name}
+                  </label>
+                  <div className="d-flex gap-3">
+                    {item.options.map((option, optIndex) => (
+                      <div key={optIndex} className="form-check">
+                        <label className="form-check-label">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={`${item.name}-${option}`}
+                            checked={item.value === option}
+                            onChange={() => {
+                              const updated = [...dailyRoutine];
+                              updated[index].value = option;
+                              setDailyRoutine(updated);
+                              localStorage.setItem(
+                                "dailyRoutine",
+                                JSON.stringify(updated)
+                              );
+                            }}
+                          />
+                          {option}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <div className="d-flex justify-content-center">
+                <button type="submit" className="btn btn-success">
+                  Submit
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
