@@ -9,6 +9,7 @@ import Symptoms_form from "./pages/Symptoms_form";
 import Daily_routine from "./pages/Daily_routine";
 import Acquaintance_form from "./pages/Acquaintance_form";
 import Acquaintance_symptoms from "./pages/Acquaintance_symptoms";
+import Buttons from "./pages/Buttons";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           path="/acquaintance-symptoms"
           element={<Acquaintance_symptoms />}
         />
+        <Route path="/buttons" element={<Buttons />} />
       </Routes>
     </Router>
   );
