@@ -147,6 +147,8 @@ const FinalForm = () => {
                 className="form-control text-white border-light"
                 placeholder="Enter phone number"
                 required
+                pattern="\d{10}" // Ensures exactly 10 digits
+                title="Phone number must be exactly 10 digits"
               />
             </div>
             <div className="d-flex justify-content-center gap-2 mt-4">
