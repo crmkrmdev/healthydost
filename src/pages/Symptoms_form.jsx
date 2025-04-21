@@ -4,39 +4,28 @@ import Header from "./header";
 
 const Symptoms_form = () => {
   const navigate = useNavigate();
-  const defaultNewSymptoms = [
-    { name: "fever", value: false },
-    { name: "cough", value: false },
-    { name: "soreThroat", value: false },
-    { name: "fatigue", value: false },
+
+  const defaultSymptoms = [
+    { name: "Indigestion", value: false },
+    { name: "Muscles/Joint pain ", value: false },
+    { name: "Less/Frequent urine ", value: false },
+    { name: "Headache", value: false },
     { name: "headache", value: false },
-    { name: "musclePain", value: false },
-    { name: "shortnessOfBreath", value: false },
-    { name: "lossOfTasteOrSmell", value: false },
-    { name: "nauseaOrVomiting", value: false },
-    { name: "diarrhea", value: false },
-  ];
-  const defaultOldSymptoms = [
-    { name: "fever", value: false },
-    { name: "cough", value: false },
-    { name: "soreThroat", value: false },
-    { name: "fatigue", value: false },
-    { name: "headache", value: false },
-    { name: "musclePain", value: false },
-    { name: "shortnessOfBreath", value: false },
-    { name: "lossOfTasteOrSmell", value: false },
-    { name: "nauseaOrVomiting", value: false },
-    { name: "diarrhea", value: false },
+    { name: "Dehydration", value: false },
+    { name: "Swelling", value: false },
+    { name: "Breathing issue", value: false },
+    { name: "High/Low BP", value: false },
+    { name: "Lack of appetite", value: false },
   ];
 
   const [oldSymptoms, setOldSymptoms] = useState(() => {
     const saved = localStorage.getItem("oldSymptoms");
-    return saved ? JSON.parse(saved) : defaultOldSymptoms;
+    return saved ? JSON.parse(saved) : defaultSymptoms;
   });
 
   const [newSymptoms, setNewSymptoms] = useState(() => {
     const saved = localStorage.getItem("newSymptoms");
-    return saved ? JSON.parse(saved) : defaultNewSymptoms;
+    return saved ? JSON.parse(saved) : defaultSymptoms;
   });
 
   return (
