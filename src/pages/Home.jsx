@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LOGO from "../assets/LOGO.png";
-import MYINDIA from "./header";
+import Header from "./header";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const Home = () => {
 
   return (
     <>
-      <MYINDIA />
+      <Header />
       <div className="main position-relative d-flex flex-column justify-content-center align-items-center vh-100 w-100">
         {/* Fullscreen dark overlay */}
         <div
