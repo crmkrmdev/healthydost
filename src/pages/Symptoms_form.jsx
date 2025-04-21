@@ -5,19 +5,19 @@ import Header from "./header";
 const Symptoms_form = () => {
   const navigate = useNavigate();
 
-  const defaultNewSymptoms = [
-    { name: "Indigestion", value: false },
-    { name: "Muscles/Joint pain ", value: false },
-    { name: "Less/Frequent urine ", value: false },
-    { name: "Headache", value: false },
-    { name: "Dehydration", value: false },
-    { name: "Swelling", value: false },
-    { name: "Breathing issue", value: false },
-    { name: "High/Low BP", value: false },
-    { name: "Lack of appetite", value: false },
+  const defaultIllnesses = [
+    { name: "Asthma", value: false },
+    { name: "Sinusitis", value: false },
+    { name: "Typhoid", value: false },
+    { name: "Jaundice", value: false },
+    { name: "Food Poisoning", value: false },
+    { name: "Viral Fever", value: false },
+    { name: "Acidity / GERD", value: false },
+    { name: "Anxiety / Sleep Disorders", value: false },
+    { name: "High Blood Pressure", value: false },
   ];
 
-  const defaultOldSymptoms = [
+  const defaultSymptoms = [
     { name: "saansFulna", value: false },
     { name: "frequentUrination", value: false },
     { name: "lowUrination", value: false },
@@ -32,14 +32,14 @@ const Symptoms_form = () => {
     { name: "neckPain", value: false },
   ];
 
-  const [oldSymptoms, setOldSymptoms] = useState(() => {
-    const saved = localStorage.getItem("oldSymptoms");
-    return saved ? JSON.parse(saved) : defaultOldSymptoms;
+  const [illnesses, setIllnesses] = useState(() => {
+    const saved = localStorage.getItem("illnesses");
+    return saved ? JSON.parse(saved) : defaultIllnesses;
   });
 
-  const [newSymptoms, setNewSymptoms] = useState(() => {
-    const saved = localStorage.getItem("newSymptoms");
-    return saved ? JSON.parse(saved) : defaultNewSymptoms;
+  const [symptoms, setSymptoms] = useState(() => {
+    const saved = localStorage.getItem("symptoms");
+    return saved ? JSON.parse(saved) : defaultSymptoms;
   });
 
   return (
@@ -50,8 +50,8 @@ const Symptoms_form = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              localStorage.setItem("oldSymptoms", JSON.stringify(oldSymptoms));
-              localStorage.setItem("newSymptoms", JSON.stringify(newSymptoms));
+              localStorage.setItem("illnesses", JSON.stringify(illnesses));
+              localStorage.setItem("symptoms", JSON.stringify(symptoms));
               navigate("/daily-routine");
             }}
             onKeyDown={(e) => {
@@ -62,11 +62,11 @@ const Symptoms_form = () => {
               <div className="text-start " style={{ width: "400px" }}>
                 <div className="mb-3">
                   <h5>
-                    Have you experienced any of the following symptoms in the
-                    last 90 days?
+                    Have you experienced any of the following illnesses in the
+                    past 90 days? (Choose as many)
                   </h5>
                 </div>
-                {oldSymptoms.map((symptom, index) => {
+                {illnesses.map((symptom, index) => {
                   return (
                     <div key={index} className="form-check ms-3 mt-2">
                       <label className="form-check-label">
@@ -79,11 +79,11 @@ const Symptoms_form = () => {
                           checked={symptom.value}
                           id="flexCheckDefault"
                           onChange={(e) => {
-                            const updatedSymptoms = [...oldSymptoms];
+                            const updatedSymptoms = [...illnesses];
                             updatedSymptoms[index].value = e.target.checked;
-                            setOldSymptoms(updatedSymptoms);
+                            setIllnesses(updatedSymptoms);
                             localStorage.setItem(
-                              "oldSymptoms",
+                              "illnesses",
                               JSON.stringify(updatedSymptoms)
                             );
                           }}
@@ -96,11 +96,11 @@ const Symptoms_form = () => {
               <div className="text-start " style={{ width: "400px" }}>
                 <div className="mb-3">
                   <h5>
-                    Are you currently experiencing any of the following
-                    symptoms?
+                    Have you experienced any of these symptoms in the last 90
+                    days?
                   </h5>
                 </div>
-                {newSymptoms.map((symptom, index) => {
+                {symptoms.map((symptom, index) => {
                   return (
                     <div key={index} className="form-check ms-3 mt-2">
                       <label className="form-check-label">
@@ -113,11 +113,11 @@ const Symptoms_form = () => {
                           checked={symptom.value}
                           id="flexCheckDefault"
                           onChange={(e) => {
-                            const updatedSymptoms = [...newSymptoms];
+                            const updatedSymptoms = [...symptoms];
                             updatedSymptoms[index].value = e.target.checked;
-                            setNewSymptoms(updatedSymptoms);
+                            setSymptoms(updatedSymptoms);
                             localStorage.setItem(
-                              "newSymptoms",
+                              "symptoms",
                               JSON.stringify(updatedSymptoms)
                             );
                           }}

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
 import LOGO from "../assets/LOGO.png";
 
@@ -25,6 +25,11 @@ const Home = () => {
     localStorage.setItem("purpose", finalPurpose);
     navigate("/next");
   };
+
+  useEffect(() => {
+    // claer localStorage on component mount
+    localStorage.clear();
+  }, []);
 
   return (
     <>

@@ -163,10 +163,10 @@ const Diet_plan = () => {
               <p className="fs-5">Keeping in mind :</p>
               <div className="d-flex flex-wrap gap-2 mb-2">
                 {[
-                  ...JSON.parse(localStorage.getItem("newSymptoms"))
+                  ...JSON.parse(localStorage.getItem("symptoms"))
                     .filter((e) => e.value === true)
                     .map((e) => e.name),
-                  ...JSON.parse(localStorage.getItem("oldSymptoms"))
+                  ...JSON.parse(localStorage.getItem("illnesses"))
                     .filter((e) => e.value === true)
                     .map((e) => e.name),
                 ].map((symptom, index) => (

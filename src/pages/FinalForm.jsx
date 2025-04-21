@@ -34,8 +34,8 @@ const FinalForm = () => {
     e.preventDefault();
     const finalData = {
       purpose: localStorage.getItem("purpose"),
-      oldSymptoms: JSON.parse(localStorage.getItem("oldSymptoms")),
-      newSymptoms: JSON.parse(localStorage.getItem("newSymptoms")),
+      illnesses: JSON.parse(localStorage.getItem("illnesses")),
+      symptoms: JSON.parse(localStorage.getItem("symptoms")),
       dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")),
       acquaintance: JSON.parse(localStorage.getItem("acquaintance")).filter(
         (e) => e.value === true
