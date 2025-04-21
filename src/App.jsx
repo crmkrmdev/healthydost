@@ -13,27 +13,25 @@ import Acquaintance_symptoms from "./pages/Acquaintance_symptoms";
 const App = () => {
   return (
     <Router>
-      <div className="app-container">
-        {/* Background video always playing */}
-        <video autoPlay loop muted className="background-video">
-          <source src={videoBg} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+      {/* Background video always playing */}
+      <video autoPlay loop muted className="background-video">
+        <source src={videoBg} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-        {/* All Routes */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/next" element={<Next />} />
-          <Route path="/symptoms-form" element={<Symptoms_form />} />
-          <Route path="/daily-routine" element={<Daily_routine />} />
-          <Route path="/acquaintance" element={<Acquaintance_form />} />
-          <Route path="/final-form" element={<FinalForm />} />
-          <Route
-            path="/acquaintance-symptoms"
-            element={<Acquaintance_symptoms />}
-          />
-        </Routes>
-      </div>
+      {/* All Routes */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/next" element={<Next />} />
+        <Route path="/symptoms-form" element={<Symptoms_form />} />
+        <Route path="/daily-routine" element={<Daily_routine />} />
+        <Route path="/acquaintance" element={<Acquaintance_form />} />
+        <Route path="/final-form" element={<FinalForm />} />
+        <Route
+          path="/acquaintance-symptoms"
+          element={<Acquaintance_symptoms />}
+        />
+      </Routes>
     </Router>
   );
 };
