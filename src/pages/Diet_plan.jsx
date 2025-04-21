@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { CircleLoader } from "react-spinners";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Header from "./header";
 import PDF from "../assets/PDF_file_icon.svg";
 
 const Diet_plan = () => {
+  const loadingTexts = [
+    "Analyzing your dietary needs...",
+    "Preparing your personalized diet...",
+    "Balancing your nutrition...",
+    "Generating healthy meal options...",
+    "Loading your AI-powered meal plan...",
+    "Customizing meals just for you...",
+    "Fetching your data...",
+    "Initializing...",
+    "Almost there...",
+  ];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 10000); // 10 seconds
+    return () => clearTimeout(timer);
+  }, []);
   const herbs = [
     {
       name: "Ashwagandha",
@@ -82,11 +101,41 @@ const Diet_plan = () => {
     },
   ];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % loadingTexts.length);
+    }, 2000); // Change text every 2 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  if (loading) {
+    return (
+      <div
+        className="main d-flex flex-column justify-content-center align-items-center vh-100"
+        style={{ backgroundColor: "black" }}
+      >
+        <CircleLoader color="#36d7b7" size={80} />
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
+            className="text-light mt-3 fs-5"
+          >
+            {loadingTexts[currentIndex]}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    );
+  }
   return (
     <>
-      <div className="main">
+      <div className="main" style={{ backgroundColor: "black" }}>
         <Header />
-        <div className="row">
+        <div className="row d-flex justify-content-center align-items-center m-0">
           <div className="col-md-9">
             <div className="row mt-5">
               {/* header */}
@@ -139,14 +188,17 @@ const Diet_plan = () => {
               {/* suggested yogas */}
               <div className="row mb-4">
                 {yogaPoses.map((yoga, index) => (
-                  <div key={index} className="glass-card col-md-6 m-0">
+                  <div
+                    key={index}
+                    className="glass-card col-md-6 m-0 d-flex flex-column align-items-center justify-content-center"
+                  >
                     <h4 className="text-center">{yoga.sanskrit_name}</h4>
                     <p className="text-center fst-italic mb-2">{yoga.name}</p>
                     <img
                       src={yoga.photo_url}
                       alt={yoga.name}
                       style={{
-                        width: "100%",
+                        width: "50%",
                         borderRadius: "8px",
                         marginBottom: "10px",
                       }}
