@@ -31,31 +31,7 @@ const Daily_routine = () => {
       ],
     },
     {
-      name: "Brother",
-      selected: [],
-      options: [
-        "Kidney Disease",
-        "Liver",
-        "Parkinson",
-        "Cancer",
-        "Arthritis",
-        "Psoriasis/Eczema",
-      ],
-    },
-    {
-      name: "Sister",
-      selected: [],
-      options: [
-        "Kidney Disease",
-        "Liver",
-        "Parkinson",
-        "Cancer",
-        "Arthritis",
-        "Psoriasis/Eczema",
-      ],
-    },
-    {
-      name: "Other acquaintance",
+      name: "Siblings",
       selected: [],
       options: [
         "Kidney Disease",
@@ -76,6 +52,7 @@ const Daily_routine = () => {
   return (
     <>
       <div className="main d-flex flex-column justify-content-center align-items-center">
+        <Header />
         <div className="glass-card">
           <form
             className="d-flex gap-4"

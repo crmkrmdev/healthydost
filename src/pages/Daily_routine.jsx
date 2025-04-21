@@ -33,14 +33,8 @@ const Daily_routine = () => {
 
   return (
     <>
-      <Header />
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-        }}
-        className="main d-flex flex-column justify-content-center align-items-center"
-      >
+      <div className="main d-flex flex-column justify-content-center align-items-center">
+        <Header />
         <div className="glass-card">
           <form
             className="d-flex gap-4"

@@ -22,17 +22,11 @@ const Next = () => {
       });
     }, 80); // Increase the speed of the progress bar
   }, []);
+
   return (
     <>
-      <Header />
-      <div
-        className="main d-flex flex-column justify-content-center align-items-center"
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-          minHeight: "100vh",
-        }}
-      >
+      <div className="main d-flex flex-column justify-content-center align-items-center">
+        <Header />
         <div className="overlay w-100 h-100 d-flex flex-column justify-content-center align-items-center">
           <div
             className="overlay-content d-flex flex-column justify-content-center align-items-center gap-4 p-4"

@@ -31,7 +31,6 @@ const Buttons = () => {
       description: "Enhances memory, calms the mind, supports nervous system",
     },
   ];
-
   const remedies = [
     {
       name: "Cold & Cough",
@@ -58,7 +57,6 @@ const Buttons = () => {
         "Apply turmeric paste with honey for acne; use neem water for cleansing",
     },
   ];
-
   const yogaPoses = [
     {
       name: "Noose Pose",
@@ -93,22 +91,17 @@ const Buttons = () => {
 
   return (
     <>
-      <Header />
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-        }}
-        className="main d-flex flex-column justify-content-center align-items-center"
-      >
+      <div className="main d-flex flex-column justify-content-center align-items-center">
+        <Header />
         {/* Buttons */}
-        <div className="d-flex flex-column justify-content-center gap-3">
+        <div className="d-flex flex-column justify-content-center gap-3 mt-5">
           {/* download pdf button */}
           <Link
             type="button"
             className="btn btn-primary"
             target="_blank"
             to="https://drive.google.com/file/d/1C_zyZINNrU3K3hL-ZfgHhsx3pJlhVqGz/view?usp=sharing"
+            style={{ zIndex: 2 }}
           >
             Your PDF is ready! Click to download
           </Link>
@@ -176,8 +169,13 @@ const Buttons = () => {
             ))}
           </div>
           {/* call button */}
-          <button type="button" className="btn btn-primary" onClick={() => {}}>
-            For any other discussion / clarification, please call us: ??
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {}}
+            style={{ zIndex: 2 }}
+          >
+            For any Assistance or Personalized support call : ??
           </button>
         </div>
       </div>
