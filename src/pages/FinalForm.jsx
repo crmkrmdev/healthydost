@@ -103,6 +103,19 @@ const FinalForm = () => {
               placeholder="In kg"
             />
           </div>
+
+          <div className="mb-2">
+            <label className="form-label text-white">Height (approx)</label>
+            <input
+              name="height"
+              onChange={handleChange}
+              value={userData.height}
+              required
+              type="number"
+              className="form-control text-white border-light"
+              placeholder="In Feet"
+            />
+          </div>
           <div className="mb-2">
             <label className="form-label text-white">Email</label>
             <input
