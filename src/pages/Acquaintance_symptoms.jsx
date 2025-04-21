@@ -46,8 +46,8 @@ const Acquaintance_symptoms = () => {
         {acquaintance
           .filter((e) => e.value === true)
           .map((acquaintance, index) => (
-            <div className="glass-card mt-3">
-              <div className="d-flex gap-4" key={index}>
+            <div className="glass-card mt-3" key={index}>
+              <div className="d-flex gap-4">
                 <div className="text-start " style={{ width: "400px" }}>
                   <div className="mb-3">
                     <h5>

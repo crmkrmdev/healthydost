@@ -9,31 +9,31 @@ import Symptoms_form from "./pages/Symptoms_form";
 import Daily_routine from "./pages/Daily_routine";
 import Acquaintance_form from "./pages/Acquaintance_form";
 import Acquaintance_symptoms from "./pages/Acquaintance_symptoms";
+import Buttons from "./pages/Buttons";
 
 const App = () => {
   return (
     <Router>
-      <div className="app-container">
-        {/* Background video always playing */}
-        <video autoPlay loop muted className="background-video">
-          <source src={videoBg} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+      {/* Background video always playing */}
+      <video autoPlay loop muted className="background-video">
+        <source src={videoBg} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-        {/* All Routes */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/next" element={<Next />} />
-          <Route path="/symptoms-form" element={<Symptoms_form />} />
-          <Route path="/daily-routine" element={<Daily_routine />} />
-          <Route path="/acquaintance" element={<Acquaintance_form />} />
-          <Route path="/final-form" element={<FinalForm />} />
-          <Route
-            path="/acquaintance-symptoms"
-            element={<Acquaintance_symptoms />}
-          />
-        </Routes>
-      </div>
+      {/* All Routes */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/next" element={<Next />} />
+        <Route path="/symptoms-form" element={<Symptoms_form />} />
+        <Route path="/daily-routine" element={<Daily_routine />} />
+        <Route path="/acquaintance" element={<Acquaintance_form />} />
+        <Route path="/final-form" element={<FinalForm />} />
+        <Route
+          path="/acquaintance-symptoms"
+          element={<Acquaintance_symptoms />}
+        />
+        <Route path="/buttons" element={<Buttons />} />
+      </Routes>
     </Router>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FinalForm = () => {
+  const navigate = useNavigate();
   const defaultUserData = {
     name: "",
     age: "",
@@ -30,14 +32,17 @@ const FinalForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalData = {
-      userData: localStorage.getItem("userData"),
       purpose: localStorage.getItem("purpose"),
-      dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")),
       oldSymptoms: JSON.parse(localStorage.getItem("oldSymptoms")),
       newSymptoms: JSON.parse(localStorage.getItem("newSymptoms")),
+      dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")),
+      acquaintance: JSON.parse(localStorage.getItem("acquaintance")).filter(
+        (e) => e.value === true
+      ),
+      userData: JSON.parse(localStorage.getItem("userData")),
     };
     console.log("Final Data:", finalData);
-    alert("Form submitted successfully!");
+    navigate("/buttons");
   };
 
   return (
@@ -55,7 +60,7 @@ const FinalForm = () => {
             <label className="form-label text-white">Name</label>
             <input
               name="name"
-              value={userData.name}
+              value={userData.name || ""}
               onChange={handleChange}
               required
               type="text"
@@ -67,7 +72,7 @@ const FinalForm = () => {
             <label className="form-label text-white">Age</label>
             <input
               name="age"
-              value={userData.age}
+              value={userData.age || ""}
               onChange={handleChange}
               required
               minvalue={0}
@@ -80,7 +85,7 @@ const FinalForm = () => {
             <label className="form-label text-white">Gender</label>
             <select
               name="gender"
-              value={userData.gender}
+              value={userData.gender || ""}
               onChange={handleChange}
               className="form-select text-white border-light"
               required
@@ -96,7 +101,7 @@ const FinalForm = () => {
             <input
               name="weight"
               onChange={handleChange}
-              value={userData.weight}
+              value={userData.weight || ""}
               required
               type="number"
               className="form-control text-white border-light"
@@ -109,7 +114,7 @@ const FinalForm = () => {
             <input
               name="height"
               onChange={handleChange}
-              value={userData.height}
+              value={userData.height || ""}
               required
               type="number"
               className="form-control text-white border-light"
@@ -121,7 +126,7 @@ const FinalForm = () => {
             <input
               name="email"
               onChange={handleChange}
-              value={userData.email}
+              value={userData.email || ""}
               required
               type="email"
               className="form-control text-white border-light"
@@ -133,7 +138,7 @@ const FinalForm = () => {
             <input
               type="text"
               name="phone"
-              value={userData.phone}
+              value={userData.phone || ""}
               onChange={handleChange}
               maxLength={10}
               className="form-control text-white border-light"
