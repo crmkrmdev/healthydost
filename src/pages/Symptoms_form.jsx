@@ -5,12 +5,11 @@ import Header from "./header";
 const Symptoms_form = () => {
   const navigate = useNavigate();
 
-  const defaultSymptoms = [
+  const defaultNewSymptoms = [
     { name: "Indigestion", value: false },
     { name: "Muscles/Joint pain ", value: false },
     { name: "Less/Frequent urine ", value: false },
     { name: "Headache", value: false },
-    { name: "headache", value: false },
     { name: "Dehydration", value: false },
     { name: "Swelling", value: false },
     { name: "Breathing issue", value: false },
@@ -18,26 +17,35 @@ const Symptoms_form = () => {
     { name: "Lack of appetite", value: false },
   ];
 
+  const defaultOldSymptoms = [
+    { name: "saansFulna", value: false },
+    { name: "frequentUrination", value: false },
+    { name: "lowUrination", value: false },
+    { name: "excessiveThirst", value: false },
+    { name: "lowThirst", value: false },
+    { name: "swelling", value: false },
+    { name: "headache", value: false },
+    { name: "muscleOrJointPain", value: false },
+    { name: "indigestionOrBloating", value: false },
+    { name: "fatigueOrLowEnergy", value: false },
+    { name: "backPain", value: false },
+    { name: "neckPain", value: false },
+  ];
+
   const [oldSymptoms, setOldSymptoms] = useState(() => {
     const saved = localStorage.getItem("oldSymptoms");
-    return saved ? JSON.parse(saved) : defaultSymptoms;
+    return saved ? JSON.parse(saved) : defaultOldSymptoms;
   });
 
   const [newSymptoms, setNewSymptoms] = useState(() => {
     const saved = localStorage.getItem("newSymptoms");
-    return saved ? JSON.parse(saved) : defaultSymptoms;
+    return saved ? JSON.parse(saved) : defaultNewSymptoms;
   });
 
   return (
     <>
-      <Header />
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-        }}
-        className="main d-flex flex-column justify-content-center align-items-center"
-      >
+      <div className="main d-flex flex-column justify-content-center align-items-center">
+        <Header />
         <div className="glass-card">
           <form
             onSubmit={(e) => {
@@ -120,7 +128,13 @@ const Symptoms_form = () => {
                 })}
               </div>
             </div>
-            <div className="d-flex justify-content-center mt-4">
+            <div className="d-flex justify-content-center gap-2 mt-4">
+              <button
+                className="btn btn-secondary"
+                onClick={() => navigate(-1)}
+              >
+                <i class="bi bi-arrow-left"></i>
+              </button>
               <button type="submit" className="btn btn-success">
                 Submit
               </button>

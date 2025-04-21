@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LOGO from "../assets/LOGO.png";
-import Header from "./header";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -29,22 +28,9 @@ const Home = () => {
 
   return (
     <>
-      <Header />
-      <div className="main position-relative d-flex flex-column justify-content-center align-items-center vh-100 w-100">
-        {/* Fullscreen dark overlay */}
-        <div
-          className="position-absolute top-0 start-0 w-100 h-100"
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            zIndex: 1,
-          }}
-        ></div>
-
+      <div className="main d-flex flex-column justify-content-center align-items-center">
         {/* Foreground content */}
-        <div
-          className="overlay position-relative z-2 text-center px-4"
-          style={{ zIndex: 2 }}
-        >
+        <div className="overlay z-2 text-center px-4" style={{ zIndex: 2 }}>
           <div className="overlay-content">
             <h1 className="text-white fw-bold mb-2">
               India's First AI Enabled Dietician!
@@ -111,12 +97,9 @@ const Home = () => {
           </div>
         </div>
 
-        <footer
-          className="footer text-white-50 position-relative z-2"
-          style={{ zIndex: 2 }}
-        >
+        <div className="footer position-absolute z-2" style={{ zIndex: 2 }}>
           © 2025 Healthy Dost. All rights reserved.
-        </footer>
+        </div>
       </div>
     </>
   );

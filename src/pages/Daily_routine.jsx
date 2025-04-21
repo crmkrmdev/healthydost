@@ -33,14 +33,8 @@ const Daily_routine = () => {
 
   return (
     <>
-      <Header />
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-        }}
-        className="main d-flex flex-column justify-content-center align-items-center"
-      >
+      <div className="main d-flex flex-column justify-content-center align-items-center">
+        <Header />
         <div className="glass-card">
           <form
             className="d-flex gap-4"
@@ -96,7 +90,13 @@ const Daily_routine = () => {
                   </div>
                 </div>
               ))}
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center gap-2">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => navigate(-1)}
+                >
+                  <i class="bi bi-arrow-left"></i>
+                </button>
                 <button type="submit" className="btn btn-success">
                   Submit
                 </button>

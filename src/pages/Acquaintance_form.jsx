@@ -1,3 +1,4 @@
+import { option } from "framer-motion/client";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./header";
@@ -7,28 +8,39 @@ const Daily_routine = () => {
   const defaultAcquaintance = [
     {
       name: "Father",
-      value: false,
-      oldSymptoms: {},
-      newSymptoms: {},
+      selected: [],
+      options: [
+        "Kidney Disease",
+        "Liver",
+        "Parkinson",
+        "Cancer",
+        "Arthritis",
+        "Psoriasis/Eczema",
+      ],
     },
     {
       name: "Mother",
-      value: false,
-      oldSymptoms: {},
-      newSymptoms: {},
+      selected: [],
+      options: [
+        "Kidney Disease",
+        "Liver",
+        "Parkinson",
+        "Cancer",
+        "Arthritis",
+        "Psoriasis/Eczema",
+      ],
     },
     {
-      name: "Brother",
-      value: false,
-      oldSymptoms: {},
-      newSymptoms: {},
-    },
-    { name: "Sister", value: false, oldSymptoms: {}, newSymptoms: {} },
-    {
-      name: "Other acquaintance",
-      value: false,
-      oldSymptoms: {},
-      newSymptoms: {},
+      name: "Siblings",
+      selected: [],
+      options: [
+        "Kidney Disease",
+        "Liver",
+        "Parkinson",
+        "Cancer",
+        "Arthritis",
+        "Psoriasis/Eczema",
+      ],
     },
   ];
 
@@ -39,14 +51,8 @@ const Daily_routine = () => {
 
   return (
     <>
-      <Header />
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-        }}
-        className="main d-flex flex-column justify-content-center align-items-center"
-      >
+      <div className="main d-flex flex-column justify-content-center align-items-center">
+        <Header />
         <div className="glass-card">
           <form
             className="d-flex gap-4"
@@ -56,46 +62,65 @@ const Daily_routine = () => {
                 "acquaintance",
                 JSON.stringify(acquaintance)
               );
-              //  fi all are false then navigate to final page
-              const allFalse = acquaintance.every((item) => !item.value);
-              allFalse
-                ? navigate("/final-form")
-                : navigate("/acquaintance-symptoms");
+              navigate("/final-form");
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") e.preventDefault();
             }}
           >
-            <div className="text-start " style={{ width: "600px" }}>
+            <div className="text-start">
               <div className="mb-4">
                 <h3 className="text-center">
-                  Do any of your acquaintances have a medical condition?
+                  Do any of your family members are suffering from these
+                  diseases?
                 </h3>
               </div>
-              {acquaintance.map((item, index) => (
-                <div key={index} className="mb-3 d-flex gap-3">
-                  <label className="form-check-label d-flex gap-3">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value={item.name}
-                      checked={item.value}
-                      id="flexCheckDefault"
-                      onChange={(e) => {
-                        const updatedAcquaintance = [...acquaintance];
-                        updatedAcquaintance[index].value = e.target.checked;
-                        setAcquaintance(updatedAcquaintance);
-                        localStorage.setItem(
-                          "acquaintance",
-                          JSON.stringify(updatedAcquaintance)
-                        );
-                      }}
-                    />
-                    {item.name}
-                  </label>
+              {acquaintance.map((item, itemIndex) => (
+                <div key={itemIndex} className="mb-3 d-flex align-items-center">
+                  <h4 className="form-label fw-bold me-3">{item.name} :</h4>
+                  <div className="d-flex flex-wrap gap-3">
+                    {item.options.map((option, optionIndex) => (
+                      <div className="form-check" key={optionIndex}>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id={`check-${itemIndex}-${optionIndex}`}
+                          checked={item.selected.includes(option)}
+                          onChange={() => {
+                            const updated = [...acquaintance];
+                            const selected = updated[itemIndex].selected;
+                            if (selected.includes(option)) {
+                              updated[itemIndex].selected = selected.filter(
+                                (d) => d !== option
+                              );
+                            } else {
+                              updated[itemIndex].selected = [
+                                ...selected,
+                                option,
+                              ];
+                            }
+                            setAcquaintance(updated);
+                          }}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor={`check-${itemIndex}-${optionIndex}`}
+                        >
+                          {option}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
-              <div className="d-flex justify-content-center">
+
+              <div className="d-flex justify-content-center gap-2">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => navigate(-1)}
+                >
+                  <i class="bi bi-arrow-left"></i>
+                </button>
                 <button type="submit" className="btn btn-success">
                   Submit
                 </button>

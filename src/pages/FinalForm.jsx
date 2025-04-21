@@ -48,14 +48,8 @@ const FinalForm = () => {
 
   return (
     <>
-      <Header />
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-        }}
-        className="main d-flex justify-content-center align-items-center"
-      >
+      <div className="main d-flex justify-content-center align-items-center">
+        <Header />
         <div className="glass-card p-4" style={{ width: "500px" }}>
           <h3 className="mb-4 text-center">User Details</h3>
           <form
@@ -155,8 +149,14 @@ const FinalForm = () => {
                 required
               />
             </div>
-            <div className="d-flex justify-content-center">
-              <button type="submit" className=" btn btn-light w-50 mt-3">
+            <div className="d-flex justify-content-center gap-2 mt-4">
+              <button
+                className="btn btn-secondary"
+                onClick={() => navigate(-1)}
+              >
+                <i class="bi bi-arrow-left"></i>
+              </button>
+              <button type="submit" className="btn btn-success">
                 Submit
               </button>
             </div>

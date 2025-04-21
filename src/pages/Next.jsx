@@ -22,17 +22,11 @@ const Next = () => {
       });
     }, 80); // Increase the speed of the progress bar
   }, []);
+
   return (
     <>
-      <Header />
-      <div
-        className="main d-flex flex-column justify-content-center align-items-center"
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-          minHeight: "100vh",
-        }}
-      >
+      <div className="main d-flex flex-column justify-content-center align-items-center">
+        <Header />
         <div className="overlay w-100 h-100 d-flex flex-column justify-content-center align-items-center">
           <div
             className="overlay-content d-flex flex-column justify-content-center align-items-center gap-4 p-4"
@@ -77,13 +71,20 @@ const Next = () => {
                   ></div>
                 </div>
 
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center gap-2">
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => navigate(-1)}
+                  >
+                    <i class="bi bi-arrow-left"></i>
+                  </button>
                   <button
                     type="button"
                     className="btn btn-success"
                     onClick={() => {
                       navigate("/symptoms-form");
                     }}
+                    disabled={progress < 100} // Disable button until progress is 100%
                   >
                     Next
                   </button>
@@ -93,7 +94,7 @@ const Next = () => {
           </div>
         </div>
 
-        <h3 className="mt-4 bg-dark opacity-75 p-2 text-white text-center d-flex flex-wrap justify-content-center">
+        <h3 className="mt-4 bg-dark opacity-75 p-2 text-white text-center d-flex flex-wrap justify-content-center z-2">
           {words.map((word, index) => (
             <motion.span
               key={index}
