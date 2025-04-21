@@ -297,14 +297,12 @@ const Diet_plan = () => {
               />
 
               {/* call button */}
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => {}}
-                style={{ zIndex: 2 }}
-              >
-                For any Assistance or Personalized support call : 9971928080
-              </button>
+              <div className="glass-card px-3 py-2" style={{ zIndex: 2 }}>
+                For any Assistance or Personalized support call :{" "}
+                <span className="fs-5 fw-semibold text-warning">
+                  9971928080
+                </span>
+              </div>
             </div>
           </div>
         </div>
