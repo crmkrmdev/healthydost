@@ -128,7 +128,13 @@ const Symptoms_form = () => {
                 })}
               </div>
             </div>
-            <div className="d-flex justify-content-center mt-4">
+            <div className="d-flex justify-content-center gap-2 mt-4">
+              <button
+                className="btn btn-secondary"
+                onClick={() => navigate(-1)}
+              >
+                <i class="bi bi-arrow-left"></i>
+              </button>
               <button type="submit" className="btn btn-success">
                 Submit
               </button>

@@ -90,7 +90,13 @@ const Daily_routine = () => {
                   </div>
                 </div>
               ))}
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center gap-2">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => navigate(-1)}
+                >
+                  <i class="bi bi-arrow-left"></i>
+                </button>
                 <button type="submit" className="btn btn-success">
                   Submit
                 </button>

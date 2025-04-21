@@ -97,12 +97,9 @@ const Home = () => {
           </div>
         </div>
 
-        <footer
-          className="footer text-white-50 position-relative z-2"
-          style={{ zIndex: 2 }}
-        >
+        <div className="footer position-absolute z-2" style={{ zIndex: 2 }}>
           © 2025 Healthy Dost. All rights reserved.
-        </footer>
+        </div>
       </div>
     </>
   );
