@@ -8,7 +8,7 @@ const Daily_routine = () => {
     {
       name: "Job type",
       value: "",
-      options: ["Sitting", "Standing", "Travel", "Remote"],
+      options: ["Sitting", "Standing", "Travel", "Work from home"],
     },
     {
       name: "Water consumption",
@@ -50,7 +50,7 @@ const Daily_routine = () => {
               if (e.key === "Enter") e.preventDefault();
             }}
           >
-            <div className="text-start " style={{ width: "600px" }}>
+            <div className="text-start ">
               <div className="mb-4">
                 <h3 className="text-center">Daily Routine</h3>
               </div>

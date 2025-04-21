@@ -51,7 +51,7 @@ const FinalForm = () => {
       <div className="main d-flex justify-content-center align-items-center">
         <Header />
         <div className="glass-card p-4" style={{ width: "500px" }}>
-          <h3 className="mb-4 text-center">User Details</h3>
+          <h3 className="text-center">User Details</h3>
           <form
             className="FinalForm"
             onSubmit={handleSubmit}
@@ -151,7 +151,7 @@ const FinalForm = () => {
                 title="Phone number must be exactly 10 digits"
               />
             </div>
-            <div className="d-flex justify-content-center gap-2 mt-4">
+            <div className="d-flex justify-content-center gap-2 mt-3">
               <button
                 className="btn btn-secondary"
                 onClick={() => navigate(-1)}
