@@ -19,11 +19,11 @@ const Diet_plan = () => {
     "Almost there...",
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setLoading(false), 10000); // 10 seconds
-  //   return () => clearTimeout(timer);
-  // }, []);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 10000); // 10 seconds
+    return () => clearTimeout(timer);
+  }, []);
   const herbs = [
     {
       name: "Ashwagandha",
@@ -76,7 +76,41 @@ const Diet_plan = () => {
     },
   ];
 
+  const [yoga, setYoga] = useState(yogaPoses);
+
   const [text, setText] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const response = fetch(
+      "https://yogaposes-22510563985.us-central1.run.app/search",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: text,
+        }),
+      }
+    );
+    response
+      .then((res) => res.json())
+      .then((data) => {
+        const updated = data.result.slice(0, 2).map((item, index) => {
+          const original = yoga[index]; // to keep original duration & days
+          return {
+            ...item.meta_data,
+            duration: original.duration,
+            days: original.days,
+          };
+        });
+        setYoga(updated);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -129,10 +163,10 @@ const Diet_plan = () => {
               <p className="fs-5">Keeping in mind :</p>
               <div className="d-flex flex-wrap gap-2 mb-2">
                 {[
-                  ...JSON.parse(localStorage.getItem("newSymptoms"))
+                  ...JSON.parse(localStorage.getItem("symptoms"))
                     .filter((e) => e.value === true)
                     .map((e) => e.name),
-                  ...JSON.parse(localStorage.getItem("oldSymptoms"))
+                  ...JSON.parse(localStorage.getItem("illnesses"))
                     .filter((e) => e.value === true)
                     .map((e) => e.name),
                 ].map((symptom, index) => (
@@ -161,7 +195,7 @@ const Diet_plan = () => {
             </div>
             {/* suggested yogas */}
             <div className="row mb-4">
-              {yogaPoses.map((yoga, index) => (
+              {yoga.map((yoga, index) => (
                 <div
                   key={index}
                   className="glass-card col-md-6 m-0 d-flex flex-column align-items-center justify-content-center"
@@ -199,7 +233,7 @@ const Diet_plan = () => {
             <div className="glass-card col-md-12 m-0 mb-2">
               <h2 className="text-center">2 best suggested Herbs for you :</h2>
             </div>
-            {/* suggested yogas */}
+            {/* suggested herbs */}
             <div className="row mb-4">
               {herbs.map((herb, index) => (
                 <div key={index} className="glass-card col-md-6 m-0">
@@ -253,7 +287,9 @@ const Diet_plan = () => {
                   rows={3}
                 />
               </div>
-              <button className="btn btn-success mb-3">Submit</button>
+              <button className="btn btn-success mb-3" onClick={handleSearch}>
+                Submit
+              </button>
               {/* horizontal border */}
               <div
                 className="w-100 mb-3"
