@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [toggle, setToggle] = useState(false);
@@ -8,7 +10,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userId === "admin" && password === "admin123") {
-      alert("Login successful!");
+      navigate("/dashboard");
     } else {
       alert("Invalid credentials");
     }
