@@ -10,6 +10,7 @@ import Daily_routine from "./pages/Daily_routine";
 import Acquaintance_form from "./pages/Acquaintance_form";
 import Acquaintance_symptoms from "./pages/Acquaintance_symptoms";
 import Diet_plan from "./pages/Diet_plan";
+import Login from "./admin/login";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           element={<Acquaintance_symptoms />}
         />
         <Route path="/diet-plan" element={<Diet_plan />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
