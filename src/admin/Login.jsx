@@ -9,7 +9,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (userId === "admin" && password === "admin123") {
+    if (userId === "admin" && password === "admin") {
       navigate("/dashboard");
     } else {
       alert("Invalid credentials");
