@@ -11,6 +11,7 @@ const FinalForm = () => {
     weight: "",
     email: "",
     phone: "",
+    allergy: "",
   };
 
   const [userData, setUserData] = useState(() => {
@@ -34,8 +35,8 @@ const FinalForm = () => {
     e.preventDefault();
     const finalData = {
       purpose: localStorage.getItem("purpose"),
-      oldSymptoms: JSON.parse(localStorage.getItem("oldSymptoms")),
-      newSymptoms: JSON.parse(localStorage.getItem("newSymptoms")),
+      illnesses: JSON.parse(localStorage.getItem("illnesses")),
+      symptoms: JSON.parse(localStorage.getItem("symptoms")),
       dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")),
       acquaintance: JSON.parse(localStorage.getItem("acquaintance")).filter(
         (e) => e.value === true
@@ -51,7 +52,7 @@ const FinalForm = () => {
       <div className="main d-flex justify-content-center align-items-center">
         <Header />
         <div className="glass-card p-4" style={{ width: "500px" }}>
-          <h3 className="mb-4 text-center">User Details</h3>
+          <h3 className="text-center">User Details</h3>
           <form
             className="FinalForm"
             onSubmit={handleSubmit}
@@ -151,7 +152,18 @@ const FinalForm = () => {
                 title="Phone number must be exactly 10 digits"
               />
             </div>
-            <div className="d-flex justify-content-center gap-2 mt-4">
+            <div className="mb-2">
+              <label className="form-label text-white">Allergy</label>
+              <input
+                type="text"
+                name="allergy"
+                value={userData.allergy || ""}
+                onChange={handleChange}
+                className="form-control text-white border-light"
+                placeholder="Enter allergy (if any)"
+              />
+            </div>
+            <div className="d-flex justify-content-center gap-2 mt-3">
               <button
                 className="btn btn-secondary"
                 onClick={() => navigate(-1)}

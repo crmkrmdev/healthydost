@@ -8,7 +8,7 @@ const Daily_routine = () => {
     {
       name: "Job type",
       value: "",
-      options: ["Sitting", "Standing", "Travel", "Remote"],
+      options: ["Sitting", "Standing", "Travel", "Work from home"],
     },
     {
       name: "Water consumption",
@@ -30,6 +30,17 @@ const Daily_routine = () => {
     const saved = localStorage.getItem("dailyRoutine");
     return saved ? JSON.parse(saved) : defaultDailyRoutine;
   });
+  const [errors, setErrors] = useState({});
+  const validateForm = () => {
+    const newErrors = {};
+    dailyRoutine.forEach((item) => {
+      if (!item.value) {
+        newErrors[item.name] = "Please select an option";
+      }
+    });
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   return (
     <>
@@ -40,17 +51,19 @@ const Daily_routine = () => {
             className="d-flex gap-4"
             onSubmit={(e) => {
               e.preventDefault();
-              localStorage.setItem(
-                "dailyRoutine",
-                JSON.stringify(dailyRoutine)
-              );
-              navigate("/acquaintance");
+              if (validateForm()) {
+                localStorage.setItem(
+                  "dailyRoutine",
+                  JSON.stringify(dailyRoutine)
+                );
+                navigate("/acquaintance");
+              }
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") e.preventDefault();
             }}
           >
-            <div className="text-start " style={{ width: "600px" }}>
+            <div className="text-start ">
               <div className="mb-4">
                 <h3 className="text-center">Daily Routine</h3>
               </div>
@@ -63,6 +76,9 @@ const Daily_routine = () => {
                     }}
                   >
                     {item.name}
+                    {errors[item.name] && (
+                      <span className="text-danger fw-semibold ms-2">*</span>
+                    )}
                   </label>
                   <div className="d-flex gap-3">
                     {item.options.map((option, optIndex) => (
