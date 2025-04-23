@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { exportToExcel, tableToJson } from "../utilities/Download_Excel";
 
 const Dashboard = () => {
@@ -44,6 +44,8 @@ const Dashboard = () => {
     },
   ];
 
+  const [data, setData] = useState(sampleData);
+
   const handleDownload = () => {
     const data = tableToJson("userDataTable");
     exportToExcel(data, "PatientData.xlsx");
@@ -77,7 +79,7 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody className="table-secondary">
-            {sampleData.map((entry, i) => (
+            {data.map((entry, i) => (
               <tr key={i}>
                 <td>{entry.user_data.name}</td>
                 <td>{entry.user_data.age}</td>
