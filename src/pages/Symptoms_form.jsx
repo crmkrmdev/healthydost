@@ -15,6 +15,7 @@ const Symptoms_form = () => {
     { name: "Acidity / GERD", value: false },
     { name: "Anxiety / Sleep Disorders", value: false },
     { name: "High Blood Pressure", value: false },
+    { name: "No illness", value: false },
   ];
 
   const defaultSymptoms = [
@@ -30,6 +31,7 @@ const Symptoms_form = () => {
     { name: "fatigueOrLowEnergy", value: false },
     { name: "backPain", value: false },
     { name: "neckPain", value: false },
+    { name: "No symptoms", value: false },
   ];
 
   const [illnesses, setIllnesses] = useState(() => {
@@ -41,6 +43,19 @@ const Symptoms_form = () => {
     const saved = localStorage.getItem("symptoms");
     return saved ? JSON.parse(saved) : defaultSymptoms;
   });
+  const [errors, setErrors] = useState({
+    illnesses: false,
+    symptoms: false,
+  });
+
+  const validateForm = () => {
+    const newErrors = {
+      illnesses: !illnesses.some((item) => item.value),
+      symptoms: !symptoms.some((item) => item.value),
+    };
+    setErrors(newErrors);
+    return !newErrors.illnesses && !newErrors.symptoms;
+  };
 
   return (
     <>
@@ -50,9 +65,11 @@ const Symptoms_form = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              localStorage.setItem("illnesses", JSON.stringify(illnesses));
-              localStorage.setItem("symptoms", JSON.stringify(symptoms));
-              navigate("/daily-routine");
+              if (validateForm()) {
+                localStorage.setItem("illnesses", JSON.stringify(illnesses));
+                localStorage.setItem("symptoms", JSON.stringify(symptoms));
+                navigate("/daily-routine");
+              }
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") e.preventDefault();
@@ -63,7 +80,23 @@ const Symptoms_form = () => {
                 <div className="mb-3">
                   <h5>
                     Have you experienced any of the following illnesses in the
-                    past 90 days? (Choose as many)
+                    past 90 days?{" "}
+                    <span
+                      style={{
+                        fontSize: "0.7em",
+                        color: "gray",
+                      }}
+                    >
+                      (Choose as many)
+                    </span>{" "}
+                    {errors.illnesses && (
+                      <span
+                        className="text-danger ms-2"
+                        style={{ fontSize: "0.7em" }}
+                      >
+                        *Please select no illnesss or at least one illness
+                      </span>
+                    )}
                   </h5>
                 </div>
                 {illnesses.map((symptom, index) => {
@@ -97,7 +130,23 @@ const Symptoms_form = () => {
                 <div className="mb-3">
                   <h5>
                     Have you experienced any of these symptoms in the last 90
-                    days?
+                    days?{" "}
+                    <span
+                      style={{
+                        fontSize: "0.7em",
+                        color: "gray",
+                      }}
+                    >
+                      (Choose as many)
+                    </span>{" "}
+                    {errors.symptoms && (
+                      <span
+                        className="text-danger ms-2"
+                        style={{ fontSize: "0.7em" }}
+                      >
+                        *Please select no symptoms or at least one symptom
+                      </span>
+                    )}
                   </h5>
                 </div>
                 {symptoms.map((symptom, index) => {

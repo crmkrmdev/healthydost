@@ -11,6 +11,7 @@ const FinalForm = () => {
     weight: "",
     email: "",
     phone: "",
+    allergy: "",
   };
 
   const [userData, setUserData] = useState(() => {
@@ -149,6 +150,17 @@ const FinalForm = () => {
                 required
                 pattern="\d{10}" // Ensures exactly 10 digits
                 title="Phone number must be exactly 10 digits"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="form-label text-white">Allergy</label>
+              <input
+                type="text"
+                name="allergy"
+                value={userData.allergy || ""}
+                onChange={handleChange}
+                className="form-control text-white border-light"
+                placeholder="Enter allergy (if any)"
               />
             </div>
             <div className="d-flex justify-content-center gap-2 mt-3">

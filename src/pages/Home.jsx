@@ -15,8 +15,10 @@ const Home = () => {
     }
   }, [purpose]);
 
-  const handleSend = () => {
-    if (purpose === "others" && !customPurpose.trim()) {
+  const handleSend = (e) => {
+    e.preventDefault();
+    // Validate purpose and customPurpose
+    if ((purpose === "others" && !customPurpose.trim()) || purpose === "") {
       alert("Please enter your purpose.");
       return;
     }
@@ -43,7 +45,10 @@ const Home = () => {
             <p className="text-warning mb-4" style={{ fontSize: "1.2rem" }}>
               स्वस्थस्य स्वास्थ्य रक्षणं, आतुरस्य विकार प्रशमनं
             </p>
-            <div className="mb-3 px-5 d-flex flex-column">
+            <form
+              className="mb-3 px-5 d-flex flex-column"
+              onSubmit={handleSend}
+            >
               <div className="d-flex gap-3 flex-wrap justify-content-center">
                 <img src={LOGO} alt="Logo" style={{ height: "150px" }} />
                 <div className="gap-2 d-flex flex-column justify-content-center align-items-center w-100">
@@ -51,6 +56,7 @@ const Home = () => {
                     className="form-select text-white border-light bg-dark bg-opacity-50"
                     value={purpose}
                     onChange={(e) => setPurpose(e.target.value)}
+                    required
                   >
                     <option value="" disabled>
                       Choose your purpose of getting a Complimentary Diet /
@@ -86,19 +92,16 @@ const Home = () => {
                         },
                         color: "#fff",
                       }}
+                      required
                     />
                   )}
 
-                  <button
-                    type="button"
-                    className="btn btn-grad w-100"
-                    onClick={handleSend}
-                  >
+                  <button type="submit" className="btn btn-grad w-100">
                     Send
                   </button>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
 
