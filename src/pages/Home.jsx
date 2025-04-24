@@ -39,7 +39,7 @@ const Home = () => {
         {/* Foreground content */}
         <div className="overlay z-2 text-center px-4" style={{ zIndex: 2 }}>
           <div className="overlay-content">
-            <h1 className="text-white fw-bold mb-2">
+            <h1 className="text-warning fw-bold mb-2">
               India's First AI Enabled Health System!
             </h1>
             <p className="text-warning mb-4" style={{ fontSize: "1.2rem" }}>

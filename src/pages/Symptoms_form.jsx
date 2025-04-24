@@ -15,23 +15,23 @@ const Symptoms_form = () => {
     { name: "Acidity / GERD", value: false },
     { name: "Anxiety / Sleep Disorders", value: false },
     { name: "High Blood Pressure", value: false },
-    { name: "No illness", value: false },
+    { name: "No Illness", value: false },
   ];
 
   const defaultSymptoms = [
-    { name: "saansFulna", value: false },
-    { name: "frequentUrination", value: false },
-    { name: "lowUrination", value: false },
-    { name: "excessiveThirst", value: false },
-    { name: "lowThirst", value: false },
-    { name: "swelling", value: false },
-    { name: "headache", value: false },
-    { name: "muscleOrJointPain", value: false },
-    { name: "indigestionOrBloating", value: false },
-    { name: "fatigueOrLowEnergy", value: false },
-    { name: "backPain", value: false },
-    { name: "neckPain", value: false },
-    { name: "No symptoms", value: false },
+    { name: "Saans Fulna", value: false },
+    { name: "Frequent Urination", value: false },
+    { name: "Low Urination", value: false },
+    { name: "Excessive Thirst", value: false },
+    { name: "Low Thirst", value: false },
+    { name: "Swelling", value: false },
+    { name: "Headache", value: false },
+    { name: "Muscle Or Joint Pain", value: false },
+    { name: "Indigestion Or Bloating", value: false },
+    { name: "Fatigue Or LowEnergy", value: false },
+    { name: "Back Pain", value: false },
+    { name: "Neck Pain", value: false },
+    { name: "No Symptoms", value: false },
   ];
 
   const [illnesses, setIllnesses] = useState(() => {
@@ -78,7 +78,7 @@ const Symptoms_form = () => {
             <div className="d-flex gap-4">
               <div className="text-start " style={{ width: "400px" }}>
                 <div className="mb-3">
-                  <h5>
+                  <h5 className="text-warning">
                     Have you experienced any of the following illnesses in the
                     past 90 days?{" "}
                     <span
@@ -113,7 +113,27 @@ const Symptoms_form = () => {
                           id="flexCheckDefault"
                           onChange={(e) => {
                             const updatedSymptoms = [...illnesses];
-                            updatedSymptoms[index].value = e.target.checked;
+
+                            if (
+                              updatedSymptoms[index].name === "No Illness" &&
+                              e.target.checked
+                            ) {
+                              updatedSymptoms.forEach((symptom, i) => {
+                                updatedSymptoms[i].value =
+                                  symptom.name === "No Illness";
+                              });
+                            } else {
+                              updatedSymptoms[index].value = e.target.checked;
+
+                              // Uncheck "No illness" if another illness is selected
+                              const noIllnessIndex = updatedSymptoms.findIndex(
+                                (s) => s.name === "No Illness"
+                              );
+                              if (noIllnessIndex !== -1 && e.target.checked) {
+                                updatedSymptoms[noIllnessIndex].value = false;
+                              }
+                            }
+
                             setIllnesses(updatedSymptoms);
                             localStorage.setItem(
                               "illnesses",
@@ -128,7 +148,7 @@ const Symptoms_form = () => {
               </div>
               <div className="text-start " style={{ width: "400px" }}>
                 <div className="mb-3">
-                  <h5>
+                  <h5 className="text-warning">
                     Have you experienced any of these symptoms in the last 90
                     days?{" "}
                     <span
@@ -163,7 +183,27 @@ const Symptoms_form = () => {
                           id="flexCheckDefault"
                           onChange={(e) => {
                             const updatedSymptoms = [...symptoms];
-                            updatedSymptoms[index].value = e.target.checked;
+
+                            if (
+                              updatedSymptoms[index].name === "No Symptoms" &&
+                              e.target.checked
+                            ) {
+                              updatedSymptoms.forEach((symptom, i) => {
+                                updatedSymptoms[i].value =
+                                  symptom.name === "No Symptoms";
+                              });
+                            } else {
+                              updatedSymptoms[index].value = e.target.checked;
+
+                              // Uncheck "No Symptoms" if any other symptom is selected
+                              const noSymptomsIndex = updatedSymptoms.findIndex(
+                                (s) => s.name === "No Symptoms"
+                              );
+                              if (noSymptomsIndex !== -1 && e.target.checked) {
+                                updatedSymptoms[noSymptomsIndex].value = false;
+                              }
+                            }
+
                             setSymptoms(updatedSymptoms);
                             localStorage.setItem(
                               "symptoms",

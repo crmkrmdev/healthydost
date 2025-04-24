@@ -8,10 +8,10 @@ const Daily_routine = () => {
     {
       name: "Job type",
       value: "",
-      options: ["Sitting", "Standing", "Travel", "Work from home"],
+      options: ["Sitting", "Standing", "Travel", "Work from Home"],
     },
     {
-      name: "Water consumption",
+      name: "Water Consumption",
       value: "",
       options: ["1L", "2-3L", "3-5L", "6L"],
     },
@@ -21,7 +21,7 @@ const Daily_routine = () => {
       options: ["1", "2", "3", "4+"],
     },
     { name: "Do you smoke?", value: "", options: ["Yes", "No"] },
-    { name: "Do you drink?", value: "", options: ["Yes", "No"] },
+    { name: "Do you consume alcohol?", value: "", options: ["Yes", "No"] },
     { name: "Sleep hours per night", value: "", options: ["5-6", "6-8", "8+"] },
     { name: "Stress level", value: "", options: ["Low", "Medium", "High"] },
   ];
@@ -65,7 +65,7 @@ const Daily_routine = () => {
           >
             <div className="text-start ">
               <div className="mb-4">
-                <h3 className="text-center">Daily Routine</h3>
+                <h3 className="text-center text-warning">Daily Routine</h3>
               </div>
               {dailyRoutine.map((item, index) => (
                 <div key={index} className="mb-3 d-flex gap-3">

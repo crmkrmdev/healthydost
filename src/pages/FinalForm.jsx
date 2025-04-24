@@ -52,7 +52,7 @@ const FinalForm = () => {
       <div className="main d-flex justify-content-center align-items-center">
         <Header />
         <div className="glass-card p-4" style={{ width: "500px" }}>
-          <h3 className="text-center">User Details</h3>
+          <h3 className="text-center text-warning">User Details</h3>
           <form
             className="FinalForm"
             onSubmit={handleSubmit}
@@ -94,7 +94,9 @@ const FinalForm = () => {
                 className="form-select text-white border-light"
                 required
               >
-                <option value="">Select gender</option>
+                <option value="" disabled>
+                  Select gender
+                </option>
                 <option>Male</option>
                 <option>Female</option>
                 <option>Other</option>

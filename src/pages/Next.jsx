@@ -51,8 +51,8 @@ const Next = () => {
             </div>
 
             {/* Heading */}
-            <h1 className="text-white fw-bold text-center">
-              India's First AI Enabled Dietician!
+            <h1 className="text-warning fw-bold text-center">
+              India's First AI Enabled Health System!
             </h1>
 
             {/* Progress and Button */}

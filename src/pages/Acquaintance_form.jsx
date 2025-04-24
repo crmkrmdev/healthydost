@@ -1,10 +1,10 @@
-import { option } from "framer-motion/client";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./header";
 
 const Daily_routine = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const defaultAcquaintance = [
     {
       name: "Father",
@@ -16,6 +16,7 @@ const Daily_routine = () => {
         "Cancer",
         "Arthritis",
         "Psoriasis/Eczema",
+        "No Disease",
       ],
     },
     {
@@ -28,6 +29,7 @@ const Daily_routine = () => {
         "Cancer",
         "Arthritis",
         "Psoriasis/Eczema",
+        "No Disease",
       ],
     },
     {
@@ -40,6 +42,7 @@ const Daily_routine = () => {
         "Cancer",
         "Arthritis",
         "Psoriasis/Eczema",
+        "No Disease",
       ],
     },
   ];
@@ -48,6 +51,15 @@ const Daily_routine = () => {
     const saved = localStorage.getItem("acquaintance");
     return saved ? JSON.parse(saved) : defaultAcquaintance;
   });
+
+  const validateForm = () => {
+    if (acquaintance.some((item) => item.selected.length === 0)) {
+      setError("Please select diseases for all family members or No disease");
+      return false;
+    }
+    setError("");
+    return true;
+  };
 
   return (
     <>
@@ -58,11 +70,13 @@ const Daily_routine = () => {
             className="d-flex gap-4"
             onSubmit={(e) => {
               e.preventDefault();
-              localStorage.setItem(
-                "acquaintance",
-                JSON.stringify(acquaintance)
-              );
-              navigate("/final-form");
+              if (validateForm()) {
+                localStorage.setItem(
+                  "acquaintance",
+                  JSON.stringify(acquaintance)
+                );
+                navigate("/final-form");
+              }
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") e.preventDefault();
@@ -70,10 +84,13 @@ const Daily_routine = () => {
           >
             <div className="text-start">
               <div className="mb-4">
-                <h3 className="text-center">
+                <h3 className="text-center text-warning">
                   Do any of your family members are suffering from these
                   diseases?
                 </h3>
+                {error && (
+                  <div className="text-danger text-center">({error})</div>
+                )}
               </div>
               {acquaintance.map((item, itemIndex) => (
                 <div key={itemIndex} className="mb-3 d-flex align-items-center">
@@ -89,16 +106,30 @@ const Daily_routine = () => {
                           onChange={() => {
                             const updated = [...acquaintance];
                             const selected = updated[itemIndex].selected;
-                            if (selected.includes(option)) {
-                              updated[itemIndex].selected = selected.filter(
-                                (d) => d !== option
-                              );
+
+                            if (option === "No Disease") {
+                              // If "No Disease" is being selected, clear all other selections
+                              if (!selected.includes("No Disease")) {
+                                updated[itemIndex].selected = ["No Disease"];
+                              } else {
+                                updated[itemIndex].selected = [];
+                              }
                             } else {
-                              updated[itemIndex].selected = [
-                                ...selected,
-                                option,
-                              ];
+                              // If any other disease is being selected
+                              if (selected.includes(option)) {
+                                // Remove the disease if it was already selected
+                                updated[itemIndex].selected = selected.filter(
+                                  (d) => d !== option
+                                );
+                              } else {
+                                // Add the new disease and remove "No Disease" if present
+                                updated[itemIndex].selected = [
+                                  ...selected.filter((d) => d !== "No Disease"),
+                                  option,
+                                ];
+                              }
                             }
+
                             setAcquaintance(updated);
                           }}
                         />

@@ -150,7 +150,9 @@ const Diet_plan = () => {
           <div className="col-md-9 row mt-5">
             {/* header */}
             <div className="glass-card col-md-12 m-0 mb-2">
-              <h2 className="text-center">Here is your customized Diet Plan</h2>
+              <h2 className="text-center text-warning">
+                Here is your customized Diet Plan
+              </h2>
             </div>
             {/* diet plan */}
             <div className="glass-card col-md-9 m-0 mb-4">
@@ -184,7 +186,12 @@ const Diet_plan = () => {
                 target="_blank"
                 to="https://drive.google.com/file/d/1C_zyZINNrU3K3hL-ZfgHhsx3pJlhVqGz/view?usp=sharing"
               >
-                <img src={PDF} alt="PDF" style={{ width: "100px" }} />
+                <img
+                  src={PDF}
+                  alt="PDF"
+                  style={{ width: "80px" }}
+                  className="mb-2"
+                />
                 <br />
                 Download Diet Plan
               </Link>
