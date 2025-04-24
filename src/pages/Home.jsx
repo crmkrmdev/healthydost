@@ -40,7 +40,7 @@ const Home = () => {
         <div className="overlay z-2 text-center px-4" style={{ zIndex: 2 }}>
           <div className="overlay-content">
             <h1 className="text-white fw-bold mb-2">
-              India's First AI Enabled Dietician!
+              India's First AI Enabled Health System!
             </h1>
             <p className="text-warning mb-4" style={{ fontSize: "1.2rem" }}>
               स्वस्थस्य स्वास्थ्य रक्षणं, आतुरस्य विकार प्रशमनं
