@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Next from "./pages/Next";
 import FinalForm from "./pages/FinalForm";
-import videoBg from "./assets/Healthy_Dost_BG.mp4";
+import videoBg from "./assets/bg.mp4";
 import "./App.css";
 import Symptoms_form from "./pages/Symptoms_form";
 import Daily_routine from "./pages/Daily_routine";
@@ -12,6 +12,7 @@ import Acquaintance_symptoms from "./pages/Acquaintance_symptoms";
 import Diet_plan from "./pages/Diet_plan";
 import Login from "./admin/login";
 import Dashboard from "./admin/Dashboard";
+// import Page from "./diet_plan/page";
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/diet-plan" element={<Diet_plan />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/page" element={<Page />} /> */}
       </Routes>
     </Router>
   );

@@ -3,8 +3,11 @@ import { CircleLoader } from "react-spinners";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Header from "./header";
-import PDF from "../assets/PDF_file_icon.svg";
+import PDF from "../assets/images/download.gif";
 import LOGO from "../assets/LOGO.png";
+import ashwagandhaImage from "../assets/images/ashwagandha.webp";
+import Pashasana from "../assets/images/Pashasana.gif";
+import petunia from "../assets/images/petunia.gif";
 
 const Diet_plan = () => {
   const loadingTexts = [
@@ -29,8 +32,7 @@ const Diet_plan = () => {
       name: "Ashwagandha",
       description:
         "A powerful adaptogen known to reduce stress, enhance stamina, and strengthen the immune system.",
-      photo_url:
-        "https://t4.ftcdn.net/jpg/03/88/41/55/240_F_388415502_Q2Mhpzt9rf4nxOogCHRBqlGwsycrCevS.jpg",
+      photo_url: ashwagandhaImage,
 
       benifits:
         "Reduces stress and anxiety, enhances stamina, boosts immunity.",
@@ -41,8 +43,7 @@ const Diet_plan = () => {
       name: "Tulsi",
       description:
         "A revered herb for respiratory wellness, boosting immunity, and promoting mental calm and clarity.",
-      photo_url:
-        "https://t3.ftcdn.net/jpg/02/63/84/64/240_F_263846480_zQ9YO4y7zkUE5q8d1RD20h8SgtrRBoV0.jpg",
+      photo_url: petunia,
       benifits:
         "Supports respiratory health, boosts immunity, promotes mental clarity.",
       dosage: "2-3 leaves daily or as tulsi tea.",
@@ -59,8 +60,7 @@ const Diet_plan = () => {
       pose_type: ["Seated", "Twist"],
       duration: "10 minutes to 15 minutes",
       days: "3-4 times a week",
-      photo_url:
-        "https://pocketyoga.com/assets/images/full/SeatedOnHeelsTwistBound_R.png",
+      photo_url: Pashasana,
     },
     {
       name: "Sage Marichi's III Pose",
@@ -69,10 +69,9 @@ const Diet_plan = () => {
         "Marichyasana C (Sage Marichi's III) is a beginner seated twist. Lengthen your spine, gently twist to the right, placing your left hand behind your sacrum. Benefits include improved spinal mobility and digestion. Keep your chest lifted and shoulders relaxed.",
       expertise_level: "Beginner",
       pose_type: ["Seated", "Twist"],
-      duration: "15 seconds to 20 minutes",
+      duration: "15 minutes to 20 minutes",
       days: "3-4 times a week",
-      photo_url:
-        "https://pocketyoga.com/assets/images/full/MarichiIIITraditional_R.png",
+      photo_url: Pashasana,
     },
   ];
 
@@ -144,64 +143,69 @@ const Diet_plan = () => {
   }
   return (
     <>
-      <div className="main" style={{ backgroundColor: "black" }}>
+      <div className="main">
         <Header />
         <div className="row d-flex justify-content-center align-items-start m-0">
           <div className="col-md-9 row mt-5">
-            {/* header */}
-            <div className="glass-card col-md-12 m-0 mb-2">
-              <h2 className="text-center text-warning">
-                Here is your customized Diet Plan
-              </h2>
-            </div>
-            {/* diet plan */}
-            <div className="glass-card col-md-9 m-0 mb-4">
-              <p className="fs-5">
-                Your customized Diet Plan for :{" "}
-                <span className="fw-semibold fs-5">
-                  {localStorage.getItem("purpose")}
-                </span>
-              </p>
-              <p className="fs-5">Keeping in mind :</p>
-              <div className="d-flex flex-wrap gap-2 mb-2">
-                {[
-                  ...JSON.parse(localStorage.getItem("symptoms") || "[]")
-                    .filter((e) => e.value === true)
-                    .map((e) => e.name),
-                  ...JSON.parse(localStorage.getItem("illnesses") || "[]")
-                    .filter((e) => e.value === true)
-                    .map((e) => e.name),
-                ].map((symptom, index) => (
-                  <span key={index} className="badge bg-primary me-2 mb-2">
-                    {symptom}
-                  </span>
-                ))}
+            <div className="d-flex gap-3">
+              {/* diet plan */}
+              <div
+                className="glass-card m-0 mb-4 text-center"
+                style={{ lineHeight: "1.2" }}
+              >
+                <p className="fs-4">
+                  Here is your <span className="fw-bold">customized</span>
+                  <br />
+                  Diet Plan
+                </p>
+                <div className="d-flex flex-wrap justify-content-center gap-2 mb-2">
+                  {[
+                    localStorage.getItem("purpose"),
+                    ...JSON.parse(localStorage.getItem("symptoms") || "[]")
+                      .filter((e) => e.value === true)
+                      .map((e) => e.name),
+                    ...JSON.parse(localStorage.getItem("illnesses") || "[]")
+                      .filter((e) => e.value === true)
+                      .map((e) => e.name),
+                    `Age: ${JSON.parse(localStorage.getItem("userData")).age}`,
+                    `Gener: ${
+                      JSON.parse(localStorage.getItem("userData")).gender
+                    }`,
+                    `Weight: ${
+                      JSON.parse(localStorage.getItem("userData")).weight
+                    }`,
+                  ].map((symptom, index) => (
+                    <span key={index} className="badge bg-success px-3 py-2">
+                      {symptom}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              {/* Button in right column */}
+              <div className="glass-card m-0 d-flex align-items-center justify-content-center mb-4 ">
+                <Link
+                  type="button"
+                  className="btn btn-tranparent"
+                  target="_blank"
+                  to="https://drive.google.com/file/d/1C_zyZINNrU3K3hL-ZfgHhsx3pJlhVqGz/view?usp=sharing"
+                >
+                  <img
+                    src={PDF}
+                    alt="PDF"
+                    style={{ width: "100px" }}
+                    className="mb-2 rounded-pill"
+                  />
+                  <br />
+                  <span className="text-white fs-5 text-nowrap"> Download PDF</span>
+                </Link>
               </div>
             </div>
-            {/* Button in right column */}
-            <div className="glass-card col-md-3 m-0 d-flex align-items-center justify-content-center mb-4 ">
-              <Link
-                type="button"
-                className="btn btn-tranparent"
-                target="_blank"
-                to="https://drive.google.com/file/d/1C_zyZINNrU3K3hL-ZfgHhsx3pJlhVqGz/view?usp=sharing"
-              >
-                <img
-                  src={PDF}
-                  alt="PDF"
-                  style={{ width: "80px" }}
-                  className="mb-2"
-                />
-                <br />
-                Download Diet Plan
-              </Link>
-            </div>
             {/* header */}
-            <div className="glass-card col-md-12 m-0 mb-2">
-              <h2 className="text-center">2 best suggested yoga for you :</h2>
+            <div className="section-title mb-4">
+              <h2>Top 2 Yoga Routines Chosen Just for You</h2>
             </div>
             {/* suggested yogas */}
-            <div className="row mb-4">
+            <div className="d-flex mb-4 gap-3">
               {yoga.map((yoga, index) => (
                 <div
                   key={index}
@@ -213,7 +217,7 @@ const Diet_plan = () => {
                     src={yoga.photo_url}
                     alt={yoga.name}
                     style={{
-                      width: "50%",
+                      maxHeight: "200px",
                       borderRadius: "8px",
                       marginBottom: "10px",
                     }}
@@ -237,19 +241,22 @@ const Diet_plan = () => {
               ))}
             </div>
             {/* header */}
-            <div className="glass-card col-md-12 m-0 mb-2">
-              <h2 className="text-center">2 best suggested Herbs for you :</h2>
+            <div className="section-title mb-4">
+              <h2>Top 2 Herbal Picks Just for You</h2>
             </div>
             {/* suggested herbs */}
-            <div className="row mb-4">
+            <div className="d-flex mb-4 gap-3">
               {herbs.map((herb, index) => (
-                <div key={index} className="glass-card col-md-6 m-0">
+                <div
+                  key={index}
+                  className="glass-card col-md-6 m-0 d-flex flex-column align-items-center justify-content-center"
+                >
                   <h4 className="text-center">{herb.name}</h4>
                   <img
                     src={herb.photo_url}
                     alt={herb.name}
                     style={{
-                      width: "100%",
+                      maxHeight: "200px",
                       borderRadius: "8px",
                       marginBottom: "10px",
                     }}
@@ -270,13 +277,19 @@ const Diet_plan = () => {
               ))}
             </div>
           </div>
-          <div className="col-md-3 z-2 mt-5">
+
+          <div className="col-md-3 z-2 mt-5"> </div>
+
+          <div
+            className="col-md-3 z-2 mt-5"
+            style={{ position: "fixed", top: "5px", right: "10px" }}
+          >
             <div className="glass-card m-0 d-flex flex-column justify-content-center align-items-center">
               <img
                 src={LOGO}
                 alt="Logo"
                 style={{ height: "150px" }}
-                className="mb-4"
+                className="mb-4 rounded-5"
               />
               <h6>
                 Enter Disease/Symptoms to get AI suggested Yoda / Herbs / Home

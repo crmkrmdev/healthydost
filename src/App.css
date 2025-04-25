@@ -15,6 +15,7 @@ html,
   height: 100vh;
   object-fit: cover;
   z-index: -1;
+  filter: blur(10px); /* Adjusted blur effect */
 }
 
 .main {
@@ -22,11 +23,10 @@ html,
   min-height: 100%;
   padding: 5px;
   color: white;
-  background-color: rgba(0, 0, 0, 0.2); /* Slightly darker */
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .header {
-  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
   position: fixed;
   width: 100%;
@@ -136,7 +136,7 @@ textarea::placeholder {
 .glass-card {
   margin: auto;
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -148,4 +148,30 @@ textarea::placeholder {
 
 .custom-placeholder::placeholder {
   color: #bbb !important;
+}
+
+.section-title {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 5px 0;
+  margin-top: 1.6rem;
+  margin-bottom: 0.7rem;
+}
+
+.section-title::before {
+  position: absolute;
+  content: "";
+  background-image: url(.\assets\images\shape\shape-3.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 60px;
+  height: 86px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: -55;
+  opacity: 0.5;
 }

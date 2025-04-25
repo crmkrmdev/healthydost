@@ -28,18 +28,8 @@ const Next = () => {
     <>
       <div className="main d-flex flex-column justify-content-center align-items-center">
         <Header />
-        <div className="overlay w-100 h-100 d-flex flex-column justify-content-center align-items-center">
-          <div
-            className="overlay-content d-flex flex-column justify-content-center align-items-center gap-4 p-4"
-            style={{
-              background: "rgba(255, 255, 255, 0.1)",
-              borderRadius: "16px",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            }}
-          >
+        <div className="glass-card d-flex flex-column justify-content-center align-items-center">
+          <div className="d-flex flex-column justify-content-center align-items-center gap-4 p-4">
             {/* Logo on top */}
             <div className="text-center">
               <img
@@ -95,7 +85,7 @@ const Next = () => {
           </div>
         </div>
 
-        <h3 className="mt-4 bg-dark opacity-75 p-2 text-white text-center d-flex flex-wrap justify-content-center z-2">
+        <h3 className="mt-4 bg-dark opacity-75 p-2 text-white text-center d-flex flex-wrap justify-content-center z-2 rounded">
           {words.map((word, index) => (
             <motion.span
               key={index}

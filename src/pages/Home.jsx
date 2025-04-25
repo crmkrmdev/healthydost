@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
 import LOGO from "../assets/LOGO.png";
+import Header from "./header";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -36,9 +37,10 @@ const Home = () => {
   return (
     <>
       <div className="main d-flex flex-column justify-content-center align-items-center">
+        <Header />
         {/* Foreground content */}
-        <div className="overlay z-2 text-center px-4" style={{ zIndex: 2 }}>
-          <div className="overlay-content">
+        <div className="glass-card">
+          <div className="">
             <h1 className="text-warning fw-bold mb-2">
               India's First AI Enabled Health System!
             </h1>
