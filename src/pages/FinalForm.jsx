@@ -49,7 +49,10 @@ const FinalForm = () => {
 
   return (
     <>
-      <div className="main d-flex justify-content-center align-items-center">
+      <div
+        className="main d-flex justify-content-center align-items-center"
+        // style={{ marginTop: "95px" }}
+      >
         <Header />
         <div className="glass-card p-4" style={{ width: "500px" }}>
           <h3 className="text-center text-warning">User Details</h3>
