@@ -8,11 +8,9 @@ import "./App.css";
 import Symptoms_form from "./pages/Symptoms_form";
 import Daily_routine from "./pages/Daily_routine";
 import Acquaintance_form from "./pages/Acquaintance_form";
-import Acquaintance_symptoms from "./pages/Acquaintance_symptoms";
 import Diet_plan from "./pages/Diet_plan";
 import Login from "./admin/login";
 import Dashboard from "./admin/Dashboard";
-// import Page from "./diet_plan/page";
 
 const App = () => {
   return (
@@ -30,15 +28,10 @@ const App = () => {
         <Route path="/symptoms-form" element={<Symptoms_form />} />
         <Route path="/daily-routine" element={<Daily_routine />} />
         <Route path="/acquaintance" element={<Acquaintance_form />} />
-        <Route path="/final-form" element={<FinalForm />} />
-        <Route
-          path="/acquaintance-symptoms"
-          element={<Acquaintance_symptoms />}
-        />
+        <Route path="/user-form" element={<FinalForm />} />
         <Route path="/diet-plan" element={<Diet_plan />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        {/* <Route path="/page" element={<Page />} /> */}
       </Routes>
     </Router>
   );

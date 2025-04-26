@@ -1,5 +1,6 @@
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import html2pdf from "html2pdf.js";
 
 const exportToExcel = (data, fileName = "table.xlsx") => {
   const ws = XLSX.utils.json_to_sheet(data);
@@ -29,4 +30,21 @@ const tableToJson = (tableId) => {
     });
 };
 
-export { exportToExcel, tableToJson };
+const exportToPdf = (tableId, fileName = "table.pdf") => {
+  const element = document.getElementById(tableId);
+
+  const opt = {
+    margin: [0, 0, 0, 0], // [top, right, bottom, left] margins in inches
+    filename: fileName,
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: {
+      scale: 2,
+      scrollY: -window.scrollY, // Prevents extra space at top
+    },
+    jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+  };
+
+  html2pdf().set(opt).from(element).save();
+};
+
+export { exportToExcel, tableToJson, exportToPdf };

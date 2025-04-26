@@ -75,7 +75,7 @@ const Daily_routine = () => {
                   "acquaintance",
                   JSON.stringify(acquaintance)
                 );
-                navigate("/final-form");
+                navigate("/user-form");
               }
             }}
             onKeyDown={(e) => {
