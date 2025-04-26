@@ -233,12 +233,18 @@ const Diet_plan = () => {
                     ...JSON.parse(localStorage.getItem("illnesses") || "[]")
                       .filter((e) => e.value === true)
                       .map((e) => e.name),
-                    `Age: ${JSON.parse(localStorage.getItem("userData"))?.age}`,
+                    `Age: ${
+                      JSON.parse(localStorage.getItem("userData"))?.age
+                    } Years`,
                     `Gener: ${
                       JSON.parse(localStorage.getItem("userData"))?.gender
                     }`,
                     `Weight: ${
                       JSON.parse(localStorage.getItem("userData"))?.weight
+                    } KG`,
+                    `Allergies: ${
+                      JSON.parse(localStorage.getItem("userData"))?.allergy ||
+                      "No allergy"
                     }`,
                   ].map((symptom, index) => (
                     <span key={index} className="badge bg-success px-3 py-2">

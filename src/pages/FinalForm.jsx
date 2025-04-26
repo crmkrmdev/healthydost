@@ -33,6 +33,7 @@ const FinalForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    localStorage.setItem("userData", JSON.stringify(userData));
     const finalData = {
       purpose: localStorage.getItem("purpose"),
       illnesses: JSON.parse(localStorage.getItem("illnesses")),
