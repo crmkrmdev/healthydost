@@ -32,7 +32,7 @@ const Diet_plan = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 10000); // 10 seconds
+    const timer = setTimeout(() => setLoading(false), 1000); // 10 seconds
     return () => clearTimeout(timer);
   }, []);
 
@@ -555,10 +555,65 @@ const Diet_plan = () => {
               <table className="table table-bordered" id="Diet_Chart_Table">
                 <thead>
                   <tr>
-                    <th colSpan="2" className="text-center fs-2 py-3">
-                      Excessive Thirst Care Guide
+                    <th colSpan="2" className="py-3">
+                      <div className="d-flex flex-column align-items-center">
+                        <div
+                          className="d-flex flex-column align-items-start"
+                          style={{ maxWidth: "500px" }}
+                        >
+                          <span className="fs-3">
+                            For{" "}
+                            {JSON.parse(localStorage.getItem("userData")).name}{" "}
+                            : Customized Diet Plan
+                          </span>
+                          {/* <span className="fs-4">
+                            Goal : {localStorage.getItem("purpose")}
+                          </span> */}
+                          {/* <span className="fs-5">Other Parameters : </span>
+                          <span className="d-flex flex-wrap gap-3">
+                            {[
+                              `Age: ${
+                                JSON.parse(localStorage.getItem("userData"))
+                                  ?.age
+                              } Years`,
+                              `Gener: ${
+                                JSON.parse(localStorage.getItem("userData"))
+                                  ?.gender
+                              }`,
+                              `Weight: ${
+                                JSON.parse(localStorage.getItem("userData"))
+                                  ?.weight
+                              } KG`,
+                              `Allergies: ${
+                                JSON.parse(localStorage.getItem("userData"))
+                                  ?.allergy || "No allergy"
+                              }`,
+                            ].map((symptom, index) => (
+                              <span
+                                key={index}
+                                className="badge bg-secondary p-3 py-1 fw-normal"
+                              >
+                                {symptom}
+                              </span>
+                            ))}
+                          </span> */}
+                        </div>
+                      </div>
                     </th>
                   </tr>
+                  {/* <tr>
+                    <th colSpan="2" className="py-3">
+                      <div className="d-flex flex-column align-items-center">
+                        <div
+                          className="d-flex flex-column align-items-start"
+                          style={{ maxWidth: "500px" }}
+                        >
+                          <span className="fs-3">Your Daily Routine :</span>
+                          <span className="fs-5">Sleep Time : </span>
+                        </div>
+                      </div>
+                    </th>
+                  </tr> */}
                 </thead>
                 <tbody>
                   {dietData.map((section, idx) => (
