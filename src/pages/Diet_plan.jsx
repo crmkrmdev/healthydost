@@ -14,6 +14,7 @@ import home_remedy from "../assets/images/home_remedy.png";
 import yoga_pic from "../assets/images/yoga.png";
 import herbs_pic from "../assets/images/herbs.png";
 import health_tips from "../assets/images/health_tips.png";
+import axios from "axios";
 
 const Diet_plan = () => {
   const loadingTexts = [
@@ -31,7 +32,7 @@ const Diet_plan = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 10000); // 10 seconds
+    const timer = setTimeout(() => setLoading(false), 1000); // 10 seconds
     return () => clearTimeout(timer);
   }, []);
 
@@ -140,6 +141,7 @@ const Diet_plan = () => {
 
   const [yoga, setYoga] = useState(yogaPoses);
   const [text, setText] = useState("");
+  const [dietData, setDietData] = useState(sections);
 
   const handlePdfDownload = () => {
     exportToPdf("Diet_Chart_Table", "Diet_Chart_Table.pdf");
@@ -177,11 +179,156 @@ const Diet_plan = () => {
       });
   };
 
+  function parseDietPlan(apiResponse) {
+    const text = apiResponse.response;
+
+    const allowed = [];
+    const avoid = [];
+    const yoga = [];
+    const herbs = [];
+    const tips = [];
+    const home_remedies = [];
+
+    // Helper to push multiple items
+    const pushItems = (targetArray, textBlock) => {
+      textBlock
+        .split("\n")
+        .map((line) => line.replace(/^[\*\-]\s*/, "").trim())
+        .filter((line) => line)
+        .forEach((line) => targetArray.push(line));
+    };
+
+    // Extract sections
+    const dietPlanMatch = text.match(/Diet Plan:\s*([\s\S]*?)Yoga Poses:/i);
+    const yogaMatch = text.match(/Yoga Poses:\s*([\s\S]*?)Useful Herbs:/i);
+    const herbsMatch = text.match(/Useful Herbs:\s*([\s\S]*?)Foods to Avoid:/i);
+    const avoidMatch = text.match(/Foods to Avoid:\s*([\s\S]*?)Tips:/i);
+    const tipsMatch = text.match(/Tips:\s*([\s\S]*?)Home Remedies:/i);
+    const remediesMatch = text.match(/Home Remedies:\s*([\s\S]*?)Please note/i);
+
+    // Parse each section
+    if (dietPlanMatch) pushItems(allowed, dietPlanMatch[1]);
+    if (yogaMatch) pushItems(yoga, yogaMatch[1]);
+    if (herbsMatch) pushItems(herbs, herbsMatch[1]);
+    if (avoidMatch) pushItems(avoid, avoidMatch[1]);
+    if (tipsMatch) pushItems(tips, tipsMatch[1]);
+    if (remediesMatch) pushItems(home_remedies, remediesMatch[1]);
+
+    return {
+      allowed,
+      avoid,
+      yoga,
+      herbs,
+      tips,
+      home_remedies,
+    };
+  }
+
+  function updateDietPlanFromApi(apiResponse, setDietData) {
+    const parsed = parseDietPlan(apiResponse); // Using the earlier parser function
+
+    setDietData((prevSections) =>
+      prevSections.map((section) => {
+        const lowerTitle = section.title.toLowerCase();
+
+        if (lowerTitle.includes("allowed")) {
+          return { ...section, items: cleanAllowed(parsed.allowed) };
+        } else if (lowerTitle.includes("avoid")) {
+          return { ...section, items: parsed.avoid };
+        } else if (lowerTitle.includes("home remedies")) {
+          return { ...section, items: parsed.home_remedies };
+        } else if (lowerTitle.includes("yoga")) {
+          return { ...section, items: parsed.yoga };
+        } else if (lowerTitle.includes("herbs")) {
+          return { ...section, items: parsed.herbs };
+        } else if (lowerTitle.includes("tips")) {
+          return { ...section, items: parsed.tips };
+        } else {
+          return section;
+        }
+      })
+    );
+  }
+
+  // Helper to clean "Allowed foods: Watermelon, cucumber..." into separate items
+  function cleanAllowed(allowedArray) {
+    if (!allowedArray.length) return [];
+
+    let firstItem = allowedArray[0];
+    let foods = [];
+
+    if (firstItem.includes(":")) {
+      const splitFoods = firstItem.split(":")[1].split(",");
+      foods = splitFoods.map((f) => f.trim());
+    }
+
+    // Add remaining items
+    const extraItems = allowedArray.slice(1);
+
+    return [...foods, ...extraItems];
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % loadingTexts.length);
     }, 2000); // Change text every 2 seconds
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const finalData = {
+      purpose: localStorage.getItem("purpose"),
+      illnesses: JSON.parse(localStorage.getItem("illnesses")),
+      symptoms: JSON.parse(localStorage.getItem("symptoms")),
+      dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")),
+      acquaintance: JSON.parse(localStorage.getItem("acquaintance")),
+      userData: JSON.parse(localStorage.getItem("userData")),
+    };
+    const filteredData = {
+      ...finalData.userData,
+      symptoms: finalData.symptoms
+        .filter((e) => e.value === true)
+        .map((e) => e.name),
+      illness: finalData.illnesses
+        .filter((e) => e.value === true)
+        .map((e) => e.name),
+      mother_disease: finalData.acquaintance
+        .filter((e) => e.name === "Mother")
+        .map((e) => e.selected)[0],
+      father_disease: finalData.acquaintance
+        .filter((e) => e.name === "Father")
+        .map((e) => e.selected)[0],
+      sibling_disease: finalData.acquaintance
+        .filter((e) => e.name === "Siblings")
+        .map((e) => e.selected)[0],
+      daily_routine: finalData.dailyRoutine.map((e) => ({
+        name: e.name,
+        value: e.value,
+      })),
+    };
+
+    console.log(filteredData);
+
+    const apiUrl = "https://karmaayurvedahospital.co/api/addenquiry";
+    const payload = {
+      query: "Diet for excessive thirst",
+    };
+
+    async function fetchDietPlan() {
+      try {
+        const response = await axios.post(apiUrl, payload);
+
+        if (response.data.success) {
+          updateDietPlanFromApi(response.data, setDietData);
+        } else {
+          console.error("API returned failure:", response.data);
+        }
+      } catch (error) {
+        console.error("API call error:", error);
+      }
+    }
+
+    fetchDietPlan();
   }, []);
 
   if (loading) {
@@ -414,7 +561,7 @@ const Diet_plan = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {sections.map((section, idx) => (
+                  {dietData.map((section, idx) => (
                     <tr key={idx}>
                       <td className="align-middle" style={{ width: "40%" }}>
                         <div className="d-flex align-items-center justify-content-start gap-4">
@@ -422,7 +569,7 @@ const Diet_plan = () => {
                             src={section.image || ""}
                             alt=""
                             className="rounded-pill"
-                            style={{ height: "100px", width: "100px" }}
+                            style={{ height: "80px", width: "100px" }}
                           />
                           <span className="fs-5 fw-bold">{section.title}</span>
                         </div>

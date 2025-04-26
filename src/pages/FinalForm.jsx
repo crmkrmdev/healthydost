@@ -34,39 +34,6 @@ const FinalForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem("userData", JSON.stringify(userData));
-    const finalData = {
-      purpose: localStorage.getItem("purpose"),
-      illnesses: JSON.parse(localStorage.getItem("illnesses")),
-      symptoms: JSON.parse(localStorage.getItem("symptoms")),
-      dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")),
-      acquaintance: JSON.parse(localStorage.getItem("acquaintance")),
-      userData: JSON.parse(localStorage.getItem("userData")),
-    };
-
-    const filteredData = {
-      ...userData,
-      symptoms: finalData.symptoms
-        .filter((e) => e.value === true)
-        .map((e) => e.name),
-      illness: finalData.illnesses
-        .filter((e) => e.value === true)
-        .map((e) => e.name),
-      mother_disease: finalData.acquaintance
-        .filter((e) => e.name === "Mother")
-        .map((e) => e.selected)[0],
-      father_disease: finalData.acquaintance
-        .filter((e) => e.name === "Father")
-        .map((e) => e.selected)[0],
-      sibling_disease: finalData.acquaintance
-        .filter((e) => e.name === "Siblings")
-        .map((e) => e.selected)[0],
-      daily_routine: finalData.dailyRoutine.map((e) => ({
-        name: e.name,
-        value: e.value,
-      })),
-    };
-
-    console.log(filteredData);
     navigate("/diet-plan");
   };
 
