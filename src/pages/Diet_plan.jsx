@@ -32,7 +32,7 @@ const Diet_plan = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000); // 10 seconds
+    const timer = setTimeout(() => setLoading(false), 10000); // 10 seconds
     return () => clearTimeout(timer);
   }, []);
 
