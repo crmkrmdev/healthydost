@@ -72,7 +72,9 @@ const FinalForm = () => {
                 value={userData.age || ""}
                 onChange={handleChange}
                 required
-                minvalue={0}
+                maxLength={3}
+                min="0"
+                max="99"
                 type="number"
                 className="form-control text-white border-light"
                 placeholder="Enter age"
@@ -103,23 +105,34 @@ const FinalForm = () => {
                 value={userData.weight || ""}
                 required
                 type="number"
+                min="0"
+                max="500"
                 className="form-control text-white border-light"
                 placeholder="In kg"
               />
             </div>
 
             <div className="mb-2">
-              <label className="form-label text-white">Height (approx)</label>
+              <label className="form-label text-white">
+                Height (approx , In feet)
+              </label>
               <input
                 name="height"
-                onChange={handleChange}
+                onChange={(e) => {
+                  // Format to two decimal places
+                  const value = parseFloat(e.target.value).toFixed(2);
+                  handleChange({ target: { name: "height", value: value } });
+                }}
                 value={userData.height || ""}
                 required
+                min="0"
                 type="number"
+                step="0.01"
                 className="form-control text-white border-light"
                 placeholder="In Feet"
               />
             </div>
+
             <div className="mb-2">
               <label className="form-label text-white">Email</label>
               <input
