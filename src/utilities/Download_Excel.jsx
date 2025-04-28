@@ -32,19 +32,52 @@ const tableToJson = (tableId) => {
 
 const exportToPdf = (tableId, fileName = "table.pdf") => {
   const element = document.getElementById(tableId);
+  const headerElement = element.querySelector("thead");
+  const bodyElement = element.querySelector("tbody");
+
+  // Create a container for both pages
+  const container = document.createElement("div");
+  container.style.width = "100%";
+
+  // Create first page with header
+  const headerPage = document.createElement("div");
+  headerPage.style.height = "100vh";
+  headerPage.style.pageBreakAfter = "always";
+  headerPage.appendChild(headerElement.cloneNode(true));
+  container.appendChild(headerPage);
+
+  // Create second page with body
+  const bodyPage = document.createElement("div");
+  bodyPage.style.pageBreakBefore = "always";
+  bodyPage.style.marginTop = "0"; // Remove top margin
+  bodyPage.style.paddingTop = "0"; // Remove top padding
+  const bodyWrapper = document.createElement("div");
+  bodyWrapper.style.marginTop = "-1in"; // Negative margin to pull content up
+  bodyWrapper.appendChild(bodyElement.cloneNode(true));
+  bodyPage.appendChild(bodyWrapper);
+  container.appendChild(bodyPage);
 
   const opt = {
-    margin: [0, 0, 0, 0], // [top, right, bottom, left] margins in inches
+    margin: [0.25, 0.5, 0.5, 0.5], // Reduced top margin to 0.25 inches
     filename: fileName,
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: {
       scale: 2,
-      scrollY: -window.scrollY, // Prevents extra space at top
+      scrollY: 0,
+      windowHeight: 1123,
     },
-    jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    jsPDF: {
+      unit: "in",
+      format: "letter",
+      orientation: "portrait",
+    },
+    pagebreak: {
+      mode: ["css", "legacy"],
+      before: "#bodyPage",
+    },
   };
 
-  html2pdf().set(opt).from(element).save();
+  html2pdf().set(opt).from(container).save();
 };
 
 export { exportToExcel, tableToJson, exportToPdf };

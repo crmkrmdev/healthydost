@@ -32,9 +32,20 @@ const Diet_plan = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setPick(getRandomIndex());
     const timer = setTimeout(() => setLoading(false), 1000); // 10 seconds
     return () => clearTimeout(timer);
   }, []);
+
+  const wakeUpTime = [
+    ["7:00", "10:00"],
+    ["7:30", "10:30"],
+    ["8:00", "11:00"],
+  ];
+
+  function getRandomIndex() {
+    return Math.floor(Math.random() * 3);
+  }
 
   const herbs = [
     {
@@ -142,6 +153,7 @@ const Diet_plan = () => {
   const [yoga, setYoga] = useState(yogaPoses);
   const [text, setText] = useState("");
   const [dietData, setDietData] = useState(sections);
+  const [pick, setPick] = useState(0);
 
   const handlePdfDownload = () => {
     exportToPdf("Diet_Chart_Table", "Diet_Chart_Table.pdf");
@@ -285,6 +297,7 @@ const Diet_plan = () => {
       userData: JSON.parse(localStorage.getItem("userData")),
     };
     const filteredData = {
+      purpose: finalData.purpose,
       ...finalData.userData,
       symptoms: finalData.symptoms
         .filter((e) => e.value === true)
@@ -307,16 +320,11 @@ const Diet_plan = () => {
       })),
     };
 
-    console.log(filteredData);
-
-    const apiUrl = "https://karmaayurvedahospital.co/api/addenquiry";
-    const payload = {
-      query: "Diet for excessive thirst",
-    };
+    const apiUrl = "https://healthydost.in/healthydostdjango/api/addenquiry";
 
     async function fetchDietPlan() {
       try {
-        const response = await axios.post(apiUrl, payload);
+        const response = await axios.post(apiUrl, filteredData);
 
         if (response.data.success) {
           updateDietPlanFromApi(response.data, setDietData);
@@ -555,28 +563,30 @@ const Diet_plan = () => {
               <table className="table table-bordered" id="Diet_Chart_Table">
                 <thead>
                   <tr>
-                    <th colSpan="2" className="py-3">
+                    <th colSpan="2" className="py-4">
                       <div className="d-flex flex-column align-items-center">
                         <div
-                          className="d-flex flex-column align-items-start"
-                          style={{ maxWidth: "500px" }}
+                          className="d-flex flex-column align-items-start p-4 rounded-3 shadow-sm bg-light"
+                          style={{ maxWidth: "600px", width: "100%" }}
                         >
-                          <span className="fs-3">
+                          <h3 className="fw-bold text-primary mb-3">
                             For{" "}
-                            {JSON.parse(localStorage.getItem("userData")).name}{" "}
-                            : Customized Diet Plan
-                          </span>
-                          {/* <span className="fs-4">
-                            Goal : {localStorage.getItem("purpose")}
-                          </span> */}
-                          {/* <span className="fs-5">Other Parameters : </span>
-                          <span className="d-flex flex-wrap gap-3">
+                            {JSON.parse(localStorage.getItem("userData"))?.name}{" "}
+                            : Customized Diet Chart Plan
+                          </h3>
+                          <h5 className="fw-semibold text-secondary mb-2">
+                            Goal: {localStorage.getItem("purpose")}
+                          </h5>
+                          <h6 className="fw-semibold text-muted mb-2">
+                            Other Parameters:
+                          </h6>
+                          <div className="d-flex flex-wrap gap-2">
                             {[
                               `Age: ${
                                 JSON.parse(localStorage.getItem("userData"))
                                   ?.age
                               } Years`,
-                              `Gener: ${
+                              `Gender: ${
                                 JSON.parse(localStorage.getItem("userData"))
                                   ?.gender
                               }`,
@@ -588,32 +598,104 @@ const Diet_plan = () => {
                                 JSON.parse(localStorage.getItem("userData"))
                                   ?.allergy || "No allergy"
                               }`,
-                            ].map((symptom, index) => (
+                            ].map((item, index) => (
                               <span
                                 key={index}
-                                className="badge bg-secondary p-3 py-1 fw-normal"
+                                className="badge bg-primary-subtle text-primary-emphasis p-2"
                               >
-                                {symptom}
+                                {item}
                               </span>
                             ))}
-                          </span> */}
+                          </div>
                         </div>
                       </div>
                     </th>
                   </tr>
-                  {/* <tr>
-                    <th colSpan="2" className="py-3">
+                  <tr>
+                    <th colSpan="2" className="py-4">
                       <div className="d-flex flex-column align-items-center">
                         <div
-                          className="d-flex flex-column align-items-start"
-                          style={{ maxWidth: "500px" }}
+                          className="d-flex flex-column align-items-start p-4 rounded-3 shadow-sm bg-light"
+                          style={{ maxWidth: "600px", width: "100%" }}
                         >
                           <span className="fs-3">Your Daily Routine :</span>
-                          <span className="fs-5">Sleep Time : </span>
+                          <span className="fs-5">
+                            Sleep Time : {wakeUpTime[pick][1]} PM
+                          </span>
+                          <span className="fs-5">
+                            Wake Up Time : {wakeUpTime[pick][0]} AM
+                          </span>
                         </div>
                       </div>
                     </th>
-                  </tr> */}
+                  </tr>
+                  <tr>
+                    <th colSpan="2" className="py-4">
+                      <div className="d-flex flex-column align-items-center">
+                        <div
+                          className="d-flex flex-column align-items-start p-4 rounded-3 shadow-sm bg-light"
+                          style={{ maxWidth: "600px", width: "100%" }}
+                        >
+                          <div className="w-100">
+                            <h4 className="fw-bold mb-4 text-primary">
+                              Daily Routine
+                            </h4>
+
+                            <div className="mb-4">
+                              <h5 className="fw-semibold text-secondary">
+                                🍳 Breakfast
+                              </h5>
+                              <ul className="list-unstyled ms-3 mt-2">
+                                <li className="mb-1">
+                                  • 8 AM : Juice / Liquid Diet (Launki, Safed
+                                  Petha, Siknangi)
+                                </li>
+                                <li className="mb-1">
+                                  • 10 AM : Breakfst (Fruits only)
+                                </li>
+                              </ul>
+                            </div>
+                            <div className="mb-4">
+                              <h5 className="fw-semibold text-secondary">
+                                🥗 Lunch (1 PM / 2 PM)
+                              </h5>
+                              <ul className="list-unstyled ms-3 mt-2">
+                                <li className="mb-1">• Plate-1 : Salads</li>
+                                <li className="mb-1">
+                                  • Plate-2 : Can have normal meal, Chapati /
+                                  Rice (Anaj) with Dal / Sabji
+                                </li>
+                              </ul>
+                            </div>
+                            <div className="mb-2">
+                              <h5 className="fw-semibold text-secondary">
+                                🍲 Dinner
+                              </h5>
+                              <ul className="list-unstyled ms-3 mt-2">
+                                <li className="mb-1">
+                                  • 7:00 PM: 2 Dal Katori, 2 Sabji with Chapati
+                                  , Half-portion-rice
+                                </li>
+                                <li className="mb-1">
+                                  • 8:30 PM : Glass of Milk (if needed)
+                                </li>
+                              </ul>
+                            </div>
+                            <div className="mb-2">
+                              <h5 className="fw-semibold text-secondary">
+                                Conclusion
+                              </h5>
+                              <ul className="list-unstyled ms-3 mt-2">
+                                <li className="mb-1">
+                                  • No Meal / Eating between 8 PM to 10 AM
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
                 </thead>
                 <tbody>
                   {dietData.map((section, idx) => (
