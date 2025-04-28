@@ -1,10 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Next from "./pages/Next";
 import FinalForm from "./pages/FinalForm";
-import videoBg from "./assets/bg.mp4";
+import mainBg from "./assets/ai-bg.jpg";
 import "./App.css";
+import BgVideo from "./assets/video.mp4";
 import Symptoms_form from "./pages/Symptoms_form";
 import Daily_routine from "./pages/Daily_routine";
 import Acquaintance_form from "./pages/Acquaintance_form";
@@ -16,10 +17,10 @@ const App = () => {
   return (
     <Router>
       {/* Background video always playing */}
-      <video autoPlay loop muted className="background-video">
-        <source src={videoBg} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <div className="main_bg background-video">
+        <video src={BgVideo} autoPlay muted loop playsInline />
+        <img src={mainBg} alt="Healthy Dost" className="img-fluid " />
+      </div>
 
       {/* All Routes */}
       <Routes>

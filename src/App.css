@@ -7,6 +7,13 @@ html,
   width: 100%;
 }
 
+.main_bg.background-video > video {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: -70vw;
+}
+
 .background-video {
   position: fixed;
   top: 0;
@@ -15,7 +22,6 @@ html,
   height: 100vh;
   object-fit: cover;
   z-index: -1;
-  filter: blur(10px); /* Adjusted blur effect */
 }
 
 .main {

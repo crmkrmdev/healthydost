@@ -362,12 +362,13 @@ const Diet_plan = () => {
       </div>
     );
   }
+
   return (
     <>
       <div className="main">
         <Header />
         <div className="row m-0 mt-5">
-          <div className="col-md-9 row">
+          <div className="col-md-9 row  ">
             <div className="d-flex gap-3">
               {/* diet plan */}
               <div
@@ -388,18 +389,12 @@ const Diet_plan = () => {
                     ...JSON.parse(localStorage.getItem("illnesses") || "[]")
                       .filter((e) => e.value === true)
                       .map((e) => e.name),
-                    `Age: ${
-                      JSON.parse(localStorage.getItem("userData"))?.age
-                    } Years`,
+                    `Age: ${JSON.parse(localStorage.getItem("userData"))?.age}`,
                     `Gener: ${
                       JSON.parse(localStorage.getItem("userData"))?.gender
                     }`,
                     `Weight: ${
                       JSON.parse(localStorage.getItem("userData"))?.weight
-                    } KG`,
-                    `Allergies: ${
-                      JSON.parse(localStorage.getItem("userData"))?.allergy ||
-                      "No allergy"
                     }`,
                   ].map((symptom, index) => (
                     <span key={index} className="badge bg-success px-3 py-2">
@@ -511,7 +506,7 @@ const Diet_plan = () => {
           {/*  fixed card at top right */}
           <div
             className="col-md-3 z-2 mt-5"
-            style={{ position: "fixed", top: "10px", right: "10px" }}
+            style={{ position: "fixed", top: "90px", right: "10px" }}
           >
             <div className="glass-card m-0 d-flex flex-column justify-content-center align-items-center">
               <img
@@ -548,19 +543,18 @@ const Diet_plan = () => {
               {/* call button */}
               <div className="glass-card px-3 py-2" style={{ zIndex: 2 }}>
                 For any Assistance or Personalized support call :{" "}
-                <span className="fs-5 fw-semibold text-warning">
-                  9971928080
-                </span>
+                <span className="fs-5 fw-semibold ">9971928080</span>
               </div>
             </div>
           </div>
 
-          <div className="d-flex justify-content-center m-0 mt-2 col-md-9 d-none">
-            <div
-              className="card col-md-10 p-4 mb-5 rounded-5"
-              style={{ background: "rgba(240, 240, 240, 0.8)" }}
-            >
-              <table className="table table-bordered" id="Diet_Chart_Table">
+          <div className="d-flex justify-content-center m-0 mt-2 d-one">
+            <div className="glass-card p-4 mb-5 rounded-5 w-100">
+              <table
+                className="table table-bordered"
+                id="Diet_Chart_Table"
+                style={{ backgroundColor: "gray" }}
+              >
                 <thead>
                   <tr>
                     <th colSpan="2" className="py-4">
@@ -699,7 +693,7 @@ const Diet_plan = () => {
                 </thead>
                 <tbody>
                   {dietData.map((section, idx) => (
-                    <tr key={idx}>
+                    <tr key={idx} className="mb-4">
                       <td className="align-middle" style={{ width: "40%" }}>
                         <div className="d-flex align-items-center justify-content-start gap-4">
                           <img

@@ -41,7 +41,7 @@ const exportToPdf = (tableId, fileName = "table.pdf") => {
 
   // Create first page with header
   const headerPage = document.createElement("div");
-  headerPage.style.height = "100vh";
+  headerPage.style.minHeight = "100vh";
   headerPage.style.pageBreakAfter = "always";
   headerPage.appendChild(headerElement.cloneNode(true));
   container.appendChild(headerPage);
@@ -49,22 +49,37 @@ const exportToPdf = (tableId, fileName = "table.pdf") => {
   // Create second page with body
   const bodyPage = document.createElement("div");
   bodyPage.style.pageBreakBefore = "always";
-  bodyPage.style.marginTop = "0"; // Remove top margin
-  bodyPage.style.paddingTop = "0"; // Remove top padding
-  const bodyWrapper = document.createElement("div");
-  bodyWrapper.style.marginTop = "-1in"; // Negative margin to pull content up
-  bodyWrapper.appendChild(bodyElement.cloneNode(true));
-  bodyPage.appendChild(bodyWrapper);
+  bodyPage.style.marginTop = "0";
+  bodyPage.style.paddingTop = "10px";
+
+  // Clone body and add styles
+  const bodyClone = bodyElement.cloneNode(true);
+  const rows = bodyClone.querySelectorAll("tr");
+  rows.forEach((row) => {
+    row.style.borderBottom = "1px solid #000";
+    row.style.marginBottom = "10px";
+    row.style.paddingBottom = "10px";
+    row.style.display = "table-row"; // Changed from flex to table-row
+    row.style.width = "100%";
+
+    const cells = row.querySelectorAll("td");
+    cells.forEach((cell) => {
+      cell.style.padding = "8px";
+      cell.style.display = "table-cell"; // Added table-cell display
+    });
+  });
+
+  bodyPage.appendChild(bodyClone);
   container.appendChild(bodyPage);
 
   const opt = {
-    margin: [0.25, 0.5, 0.5, 0.5], // Reduced top margin to 0.25 inches
+    margin: [0.5, 0.5, 0.5, 0.5],
     filename: fileName,
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: {
       scale: 2,
       scrollY: 0,
-      windowHeight: 1123,
+      windowHeight: 1123, // Letter size height in pixels
     },
     jsPDF: {
       unit: "in",
@@ -73,7 +88,7 @@ const exportToPdf = (tableId, fileName = "table.pdf") => {
     },
     pagebreak: {
       mode: ["css", "legacy"],
-      before: "#bodyPage",
+      avoid: ["tr"],
     },
   };
 
