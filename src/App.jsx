@@ -17,10 +17,10 @@ const App = () => {
   return (
     <Router>
       {/* Background video always playing */}
-      <div className="main_bg background-video">
+      {/* <div className="main_bg background-video">
         <video src={BgVideo} autoPlay muted loop playsInline />
         <img src={mainBg} alt="Healthy Dost" className="img-fluid " />
-      </div>
+      </div> */}
 
       {/* All Routes */}
       <Routes>

@@ -427,11 +427,11 @@ const Diet_plan = () => {
               </div>
             </div>
             {/* header */}
-            <div className="section-title mb-4">
+            {/* <div className="section-title mb-4">
               <h2>Top 2 Yoga Routines Chosen Just for You</h2>
-            </div>
+            </div> */}
             {/* suggested yogas */}
-            <div className="d-flex mb-4 gap-3">
+            {/* <div className="d-flex mb-4 gap-3">
               {yoga.map((yoga, index) => (
                 <div
                   key={index}
@@ -465,13 +465,13 @@ const Diet_plan = () => {
                   </p>
                 </div>
               ))}
-            </div>
+            </div> */}
             {/* header */}
-            <div className="section-title mb-4">
+            {/* <div className="section-title mb-4">
               <h2>Top 2 Herbal Picks Just for You</h2>
-            </div>
+            </div> */}
             {/* suggested herbs */}
-            <div className="d-flex mb-4 gap-3">
+            {/* <div className="d-flex mb-4 gap-3">
               {herbs.map((herb, index) => (
                 <div
                   key={index}
@@ -501,12 +501,43 @@ const Diet_plan = () => {
                   </p>
                 </div>
               ))}
+            </div> */}
+
+            {/* diet data in card */}
+            <div className="d-flex flex-wrap justify-content-between gap-4 mb-5">
+              {dietData.map((section, idx) => (
+                <div
+                  className="glass-card"
+                  style={{ width: "18rem" }}
+                  key={idx}
+                >
+                  <img
+                    src={section.image}
+                    className="card-img-top rounded-5"
+                    alt={section.title}
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title text-center mb-4">
+                      {section.title}
+                    </h5>
+                    <ul className="list-unstyled">
+                      {section.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="mb-2">
+                          <i className="bi bi-check-circle-fill text-success me-2"></i>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           {/*  fixed card at top right */}
           <div
-            className="col-md-3 z-2 mt-5"
-            style={{ position: "fixed", top: "90px", right: "10px" }}
+            className="col-md-3 z-2"
+            style={{ position: "fixed", top: "60px", right: "10px" }}
           >
             <div className="glass-card m-0 d-flex flex-column justify-content-center align-items-center">
               <img
@@ -548,7 +579,7 @@ const Diet_plan = () => {
             </div>
           </div>
 
-          <div className="d-flex justify-content-center m-0 mt-2 d-one">
+          <div className="d-flex justify-content-center m-0 mt-2 d-none">
             <div className="glass-card p-4 mb-5 rounded-5 w-100">
               <table
                 className="table table-bordered"

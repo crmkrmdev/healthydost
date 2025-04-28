@@ -29,7 +29,7 @@ html,
   min-height: 100%;
   padding: 5px;
   color: white;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 128, 0, 0.329);
 }
 
 .header {
@@ -140,7 +140,7 @@ textarea::placeholder {
 
 /* card */
 .glass-card {
-  margin: auto;
+  /* margin: auto; */
   padding: 1.5rem;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(12px);
