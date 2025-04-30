@@ -7,6 +7,7 @@ import { exportToPdf } from "../utilities/Download_Excel";
 import "./Diet_plan.css";
 import axios from "axios";
 import sample from "../assets/missing-bg.png";
+import Home_Remedies_1 from "../assets/images/Home-Remedies-1.jpg";
 import ImportYogaImage from "../utilities/ImportYogaImage";
 
 const Diet_plan = () => {
@@ -25,7 +26,7 @@ const Diet_plan = () => {
   const [loading, setLoading] = useState(true);
   // loader timer
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000); // 10 seconds
+    const timer = setTimeout(() => setLoading(false), 10000); // 10 seconds
     return () => clearTimeout(timer);
   }, []);
 
@@ -33,10 +34,18 @@ const Diet_plan = () => {
     exportToPdf("Diet_Chart_Table", "Diet_Chart_Div", "Diet_Chart_Table.pdf");
   };
 
+  // to convert names of yogas and herbs to image titles -- used import respective images
+  function toImageTitle(str) {
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("-");
+  }
+
   const sections = [
     {
       title: "Allowed Foods",
-      image: sample,
       items: [
         "Watermelon",
         "Cucumber",
@@ -52,7 +61,6 @@ const Diet_plan = () => {
     },
     {
       title: "Foods to Avoid",
-      image: sample,
       items: [
         "Salty snacks",
         "Sugary drinks",
@@ -61,25 +69,7 @@ const Diet_plan = () => {
       ],
     },
     {
-      title: "Home Remedies",
-      image: sample,
-      items: [
-        "Add fresh mint to salads, beverages, and other dishes for cooling",
-      ],
-    },
-    {
-      title: "Recommeded Yoga",
-      image: sample,
-      items: ["Bhujangasana", "Savasana"],
-    },
-    {
-      title: "Recommeded Herbs",
-      image: sample,
-      items: ["Draksha", "Kharjur"],
-    },
-    {
       title: "Other Tips",
-      image: sample,
       items: [
         "Drink plenty of water",
         "Electrolyte rich drink",
@@ -88,28 +78,17 @@ const Diet_plan = () => {
       ],
     },
   ];
-
   const [yoga, setYoga] = useState([
     {
-      sanskrit_name: "Adho Mukha Svanasana",
-      name: "Downward Facing Dog",
-      photo_url: ImportYogaImage["Adho-Mukha-Svanasana"],
+      name: "Adho Mukha Svanasana",
+      photo_url: ImportYogaImage[toImageTitle("Adho Mukha Svanasana")],
       description:
         "A foundational pose that stretches the whole body and builds strength.",
-      expertise_level: "Beginner",
-      pose_type: ["Standing", "Stretch"],
-      duration: "1-3 minutes",
-      days: "Monday, Wednesday, Friday",
     },
     {
-      sanskrit_name: "Vrikshasana",
-      name: "Tree Pose",
-      photo_url: ImportYogaImage["Vrikshasana"],
+      name: "Vrikshasana",
+      photo_url: ImportYogaImage[toImageTitle("Vrikshasana")],
       description: "A balancing posture that promotes focus and calm.",
-      expertise_level: "Intermediate",
-      pose_type: ["Standing", "Balance"],
-      duration: "30 seconds - 1 minute",
-      days: "Tuesday, Thursday",
     },
   ]);
   const [herbs, setHerbs] = useState([
@@ -118,37 +97,26 @@ const Diet_plan = () => {
       photo_url: sample,
       description:
         "An ancient medicinal herb known for its stress-relieving properties.",
-      benifits: "Reduces stress, boosts energy, improves concentration",
-      dosage: "300–500 mg daily",
-      usage: "Usually taken as a capsule, powder, or tea",
     },
     {
       name: "Tulsi (Holy Basil)",
       photo_url: sample,
       description:
         "A sacred plant in India used for its healing and adaptogenic properties.",
-      benifits: "Boosts immunity, fights infections",
-      dosage: "1–2 teaspoons of leaves daily",
-      usage: "Consumed fresh, as tea, or in supplements",
     },
   ]);
   const [homeRemedies, setHomeRemedies] = useState([
     {
       name: "Honey and Lemon",
-      photo_url: sample,
+      photo_url: Home_Remedies_1,
       description:
         "A soothing remedy that helps reduce throat irritation and suppress coughing.",
-      benifits:
-        "Soothes sore throat, boosts immunity, provides antibacterial effects",
-      usage: "Mix and drink on an empty stomach or before bed",
     },
     {
       name: "Turmeric Milk",
       photo_url: sample,
       description:
         "A traditional Ayurvedic drink that helps reduce inflammation and fight infection.",
-      benifits: "Relieves cold symptoms, improves sleep, supports healing",
-      usage: "Best consumed before bedtime",
     },
   ]);
   const [text, setText] = useState("");
@@ -227,140 +195,87 @@ const Diet_plan = () => {
     return () => clearInterval(interval);
   }, []);
 
-  function parseDietPlan(apiResponse) {
-    const text = apiResponse.response;
-    const allowed = [];
-    const avoid = [];
+  function parseHealthData(rawText) {
+    const allowedFoods = [];
+    const foodsToAvoid = [];
+    const otherTips = [];
     const yoga = [];
     const herbs = [];
-    const tips = [];
-    const home_remedies = [];
+    const homeRemedies = [];
 
-    // Helper to push multiple items
-    const pushItems = (targetArray, textBlock) => {
-      if (!textBlock) return;
+    const lines = rawText
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+    let section = "";
 
-      textBlock
-        .split("\n")
-        .map((line) => line.replace(/^[\*\-\d\.]\s*/, "").trim())
-        .filter((line) => line)
-        .forEach((line) => {
-          // Handle colon-separated lists
-          if (line.includes(":")) {
-            const items = line.split(":")[1].split(",");
-            items.forEach((item) => {
-              const cleanItem = item
-                .trim()
-                .replace(/\(.*?\)/g, "")
-                .trim();
-              if (cleanItem) targetArray.push(cleanItem);
-            });
-          } else {
-            targetArray.push(line);
-          }
-        });
-    };
+    const removeNumbering = (str) => str.replace(/^\d+\.\s*/, "");
 
-    // Try first format
-    const format1 = {
-      diet: text.match(/Diet Plan:?\s*([\s\S]*?)(?=Yoga Poses:|$)/i),
-      yoga: text.match(/Yoga Poses:?\s*([\s\S]*?)(?=Useful Herbs:|$)/i),
-      herbs: text.match(/Useful Herbs:?\s*([\s\S]*?)(?=Foods to Avoid:|$)/i),
-      avoid: text.match(/Foods to Avoid:?\s*([\s\S]*?)(?=Tips:|$)/i),
-      tips: text.match(/Tips:?\s*([\s\S]*?)(?=Home Remedies:|$)/i),
-      remedies: text.match(
-        /Home Remedies:?\s*([\s\S]*?)(?=(?:Please note|$))/i
-      ),
-    };
+    for (const line of lines) {
+      if (/^Diet Plan/i.test(line)) section = "diet";
+      else if (/^Foods to Avoid/i.test(line)) section = "avoid";
+      else if (/^Yoga Poses/i.test(line)) section = "yoga";
+      else if (/^Useful Herbs/i.test(line)) section = "herbs";
+      else if (/^Tips/i.test(line)) section = "tips";
+      else if (/^Home Remedies/i.test(line)) section = "remedies";
+      else {
+        switch (section) {
+          case "diet":
+            if (line.includes(":")) {
+              const [, foods] = line.split(":");
+              allowedFoods.push(...foods.split(",").map((f) => f.trim()));
+            } else {
+              allowedFoods.push(...line.split(",").map((f) => f.trim()));
+            }
+            break;
 
-    // Try second format
-    const format2 = {
-      diet: text.match(/\*\*Diet Plan\*\*\s*([\s\S]*?)(?=\*\*Yoga Poses|$)/i),
-      yoga: text.match(
-        /\*\*Yoga Poses\*\*\s*([\s\S]*?)(?=\*\*Useful Herbs|$)/i
-      ),
-      herbs: text.match(
-        /\*\*Useful Herbs\*\*\s*([\s\S]*?)(?=\*\*Foods to Avoid|$)/i
-      ),
-      avoid: text.match(/\*\*Foods to Avoid\*\*\s*([\s\S]*?)(?=\*\*Tips|$)/i),
-      tips: text.match(/\*\*Tips\*\*\s*([\s\S]*?)(?=\*\*Home Remedies|$)/i),
-      remedies: text.match(/\*\*Home Remedies\*\*\s*([\s\S]*?)(?=$)/i),
-    };
+          case "avoid":
+            foodsToAvoid.push(
+              ...line
+                .replace(/^- /, "")
+                .split(",")
+                .map((f) => f.trim())
+            );
+            break;
 
-    // Use whichever format matches
-    const format = format1.diet ? format1 : format2;
+          case "tips":
+            otherTips.push(line.replace(/^- /, "").trim());
+            break;
 
-    // Handle Diet Plan section (splitting allowed/avoid foods)
-    if (format.diet && format.diet[1]) {
-      const dietText = format.diet[1];
-      if (dietText.toLowerCase().includes("allowed:")) {
-        const [_, ...allowedSection] = dietText.split("Allowed:");
-        pushItems(allowed, allowedSection.join(""));
-      } else if (dietText.toLowerCase().includes("foods to include:")) {
-        const [_, ...includeSection] = dietText.split("Foods to include:");
-        pushItems(allowed, includeSection.join(""));
+          case "yoga":
+            const yogaMatch = line.match(/^\d+\.\s*(.+?)\s*-\s*(.+)$/);
+            if (yogaMatch) {
+              yoga.push({
+                name: removeNumbering(yogaMatch[1]),
+                description: yogaMatch[2].trim(),
+              });
+            }
+            break;
+
+          case "herbs":
+            const herbMatch = line.match(/^\d+\.\s*(.+?)\s*-\s*(.+)$/);
+            if (herbMatch) {
+              herbs.push({
+                name: removeNumbering(herbMatch[1]),
+                description: herbMatch[2].trim(),
+              });
+            }
+            break;
+
+          case "remedies":
+            const remedyMatch = line.match(/^(.*?):\s*(.+)$/);
+            if (remedyMatch) {
+              homeRemedies.push({
+                name: removeNumbering(remedyMatch[1]),
+                description: remedyMatch[2].trim(),
+              });
+            }
+            break;
+        }
       }
     }
 
-    // Parse other sections
-    if (format.yoga) pushItems(yoga, format.yoga[1]);
-    if (format.herbs) pushItems(herbs, format.herbs[1]);
-    if (format.avoid) pushItems(avoid, format.avoid[1]);
-    if (format.tips) pushItems(tips, format.tips[1]);
-    if (format.remedies) pushItems(home_remedies, format.remedies[1]);
-
-    return {
-      allowed,
-      avoid,
-      yoga,
-      herbs,
-      tips,
-      home_remedies,
-    };
-  }
-
-  function updateDietPlanFromApi(apiResponse, setDietData) {
-    const parsed = parseDietPlan(apiResponse); // Using the earlier parser function
-
-    setDietData((prevSections) =>
-      prevSections.map((section) => {
-        const lowerTitle = section.title.toLowerCase();
-
-        if (lowerTitle.includes("allowed")) {
-          return { ...section, items: cleanAllowed(parsed.allowed) };
-        } else if (lowerTitle.includes("avoid")) {
-          return { ...section, items: parsed.avoid };
-        } else if (lowerTitle.includes("home remedies")) {
-          return { ...section, items: parsed.home_remedies };
-        } else if (lowerTitle.includes("yoga")) {
-          return { ...section, items: parsed.yoga };
-        } else if (lowerTitle.includes("herbs")) {
-          return { ...section, items: parsed.herbs };
-        } else if (lowerTitle.includes("tips")) {
-          return { ...section, items: parsed.tips };
-        } else {
-          return section;
-        }
-      })
-    );
-  }
-
-  // Helper to clean "Allowed foods: Watermelon, cucumber..." into separate items
-  function cleanAllowed(allowedArray) {
-    if (!allowedArray.length) return [];
-
-    let firstItem = allowedArray[0];
-    let foods = [];
-
-    if (firstItem.includes(":")) {
-      const splitFoods = firstItem.split(":")[1].split(",");
-      foods = splitFoods.map((f) => f.trim());
-    }
-
-    // Add remaining items
-    const extraItems = allowedArray.slice(1);
-
-    return [...foods, ...extraItems];
+    return { allowedFoods, foodsToAvoid, otherTips, yoga, herbs, homeRemedies };
   }
 
   useEffect(() => {
@@ -403,8 +318,72 @@ const Diet_plan = () => {
         const response = await axios.post(apiUrl, filteredData);
 
         if (response.data.success) {
-          updateDietPlanFromApi(response.data, setDietData);
-          // console.log(response.data);
+          console.log(response.data.response);
+          const parsed = parseHealthData(response.data.response);
+          console.log(parsed);
+          setDietData([
+            {
+              title: "Allowed Foods",
+              image: sample,
+              items:
+                parsed?.allowedFoods.filter(
+                  (e) => (e) => e.length > 3 && e.length < 100
+                ) || [],
+            },
+            {
+              title: "Foods to Avoid",
+              image: sample,
+              items:
+                parsed?.foodsToAvoid.filter(
+                  (e) => e.length > 3 && e.length < 100
+                ) || [],
+            },
+            {
+              title: "Other Tips",
+              image: sample,
+              items: parsed?.otherTips.filter((e) => e.length > 3) || [],
+            },
+          ]);
+          setYoga([
+            {
+              name: parsed.yoga[0]?.name || "",
+              photo_url:
+                ImportYogaImage[toImageTitle(parsed.yoga[0]?.name)] || sample,
+              description: parsed.yoga[0]?.description || "",
+            },
+            {
+              name: parsed.yoga[1]?.name || "",
+              photo_url:
+                ImportYogaImage[toImageTitle(parsed.yoga[1]?.name)] || sample,
+              description: parsed.yoga[1]?.description || "",
+            },
+          ]);
+          setHerbs([
+            {
+              name: parsed.herbs[0]?.name || "",
+              photo_url:
+                ImportYogaImage[toImageTitle(parsed.herbs[0]?.name)] || sample,
+              description: parsed.herbs[0]?.description || "",
+            },
+            {
+              name: parsed.herbs[1]?.name || "",
+              photo_url:
+                ImportYogaImage[toImageTitle(parsed.herbs[1]?.name)] || sample,
+              description: parsed.herbs[1]?.description || "",
+            },
+          ]);
+          setHomeRemedies([
+            {
+              name: parsed.homeRemedies[0]?.name || "",
+              photo_url: Home_Remedies_1,
+              description: parsed.homeRemedies[0]?.description || "",
+            },
+            {
+              name: parsed.homeRemedies[1]?.name || "",
+              photo_url: Home_Remedies_1,
+              description: parsed.homeRemedies[1]?.description || "",
+            },
+          ]);
         } else {
           console.error("API returned failure:", response.data);
         }
@@ -590,8 +569,7 @@ const Diet_plan = () => {
                 {yoga.map((yoga, index) => (
                   <div key={index} className="col-md-6 mt-3">
                     <div className="glass-card flex-column">
-                      <h4 className="text-left">{yoga.sanskrit_name}</h4>
-                      <p className="text-left fst-italic mb-2">{yoga.name}</p>
+                      <h4 className="text-left">{yoga.name}</h4>
 
                       <div className=" m-0 d-flex flex-row align-items-center justify-content-between p-3 gap-3">
                         <div className="d-flex flex-column align-items-left ">
@@ -606,14 +584,14 @@ const Diet_plan = () => {
                             {yoga.description}
                           </p>
                           {/* <p className="mb-1">
-                            <strong>Level:</strong> {yoga.expertise_level}
+                            <strong>Benefits:</strong> {yoga.description}
                           </p> */}
-                          <p className="mb-1">
+                          {/* <p className="mb-1">
                             <strong>Type:</strong> {yoga.pose_type.join(", ")}
                           </p>
                           <p className="mb-1">
                             <strong>Duration:</strong> {yoga.duration}
-                          </p>
+                          </p> */}
                           {/* <p className="mb-1">
                             <strong>Days:</strong> {yoga.days}
                           </p> */}
@@ -644,15 +622,15 @@ const Diet_plan = () => {
                           <p className="mb-2" style={{ fontSize: "0.9rem" }}>
                             {herb.description}
                           </p>
-                          <p className="mb-1">
+                          {/* <p className="mb-1">
                             <strong>Benifits:</strong> {herb.benifits}
-                          </p>
+                          </p> */}
                           {/* <p className="mb-1">
                             <strong>Dosage:</strong> {herb.dosage}
                           </p> */}
-                          <p className="mb-1">
+                          {/* <p className="mb-1">
                             <strong>Usage:</strong> {herb.usage}
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                     </div>
@@ -683,9 +661,9 @@ const Diet_plan = () => {
                           {/* <p className="mb-1">
                             <strong>Benifits:</strong> {herb.benifits}
                           </p> */}
-                          <p className="mb-1">
+                          {/* <p className="mb-1">
                             <strong>Usage:</strong> {herb.usage}
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                     </div>
@@ -775,7 +753,11 @@ const Diet_plan = () => {
                           maxHeight: "80px",
                         }}
                       >
-                        <img src={cc.image} alt="" style={{ width: "100px" }} />
+                        <img
+                          src={cc.image || sample}
+                          alt=""
+                          style={{ width: "80px", height: "80px" }}
+                        />
                         <div className="p-2">
                           <h6>{item.title}</h6>
                           <span

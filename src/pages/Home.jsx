@@ -118,7 +118,7 @@ const Home = () => {
         <div className="dish_card_container">
           <div className="row">
             <div className="col">
-              <img src={Dish} alt="aaa" class="img-fluid" />
+              <img src={Dish} alt="aaa" className="img-fluid" />
             </div>
           </div>
         </div>
