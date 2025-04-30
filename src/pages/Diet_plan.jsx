@@ -4,17 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import Header from "./header";
 import PDF from "../assets/download-4.png";
 import { exportToPdf } from "../utilities/Download_Excel";
-import healthy_food from "../assets/images/healthy_food.png";
-import snacks_food from "../assets/images/snacks_food.png";
-import home_remedy from "../assets/images/home_remedy.png";
-import yoga_pic from "../assets/images/yoga.png";
-import herbs_pic from "../assets/images/herbs.png";
-import health_tips from "../assets/images/health_tips.png";
 import "./Diet_plan.css";
 import axios from "axios";
 import sample from "../assets/missing-bg.png";
-import Paschimutasan from "../assets/Paschimutasan.png";
-import Halasana from "../assets/Halasana.png";
+import ImportYogaImage from "../utilities/ImportYogaImage";
 
 const Diet_plan = () => {
   const loadingTexts = [
@@ -43,7 +36,7 @@ const Diet_plan = () => {
   const sections = [
     {
       title: "Allowed Foods",
-      image: healthy_food,
+      image: sample,
       items: [
         "Watermelon",
         "Cucumber",
@@ -59,7 +52,7 @@ const Diet_plan = () => {
     },
     {
       title: "Foods to Avoid",
-      image: snacks_food,
+      image: sample,
       items: [
         "Salty snacks",
         "Sugary drinks",
@@ -69,24 +62,24 @@ const Diet_plan = () => {
     },
     {
       title: "Home Remedies",
-      image: home_remedy,
+      image: sample,
       items: [
         "Add fresh mint to salads, beverages, and other dishes for cooling",
       ],
     },
     {
       title: "Recommeded Yoga",
-      image: yoga_pic,
+      image: sample,
       items: ["Bhujangasana", "Savasana"],
     },
     {
       title: "Recommeded Herbs",
-      image: herbs_pic,
+      image: sample,
       items: ["Draksha", "Kharjur"],
     },
     {
       title: "Other Tips",
-      image: health_tips,
+      image: sample,
       items: [
         "Drink plenty of water",
         "Electrolyte rich drink",
@@ -100,7 +93,7 @@ const Diet_plan = () => {
     {
       sanskrit_name: "Adho Mukha Svanasana",
       name: "Downward Facing Dog",
-      photo_url: Paschimutasan,
+      photo_url: ImportYogaImage["Adho-Mukha-Svanasana"],
       description:
         "A foundational pose that stretches the whole body and builds strength.",
       expertise_level: "Beginner",
@@ -111,7 +104,7 @@ const Diet_plan = () => {
     {
       sanskrit_name: "Vrikshasana",
       name: "Tree Pose",
-      photo_url: Halasana,
+      photo_url: ImportYogaImage["Vrikshasana"],
       description: "A balancing posture that promotes focus and calm.",
       expertise_level: "Intermediate",
       pose_type: ["Standing", "Balance"],
@@ -165,8 +158,11 @@ const Diet_plan = () => {
     {
       title: "Yoga",
       items: [
-        { name: "Adho Mukha Svanasana", image: Paschimutasan },
-        { name: "Vrikshasana", image: Halasana },
+        {
+          name: "Adho Mukha Svanasana",
+          image: ImportYogaImage["Paschimutasan"],
+        },
+        { name: "Vrikshasana", image: ImportYogaImage["Halasana"] },
       ],
     },
     {
@@ -233,7 +229,6 @@ const Diet_plan = () => {
 
   function parseDietPlan(apiResponse) {
     const text = apiResponse.response;
-
     const allowed = [];
     const avoid = [];
     const yoga = [];
@@ -601,7 +596,7 @@ const Diet_plan = () => {
                       <div className=" m-0 d-flex flex-row align-items-center justify-content-between p-3 gap-3">
                         <div className="d-flex flex-column align-items-left ">
                           <img
-                            src={yoga.photo_url}
+                            src={yoga.photo_url || sample}
                             alt={yoga.name}
                             className="rounded-3 w-100"
                           />

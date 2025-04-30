@@ -3,14 +3,7 @@ import { CircleLoader } from "react-spinners";
 import { AnimatePresence, motion } from "framer-motion";
 import Header from "./header";
 import PDF from "../assets/download-2.gif";
-import LOGO from "../assets/LOGO.png";
 import { exportToPdf } from "../utilities/Download_Excel";
-import healthy_food from "../assets/images/healthy_food.png";
-import snacks_food from "../assets/images/snacks_food.png";
-import home_remedy from "../assets/images/home_remedy.png";
-import yoga_pic from "../assets/images/yoga.png";
-import herbs_pic from "../assets/images/herbs.png";
-import health_tips from "../assets/images/health_tips.png";
 import "./Diet_plan.css";
 import axios from "axios";
 import sample from "../assets/11.jpg";
@@ -41,7 +34,7 @@ const Diet_plan_2 = () => {
   const sections = [
     {
       title: "Allowed Foods",
-      image: healthy_food,
+      image: sample,
       items: [
         "Watermelon",
         "Cucumber",
@@ -57,7 +50,7 @@ const Diet_plan_2 = () => {
     },
     {
       title: "Foods to Avoid",
-      image: snacks_food,
+      image: sample,
       items: [
         "Salty snacks",
         "Sugary drinks",
@@ -67,24 +60,24 @@ const Diet_plan_2 = () => {
     },
     {
       title: "Home Remedies",
-      image: home_remedy,
+      image: sample,
       items: [
         "Add fresh mint to salads, beverages, and other dishes for cooling",
       ],
     },
     {
       title: "Recommeded Yoga",
-      image: yoga_pic,
+      image: sample,
       items: ["Bhujangasana", "Savasana"],
     },
     {
       title: "Recommeded Herbs",
-      image: herbs_pic,
+      image: sample,
       items: ["Draksha", "Kharjur"],
     },
     {
       title: "Other Tips",
-      image: health_tips,
+      image: sample,
       items: [
         "Drink plenty of water",
         "Electrolyte rich drink",
