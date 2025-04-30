@@ -21,7 +21,7 @@ const Header = () => {
         className="rounded-5"
       />
       <button className="header-btn px-5 py-3 rounded-pill fw-semibold">
-        My INDIA Healthy INDIA
+        My India Healthy India
       </button>
     </div>
   );

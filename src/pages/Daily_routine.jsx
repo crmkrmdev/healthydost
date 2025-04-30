@@ -43,10 +43,10 @@ const Daily_routine = () => {
   };
 
   return (
-    <>
-      <div className="main d-flex flex-column justify-content-center align-items-center ">
-        <Header />
-        <div className="glass-card">
+    <div className="custom-background">
+      <Header />
+      <div className="main d-flex flex-column justify-content-center align-items-center">
+        <div className="glass-card safe lable_resp">
           <form
             className="d-flex gap-4"
             onSubmit={(e) => {
@@ -65,14 +65,14 @@ const Daily_routine = () => {
           >
             <div className="text-start ">
               <div className="mb-4">
-                <h3 className="text-center text-warning">Daily Routine</h3>
+                <h3 className="text-center ">Daily Routine</h3>
               </div>
               {dailyRoutine.map((item, index) => (
-                <div key={index} className="mb-3 d-flex gap-3">
+                <div key={index} className="mb-1 d-flex gap-3">
                   <label
                     className="form-label"
                     style={{
-                      width: "200px",
+                      width: "220px",
                     }}
                   >
                     {item.name}
@@ -80,33 +80,38 @@ const Daily_routine = () => {
                       <span className="text-danger fw-semibold ms-2">*</span>
                     )}
                   </label>
-                  <div className="d-flex gap-3">
-                    {item.options.map((option, optIndex) => (
-                      <div key={optIndex} className="form-check">
-                        <label className="form-check-label">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id={`${item.name}-${option}`}
-                            checked={item.value === option}
-                            onChange={() => {
-                              const updated = [...dailyRoutine];
-                              updated[index].value = option;
-                              setDailyRoutine(updated);
-                              localStorage.setItem(
-                                "dailyRoutine",
-                                JSON.stringify(updated)
-                              );
-                            }}
-                          />
+                  <div className="d-flex flex-wrap gap-2">
+                    {" "}
+                    {item.options.map((option, optIndex) => {
+                      const selected = item.value === option;
+                      return (
+                        <button
+                          key={optIndex}
+                          type="button"
+                          className={`btn btn-sm rounded-3 border px-3 ${
+                            selected
+                              ? "bg-success-subtle border-success text-green fw-medium"
+                              : "bg-white"
+                          }`}
+                          onClick={() => {
+                            const updated = [...dailyRoutine];
+                            updated[index].value = option;
+                            setDailyRoutine(updated);
+                            localStorage.setItem(
+                              "dailyRoutine",
+                              JSON.stringify(updated)
+                            );
+                          }}
+                        >
+                          {option === item.value && "✓ "}
                           {option}
-                        </label>
-                      </div>
-                    ))}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
-              <div className="d-flex justify-content-center gap-2">
+              <div className="d-flex justify-content-center gap-2 mt-4">
                 <button
                   className="btn btn-secondary"
                   onClick={() => navigate(-1)}
@@ -121,7 +126,7 @@ const Daily_routine = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
