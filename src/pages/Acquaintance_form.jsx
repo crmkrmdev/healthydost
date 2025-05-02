@@ -88,6 +88,10 @@ const Daily_routine = () => {
                   Do any of your family members are suffering from these
                   diseases?
                 </h3>
+                <p className="text-secondary text-center">
+                  This helps identify genetic risks or hereditary medical
+                  conditions, for better personalized diet
+                </p>
                 {error && (
                   <div className="text-danger text-center">({error})</div>
                 )}

@@ -150,7 +150,7 @@ const FinalForm = () => {
                 value={userData.height || ""}
                 required
                 type="number"
-                step="0.1"
+                step="0.01"
                 min={3.0}
                 max={7.0}
                 className="form-control text-dark border-light"
