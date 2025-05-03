@@ -122,7 +122,7 @@ const exportToPdf = (tableId, divID, fileName = "header.pdf") => {
     pagebreak: { mode: ["css", "legacy"], before: "#page-break" },
   };
 
-  html2pdf().set(opt).from(fullContainer).save();
+  return html2pdf().set(opt).from(fullContainer).save();
 };
 
 export { exportToExcel, tableToJson, exportToPdf };
