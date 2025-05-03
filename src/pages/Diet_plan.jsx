@@ -122,6 +122,7 @@ const Diet_plan = () => {
   const [text, setText] = useState("");
   const [dietData, setDietData] = useState(sections);
   const [expandedCards, setExpandedCards] = useState({});
+  const [shouldDownload, setShouldDownload] = useState(false);
   const [searchResults, setSearchResults] = useState([
     {
       title: "Yoga",
@@ -148,6 +149,33 @@ const Diet_plan = () => {
       ],
     },
   ]);
+
+  // expan all toggles of cards before download
+  const toggleAllExpand = () => {
+    setExpandedCards({
+      0: true,
+      1: true,
+      2: true,
+    });
+    setShouldDownload(true);
+  };
+  // donwload pdf once all cards are expanded
+  useEffect(() => {
+    if (
+      expandedCards[0] &&
+      expandedCards[1] &&
+      expandedCards[2] &&
+      shouldDownload
+    ) {
+      handlePdfDownload();
+      setShouldDownload(false);
+      setExpandedCards({
+        0: false,
+        1: false,
+        2: false,
+      });
+    }
+  }, [expandedCards, shouldDownload]);
 
   const toggleExpand = (idx) => {
     setExpandedCards((prev) => ({
@@ -318,16 +346,16 @@ const Diet_plan = () => {
         const response = await axios.post(apiUrl, filteredData);
 
         if (response.data.success) {
-          console.log(response.data.response);
+          // console.log(response.data.response);
           const parsed = parseHealthData(response.data.response);
-          console.log(parsed);
+          // console.log(parsed);
           setDietData([
             {
               title: "Allowed Foods",
               image: sample,
               items:
                 parsed?.allowedFoods.filter(
-                  (e) => (e) => e.length > 3 && e.length < 100
+                  (e) => e.length > 3 && e.length < 100
                 ) || [],
             },
             {
@@ -542,7 +570,7 @@ const Diet_plan = () => {
                       className="btn btn-tranparent"
                       onClick={(e) => {
                         e.preventDefault();
-                        handlePdfDownload();
+                        toggleAllExpand();
                       }}
                     >
                       <img
@@ -682,7 +710,12 @@ const Diet_plan = () => {
                   )
                   .map((section, idx) => (
                     <div className="col-md-4 mb-4" key={idx}>
-                      <div className="glass-card d-flex flex-column p-3 w-100 justify-content-start align-items-start">
+                      <div
+                        className="glass-card d-flex flex-column p-3 w-100 justify-content-start align-items-start"
+                        style={{
+                          height: "265px",
+                        }}
+                      >
                         <h5 className="card-title text-center mb-3">
                           {section.title}
                         </h5>
@@ -775,6 +808,7 @@ const Diet_plan = () => {
               </div>
             </div>
 
+            {/* table to be included in pdf */}
             <div className="d-flex justify-content-center m-0 mt-2 d-none">
               <div className="glass-card p-4 mb-5 rounded-5 w-100">
                 <table className="table table-bordered" id="Diet_Chart_Table">
