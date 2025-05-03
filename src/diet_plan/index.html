@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title></title>
+    <meta name="robots" content="noindex, follow" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <link rel="stylesheet" href="assets/css/plugins/icofont.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins/flaticon.css" />
+    <link rel="stylesheet" href="assets/css/plugins/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css" />
+    <link rel="stylesheet" href="assets/css/plugins/nice-select.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      body {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="acacadlod"></div>
+    <script>
+      (function () {
+        const el = (tag, cls = "", html = "") => {
+          const e = document.createElement(tag);
+          if (cls) e.className = cls;
+          if (html) e.innerHTML = html;
+          return e;
+        };
+        const acacadlod = document.getElementById("acacadlod");
+        const wrapper = el("div", "main-wrapper");
+        const headerSection = el("div", "header section");
+        const headerMain = el("div", "header-main");
+        const containerFluid = el("div", "container-fluid");
+        const headerWrapper = el("div", "header-wrapper");
+
+        const logoDiv = el("div", "header-logo");
+        const logoLink = el("a");
+        logoLink.href = "index.html";
+        const logoImg = el("img");
+        logoImg.src = "assets/images/logo.png";
+        logoImg.alt = "Logo";
+        logoLink.appendChild(logoImg);
+        logoDiv.appendChild(logoLink);
+
+        const menuDiv = el("div", "header-menu d-none d-lg-flex");
+        const btnDiv = el("div", "header-btn");
+        const btn = el(
+          "a",
+          "btn btn-secondary btn-hover-primary",
+          "My India Healthy India"
+        );
+        btn.href = "javascript:void(0);";
+        btnDiv.appendChild(btn);
+        menuDiv.appendChild(btnDiv);
+
+        headerWrapper.appendChild(logoDiv);
+        headerWrapper.appendChild(menuDiv);
+        containerFluid.appendChild(headerWrapper);
+        headerMain.appendChild(containerFluid);
+        headerSection.appendChild(headerMain);
+        wrapper.appendChild(headerSection);
+        wrapper.appendChild(el("div", "overlay"));
+        const siteContainer = el("div", "container-website");
+        const siteFluid = el("div", "container-fluid");
+        const row = el("div", "row");
+        const colLeft = el("div", "col-lg-9");
+        const dpRow = el("div", "row");
+        const cardLeft = el("div", "glass-card col-md-8 m-0 mb-4 mt-4");
+        cardLeft.innerHTML = `
+        <div class="card">
+          <p class="fs-5">Here is your <span class="fw-semibold fs-5">customized</span></p>
+          <p class="fs-5">Diet Plan</p>
+          <div class="d-flex flex-wrap gap-2 mb-2">
+            <span class="badge bg-primary me-2 mb-2">No symptoms</span>
+            <span class="badge bg-primary me-2 mb-2">No illness</span>
+          </div>
+        </div>
+      `;
+        const cardRight = el("div", "glass-card col-md-4 m-0 mb-4 mt-4");
+        cardRight.innerHTML = `
+        <div class="card white-bg">
+          <a href="">
+            <div class="download_pdf">
+              <img src="assets/images/download.gif" alt="Download Pdf" />
+              <h5>Download PDF</h5>
+            </div>
+          </a>
+        </div>
+      `;
+        dpRow.appendChild(cardLeft);
+        dpRow.appendChild(cardRight);
+        colLeft.appendChild(dpRow);
+        const yogaContainer = el("div", "container-fluid");
+        const yogaRow = el("div", "row");
+        const yogaTitle = el("div", "section-title");
+        yogaTitle.innerHTML = `<h2 class="main-title">Top 2 Yoga Routines Chosen Just for You</h2>`;
+
+        const makeYogaCard = () => {
+          const card = el("div", "glass-card col-md-6 m-0 mb-4 mt-4");
+          card.innerHTML = `
+          <div class="card">
+            <div class="yoga_pose">
+              <img src="assets/images/Pashasana.gif" alt="Pashasana.gif" class="img-fluid">
+            </div>
+            <div class="yoga-container">
+              <p>Pashasana (Noose Pose) is a beginner seated twist that gently massages abdominal organs. Keep your spine lengthened and twist from the torso, not the neck. Benefits include improved digestion and spinal flexibility.</p>
+              <ul class="yogaul">
+                <li><strong> Level:</strong> Beginner</li>
+                <li><strong> Type:</strong> Seated, Twist</li>
+                <li><strong> Duration:</strong> 10 minutes to 15 minutes</li>
+                <li><strong> Days:</strong> 3-4 times a week</li>
+              </ul>
+            </div>
+          </div>
+        `;
+          return card;
+        };
+        yogaRow.appendChild(yogaTitle);
+        yogaRow.appendChild(makeYogaCard());
+        yogaRow.appendChild(makeYogaCard());
+        yogaContainer.appendChild(yogaRow);
+        colLeft.appendChild(yogaContainer);
+        const herbContainer = el("div", "container-fluid");
+        const herbRow = el("div", "row");
+        const herbTitle = el("div", "section-title");
+        herbTitle.innerHTML = `<h2 class="main-title">Top 2 Herbal Picks Just for You</h2>`;
+
+        const makeHerbCard = (name, img) => {
+          const card = el("div", "glass-card col-md-6 m-0 mb-4 mt-4");
+          card.innerHTML = `
+          <div class="card">
+            <div class="yoga_pose herbs">
+              <img src="${img}" alt="${name}" class="img-fluid">
+            </div>
+            <div class="yoga-container">
+              <div class="card-title"><h3>${name}</h3></div>
+              <p>A powerful adaptogen known to reduce stress, enhance stamina, and strengthen the immune system.</p>
+              <ul class="yogaul">
+                <li><strong> Benefit: </strong>  Reduces stress and anxiety, enhances stamina, boosts immunity.</li>
+                <li><strong> Dosage: </strong> 500 mg to 1 g per day.</li>
+                <li><strong> Usage: </strong> Can be taken in powder form with warm milk or water.</li>
+              </ul>
+            </div>
+          </div>
+        `;
+          return card;
+        };
+        herbRow.appendChild(herbTitle);
+        herbRow.appendChild(
+          makeHerbCard("Ashwagandha", "assets/images/ashwagandha.webp")
+        );
+        herbRow.appendChild(
+          makeHerbCard("Petunia", "assets/images/petunia.gif")
+        );
+        herbContainer.appendChild(herbRow);
+        colLeft.appendChild(herbContainer);
+        const colRight = el("div", "col-lg-3");
+        const searchCard = el("div", "glass-card col-md-12 m-0 mb-4 mt-4");
+        searchCard.innerHTML = `
+        <div class="card">
+          <form action="" method="get">
+            <input type="search" name="search" id="searchid" placeholder="Search...">
+          </form>
+        </div>
+      `;
+        colRight.appendChild(searchCard);
+        row.appendChild(colLeft);
+        row.appendChild(colRight);
+        siteFluid.appendChild(row);
+        siteContainer.appendChild(siteFluid);
+        wrapper.appendChild(siteContainer);
+        const videoSection = el("div", "slider-section slider-active section");
+        const bgVideo = el("div", "bg-video");
+        bgVideo.innerHTML = `
+        <video loop muted autoplay poster="#" class="background-video">
+          <source src="assets/video/bg.mp4" type="video/mp4">
+        </video>
+      `;
+        videoSection.appendChild(bgVideo);
+        wrapper.appendChild(videoSection);
+        acacadlod.appendChild(wrapper);
+        document.body.style.visibility = "visible";
+      })();
+    </script>
+
+    <!-- JS LIBS -->
+    <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/plugins/popper.min.js"></script>
+    <script src="assets/js/plugins/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/swiper-bundle.min.js"></script>
+    <script src="assets/js/plugins/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/plugins/jquery.nice-select.min.js"></script>
+    <script src="assets/js/plugins/video-playlist.js"></script>
+    <script src="assets/js/plugins/ajax-contact.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

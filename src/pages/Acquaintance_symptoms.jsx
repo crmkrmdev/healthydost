@@ -35,12 +35,7 @@ const Acquaintance_symptoms = () => {
   return (
     <>
       <Header />
-      <div
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-        }}
-        className="main d-flex flex-column justify-content-center align-items-center"
+      <div style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1, }} className="main d-flex flex-column justify-content-center align-items-center"
       >
         <form
           onSubmit={(e) => {

@@ -25,6 +25,10 @@ const FinalForm = () => {
       if (/^\d*$/.test(value)) {
         setUserData((prevFormData) => ({ ...prevFormData, [name]: value }));
       }
+    } else if (name === "name") {
+      if (/^[a-zA-Z\s]*$/.test(value)) {
+        setUserData((prevFormData) => ({ ...prevFormData, [name]: value }));
+      }
     } else {
       setUserData((prevFormData) => ({ ...prevFormData, [name]: value }));
     }
@@ -33,119 +37,47 @@ const FinalForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const finalData = {
-      purpose: localStorage.getItem("purpose"),
-      illnesses: JSON.parse(localStorage.getItem("illnesses")),
-      symptoms: JSON.parse(localStorage.getItem("symptoms")),
-      dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")),
-      acquaintance: JSON.parse(localStorage.getItem("acquaintance")).filter(
-        (e) => e.value === true
-      ),
-      userData: JSON.parse(localStorage.getItem("userData")),
-    };
-    console.log("Final Data:", finalData);
+    localStorage.setItem("userData", JSON.stringify(userData));
     navigate("/diet-plan");
   };
 
   return (
-    <>
+    <div className="custom-background">
+      <Header />
       <div className="main d-flex justify-content-center align-items-center">
-        <Header />
-        <div className="glass-card p-4" style={{ width: "500px" }}>
-          <h3 className="text-center">User Details</h3>
+        <div
+          className="glass-card p-4 safe mb-4 flex-column"
+          style={{ width: "500px" }}
+        >
+          <h3 className="text-center mb-4 text-green">Personal Details</h3>
           <form
-            className="FinalForm"
+            className="FinalForm row"
             onSubmit={handleSubmit}
             onKeyDown={(e) => {
               if (e.key === "Enter") e.preventDefault();
             }}
           >
-            <div className="mb-2">
-              <label className="form-label text-white">Name</label>
+            <div className="mb-2 col-md-6">
+              <label className="form-label text-dark">Name</label>
               <input
                 name="name"
                 value={userData.name || ""}
                 onChange={handleChange}
                 required
                 type="text"
-                className="form-control text-white border-light"
+                className="form-control text-dark border-light"
                 placeholder="Enter full name"
               />
             </div>
-            <div className="mb-2">
-              <label className="form-label text-white">Age</label>
-              <input
-                name="age"
-                value={userData.age || ""}
-                onChange={handleChange}
-                required
-                minvalue={0}
-                type="number"
-                className="form-control text-white border-light"
-                placeholder="Enter age"
-              />
-            </div>
-            <div className="mb-2">
-              <label className="form-label text-white">Gender</label>
-              <select
-                name="gender"
-                value={userData.gender || ""}
-                onChange={handleChange}
-                className="form-select text-white border-light"
-                required
-              >
-                <option value="">Select gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div className="mb-2">
-              <label className="form-label text-white">Weight (approx)</label>
-              <input
-                name="weight"
-                onChange={handleChange}
-                value={userData.weight || ""}
-                required
-                type="number"
-                className="form-control text-white border-light"
-                placeholder="In kg"
-              />
-            </div>
-
-            <div className="mb-2">
-              <label className="form-label text-white">Height (approx)</label>
-              <input
-                name="height"
-                onChange={handleChange}
-                value={userData.height || ""}
-                required
-                type="number"
-                className="form-control text-white border-light"
-                placeholder="In Feet"
-              />
-            </div>
-            <div className="mb-2">
-              <label className="form-label text-white">Email</label>
-              <input
-                name="email"
-                onChange={handleChange}
-                value={userData.email || ""}
-                required
-                type="email"
-                className="form-control text-white border-light"
-                placeholder="example@email.com"
-              />
-            </div>
-            <div className="mb-2">
-              <label className="form-label text-white">Phone</label>
+            <div className="mb-2 col-md-6">
+              <label className="form-label text-dark">Phone</label>
               <input
                 type="text"
                 name="phone"
                 value={userData.phone || ""}
                 onChange={handleChange}
                 maxLength={10}
-                className="form-control text-white border-light"
+                className="form-control text-dark border-light"
                 placeholder="Enter phone number"
                 required
                 pattern="\d{10}" // Ensures exactly 10 digits
@@ -153,13 +85,87 @@ const FinalForm = () => {
               />
             </div>
             <div className="mb-2">
-              <label className="form-label text-white">Allergy</label>
+              <label className="form-label text-dark">Email</label>
+              <input
+                name="email"
+                onChange={handleChange}
+                value={userData.email || ""}
+                required
+                type="email"
+                className="form-control text-dark border-light"
+                placeholder="example@email.com"
+              />
+            </div>
+            <div className="mb-2 col-md-6">
+              <label className="form-label text-dark">Age</label>
+              <input
+                name="age"
+                value={userData.age || ""}
+                onChange={handleChange}
+                required
+                min={5}
+                max={99}
+                type="number"
+                className="form-control text-dark border-light"
+                placeholder="Enter age"
+              />
+            </div>
+            <div className="mb-2 col-md-6">
+              <label className="form-label text-dark">Gender</label>
+              <select
+                name="gender"
+                value={userData.gender || ""}
+                onChange={handleChange}
+                className="form-select text-dark border-light"
+                required
+              >
+                <option value="" disabled>
+                  Select gender
+                </option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div className="mb-2 col-md-6">
+              <label className="form-label text-dark">Weight (approx)</label>
+              <input
+                name="weight"
+                onChange={handleChange}
+                value={userData.weight || ""}
+                max={300}
+                min={5}
+                required
+                type="number"
+                className="form-control text-dark border-light"
+                placeholder="65 kg"
+              />
+            </div>
+
+            <div className="mb-2 col-md-6">
+              <label className="form-label text-dark">Height (approx)</label>
+              <input
+                name="height"
+                onChange={handleChange}
+                value={userData.height || ""}
+                required
+                type="number"
+                step="0.01"
+                min={3.0}
+                max={7.0}
+                className="form-control text-dark border-light"
+                placeholder="5.6 Feet"
+              />
+            </div>
+
+            <div className="mb-2">
+              <label className="form-label text-dark">Allergy</label>
               <input
                 type="text"
                 name="allergy"
                 value={userData.allergy || ""}
                 onChange={handleChange}
-                className="form-control text-white border-light"
+                className="form-control text-dark border-light"
                 placeholder="Enter allergy (if any)"
               />
             </div>
@@ -177,7 +183,7 @@ const FinalForm = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

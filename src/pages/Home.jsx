@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
-import LOGO from "../assets/LOGO.png";
+import Header from "./header";
+import Dish from "../assets/bot_gif.gif";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -35,23 +36,32 @@ const Home = () => {
 
   return (
     <>
+      <Header />
       <div className="main d-flex flex-column justify-content-center align-items-center">
-        {/* Foreground content */}
-        <div className="overlay z-2 text-center px-4" style={{ zIndex: 2 }}>
-          <div className="overlay-content">
-            <h1 className="text-white fw-bold mb-2">
-              India's First AI Enabled Health System!
-            </h1>
-            <p className="text-warning mb-4" style={{ fontSize: "1.2rem" }}>
-              स्वस्थस्य स्वास्थ्य रक्षणं, आतुरस्य विकार प्रशमनं
-            </p>
+        <div className="fn__center_title safe" id="img_gen">
+          {/* <div className="lines">
+            <span className="l"></span>
+            <span className="c"></span>
+            <span className="r"></span>
+          </div> */}
+          <div className="text">
+            <div className="fn__animated_text ready stop">
+              <h1 className="text-green fw-bold mb-2">
+                India's First AI Enabled Health System!
+              </h1>
+              <p className="text-green mb-4" style={{ fontSize: "1.2rem" }}>
+                स्वस्थस्य स्वास्थ्य रक्षणं, आतुरस्य विकार प्रशमनं
+              </p>
+            </div>
+          </div>
+          <div className="mt-5">
             <form
-              className="mb-3 px-5 d-flex flex-column"
+              className="mb-3 mt-4 px-5 d-flex flex-column mobile-w"
               onSubmit={handleSend}
             >
               <div className="d-flex gap-3 flex-wrap justify-content-center">
-                <img src={LOGO} alt="Logo" style={{ height: "150px" }} />
-                <div className="gap-2 d-flex flex-column justify-content-center align-items-center w-100">
+                {/* <img src={LOGO} alt="Logo" style={{ height: "150px" }} /> */}
+                <div className="gap-2 d-flex flex justify-content-center align-items-center w-100">
                   <select
                     className="form-select text-white border-light bg-dark bg-opacity-50"
                     value={purpose}
@@ -96,12 +106,20 @@ const Home = () => {
                     />
                   )}
 
-                  <button type="submit" className="btn btn-grad w-100">
+                  <button type="submit" className="btn btn-grad md-px-4">
                     Send
                   </button>
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+
+        <div className="dish_card_container">
+          <div className="row">
+            <div className="col">
+              <img src={Dish} alt="aaa" className="img-fluid" />
+            </div>
           </div>
         </div>
 

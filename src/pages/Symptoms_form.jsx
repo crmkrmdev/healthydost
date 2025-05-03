@@ -15,23 +15,23 @@ const Symptoms_form = () => {
     { name: "Acidity / GERD", value: false },
     { name: "Anxiety / Sleep Disorders", value: false },
     { name: "High Blood Pressure", value: false },
-    { name: "No illness", value: false },
+    { name: "No Illness", value: false },
   ];
 
   const defaultSymptoms = [
-    { name: "saansFulna", value: false },
-    { name: "frequentUrination", value: false },
-    { name: "lowUrination", value: false },
-    { name: "excessiveThirst", value: false },
-    { name: "lowThirst", value: false },
-    { name: "swelling", value: false },
-    { name: "headache", value: false },
-    { name: "muscleOrJointPain", value: false },
-    { name: "indigestionOrBloating", value: false },
-    { name: "fatigueOrLowEnergy", value: false },
-    { name: "backPain", value: false },
-    { name: "neckPain", value: false },
-    { name: "No symptoms", value: false },
+    { name: "Saans Fulna", value: false },
+    { name: "Frequent Urination", value: false },
+    { name: "Low Urination", value: false },
+    { name: "Excessive Thirst", value: false },
+    { name: "Low Thirst", value: false },
+    { name: "Swelling", value: false },
+    { name: "Headache", value: false },
+    { name: "Muscle Or Joint Pain", value: false },
+    { name: "Indigestion Or Bloating", value: false },
+    { name: "Fatigue Or LowEnergy", value: false },
+    { name: "Back Pain", value: false },
+    { name: "Neck Pain", value: false },
+    { name: "No Symptoms", value: false },
   ];
 
   const [illnesses, setIllnesses] = useState(() => {
@@ -58,10 +58,10 @@ const Symptoms_form = () => {
   };
 
   return (
-    <>
+    <div className="custom-background">
+      <Header />
       <div className="main d-flex flex-column justify-content-center align-items-center">
-        <Header />
-        <div className="glass-card">
+        <div className="glass-card safe">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -78,13 +78,13 @@ const Symptoms_form = () => {
             <div className="d-flex gap-4">
               <div className="text-start " style={{ width: "400px" }}>
                 <div className="mb-3">
-                  <h5>
+                  <h5 className="text-green">
                     Have you experienced any of the following illnesses in the
                     past 90 days?{" "}
                     <span
                       style={{
                         fontSize: "0.7em",
-                        color: "gray",
+                        color: "black",
                       }}
                     >
                       (Choose as many)
@@ -99,42 +99,70 @@ const Symptoms_form = () => {
                     )}
                   </h5>
                 </div>
-                {illnesses.map((symptom, index) => {
-                  return (
-                    <div key={index} className="form-check ms-3 mt-2">
-                      <label className="form-check-label">
-                        {symptom.name.charAt(0).toUpperCase() +
-                          symptom.name.slice(1).replace(/([A-Z])/g, " $1")}
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value={symptom.name}
-                          checked={symptom.value}
-                          id="flexCheckDefault"
-                          onChange={(e) => {
-                            const updatedSymptoms = [...illnesses];
-                            updatedSymptoms[index].value = e.target.checked;
-                            setIllnesses(updatedSymptoms);
-                            localStorage.setItem(
-                              "illnesses",
-                              JSON.stringify(updatedSymptoms)
+                <div className="d-flex flex-wrap gap-2 ms-2 mt-2">
+                  {illnesses.map((symptom, index) => {
+                    return (
+                      <button
+                        key={index}
+                        type="button"
+                        className={`btn btn-sm rounded-3 border ${
+                          symptom.value
+                            ? "bg-success-subtle border-success text-green fw-medium"
+                            : "bg-white"
+                        } ${
+                          symptom.name === "No Illness"
+                            ? "fw-medium text-danger"
+                            : "fw-normal"
+                        }`}
+                        onClick={() => {
+                          const updatedSymptoms = [...illnesses];
+
+                          if (
+                            updatedSymptoms[index].name === "No Illness" &&
+                            !updatedSymptoms[index].value
+                          ) {
+                            updatedSymptoms.forEach((s, i) => {
+                              updatedSymptoms[i].value =
+                                s.name === "No Illness";
+                            });
+                          } else {
+                            updatedSymptoms[index].value =
+                              !updatedSymptoms[index].value;
+
+                            const noIllnessIndex = updatedSymptoms.findIndex(
+                              (s) => s.name === "No Illness"
                             );
-                          }}
-                        />
-                      </label>
-                    </div>
-                  );
-                })}
+                            if (
+                              noIllnessIndex !== -1 &&
+                              updatedSymptoms[index].value
+                            ) {
+                              updatedSymptoms[noIllnessIndex].value = false;
+                            }
+                          }
+
+                          setIllnesses(updatedSymptoms);
+                          localStorage.setItem(
+                            "illnesses",
+                            JSON.stringify(updatedSymptoms)
+                          );
+                        }}
+                      >
+                        {symptom.value && "✓ "}
+                        {symptom.name}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
               <div className="text-start " style={{ width: "400px" }}>
                 <div className="mb-3">
-                  <h5>
+                  <h5 className="text-green">
                     Have you experienced any of these symptoms in the last 90
                     days?{" "}
                     <span
                       style={{
                         fontSize: "0.7em",
-                        color: "gray",
+                        color: "black",
                       }}
                     >
                       (Choose as many)
@@ -149,32 +177,60 @@ const Symptoms_form = () => {
                     )}
                   </h5>
                 </div>
-                {symptoms.map((symptom, index) => {
-                  return (
-                    <div key={index} className="form-check ms-3 mt-2">
-                      <label className="form-check-label">
-                        {symptom.name.charAt(0).toUpperCase() +
-                          symptom.name.slice(1).replace(/([A-Z])/g, " $1")}
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value={symptom.name}
-                          checked={symptom.value}
-                          id="flexCheckDefault"
-                          onChange={(e) => {
-                            const updatedSymptoms = [...symptoms];
-                            updatedSymptoms[index].value = e.target.checked;
-                            setSymptoms(updatedSymptoms);
-                            localStorage.setItem(
-                              "symptoms",
-                              JSON.stringify(updatedSymptoms)
+                <div className="d-flex flex-wrap gap-2 ms-2 mt-2">
+                  {symptoms.map((symptom, index) => {
+                    return (
+                      <button
+                        key={index}
+                        type="button"
+                        className={`btn btn-sm rounded-3 border ${
+                          symptom.value
+                            ? "bg-success-subtle border-success text-green fw-medium"
+                            : "bg-white"
+                        } ${
+                          symptom.name === "No Symptoms"
+                            ? "fw-medium text-danger"
+                            : "fw-normal"
+                        }`}
+                        onClick={() => {
+                          const updatedSymptoms = [...symptoms];
+
+                          if (
+                            updatedSymptoms[index].name === "No Symptoms" &&
+                            !updatedSymptoms[index].value
+                          ) {
+                            updatedSymptoms.forEach((s, i) => {
+                              updatedSymptoms[i].value =
+                                s.name === "No Symptoms";
+                            });
+                          } else {
+                            updatedSymptoms[index].value =
+                              !updatedSymptoms[index].value;
+
+                            const noSymptomsIndex = updatedSymptoms.findIndex(
+                              (s) => s.name === "No Symptoms"
                             );
-                          }}
-                        />
-                      </label>
-                    </div>
-                  );
-                })}
+                            if (
+                              noSymptomsIndex !== -1 &&
+                              updatedSymptoms[index].value
+                            ) {
+                              updatedSymptoms[noSymptomsIndex].value = false;
+                            }
+                          }
+
+                          setSymptoms(updatedSymptoms);
+                          localStorage.setItem(
+                            "symptoms",
+                            JSON.stringify(updatedSymptoms)
+                          );
+                        }}
+                      >
+                        {symptom.value && "✓ "}
+                        {symptom.name}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
             <div className="d-flex justify-content-center gap-2 mt-4">
@@ -191,7 +247,7 @@ const Symptoms_form = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

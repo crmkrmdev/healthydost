@@ -1,10 +1,10 @@
-import { option } from "framer-motion/client";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./header";
 
 const Daily_routine = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const defaultAcquaintance = [
     {
       name: "Father",
@@ -16,6 +16,7 @@ const Daily_routine = () => {
         "Cancer",
         "Arthritis",
         "Psoriasis/Eczema",
+        "No Disease",
       ],
     },
     {
@@ -28,6 +29,7 @@ const Daily_routine = () => {
         "Cancer",
         "Arthritis",
         "Psoriasis/Eczema",
+        "No Disease",
       ],
     },
     {
@@ -40,6 +42,7 @@ const Daily_routine = () => {
         "Cancer",
         "Arthritis",
         "Psoriasis/Eczema",
+        "No Disease",
       ],
     },
   ];
@@ -49,20 +52,31 @@ const Daily_routine = () => {
     return saved ? JSON.parse(saved) : defaultAcquaintance;
   });
 
+  const validateForm = () => {
+    if (acquaintance.some((item) => item.selected.length === 0)) {
+      setError("Please select diseases for all family members or No disease");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
   return (
-    <>
+    <div className="custom-background">
+      <Header />
       <div className="main d-flex flex-column justify-content-center align-items-center">
-        <Header />
-        <div className="glass-card">
+        <div className="glass-card safe">
           <form
             className="d-flex gap-4"
             onSubmit={(e) => {
               e.preventDefault();
-              localStorage.setItem(
-                "acquaintance",
-                JSON.stringify(acquaintance)
-              );
-              navigate("/final-form");
+              if (validateForm()) {
+                localStorage.setItem(
+                  "acquaintance",
+                  JSON.stringify(acquaintance)
+                );
+                navigate("/final-form");
+              }
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") e.preventDefault();
@@ -70,45 +84,67 @@ const Daily_routine = () => {
           >
             <div className="text-start">
               <div className="mb-4">
-                <h3 className="text-center">
+                <h3 className="text-center ">
                   Do any of your family members are suffering from these
                   diseases?
                 </h3>
+                <p className="text-secondary text-center">
+                  This helps identify genetic risks or hereditary medical
+                  conditions, for better personalized diet
+                </p>
+                {error && (
+                  <div className="text-danger text-center">({error})</div>
+                )}
               </div>
               {acquaintance.map((item, itemIndex) => (
                 <div key={itemIndex} className="mb-3 d-flex align-items-center">
-                  <h4 className="form-label fw-bold me-3">{item.name} :</h4>
-                  <div className="d-flex flex-wrap gap-3">
+                  <h4
+                    className="form-label fw-bold me-3"
+                    style={{ minWidth: "90px" }}
+                  >
+                    {item.name}
+                  </h4>
+                  <div className="d-flex flex-wrap gap-2">
+                    :
                     {item.options.map((option, optionIndex) => (
-                      <div className="form-check" key={optionIndex}>
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          id={`check-${itemIndex}-${optionIndex}`}
-                          checked={item.selected.includes(option)}
-                          onChange={() => {
-                            const updated = [...acquaintance];
-                            const selected = updated[itemIndex].selected;
-                            if (selected.includes(option)) {
-                              updated[itemIndex].selected = selected.filter(
-                                (d) => d !== option
-                              );
-                            } else {
-                              updated[itemIndex].selected = [
-                                ...selected,
-                                option,
-                              ];
-                            }
-                            setAcquaintance(updated);
-                          }}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor={`check-${itemIndex}-${optionIndex}`}
-                        >
-                          {option}
-                        </label>
-                      </div>
+                      <button
+                        type="button"
+                        key={optionIndex}
+                        className={`btn btn-sm rounded-3 border ${
+                          item.selected.includes(option)
+                            ? "bg-success-subtle border-success text-green fw-medium"
+                            : "bg-white"
+                        } ${
+                          option === "No Disease"
+                            ? "fw-medium text-danger"
+                            : "fw-normal"
+                        }`}
+                        onClick={() => {
+                          const updated = [...acquaintance];
+                          const selected = updated[itemIndex].selected;
+
+                          if (option === "No Disease") {
+                            updated[itemIndex].selected = selected.includes(
+                              "No Disease"
+                            )
+                              ? []
+                              : ["No Disease"];
+                          } else {
+                            updated[itemIndex].selected = selected.includes(
+                              option
+                            )
+                              ? selected.filter((d) => d !== option)
+                              : [
+                                  ...selected.filter((d) => d !== "No Disease"),
+                                  option,
+                                ];
+                          }
+                          setAcquaintance(updated);
+                        }}
+                      >
+                        {item.selected.includes(option) && "✓ "}
+                        {option}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -129,7 +165,7 @@ const Daily_routine = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,0 +1,9 @@
+.main {
+    background: #0000006b;
+}
+
+img.mb-4.rounded-5 {
+    max-width: 330px;
+    object-fit: contain;
+    margin-bottom: 0 !important;
+}

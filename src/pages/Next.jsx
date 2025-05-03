@@ -25,40 +25,23 @@ const Next = () => {
   }, []);
 
   return (
-    <>
+    <div className="custom-background">
+      <Header />
       <div className="main d-flex flex-column justify-content-center align-items-center">
-        <Header />
-        <div className="overlay w-100 h-100 d-flex flex-column justify-content-center align-items-center">
-          <div
-            className="overlay-content d-flex flex-column justify-content-center align-items-center gap-4 p-4"
-            style={{
-              background: "rgba(255, 255, 255, 0.1)",
-              borderRadius: "16px",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            }}
-          >
+        <div className="glass-card d-flex flex-column justify-content-center align-items-center safe">
+          <div className="d-flex flex-column justify-content-center align-items-center gap-1 p-4 mobile-padding">
             {/* Logo on top */}
-            <div className="text-center">
-              <img
-                src="/Healthy Dost Logo.png"
-                alt="Logo"
-                className="logo mb-3"
-                style={{ width: "150px" }}
-              />
-            </div>
 
             {/* Heading */}
-            <h1 className="text-white fw-bold text-center">
-              India's First AI Enabled Dietician!
+            <h1 className=" text-green fw-bold text-center">
+              India's First AI Enabled Health System!
             </h1>
-
+            <h4 className=" text-green text-center mb-4">
+              You are just one step away
+            </h4>
             {/* Progress and Button */}
             <div className="d-flex gap-3">
               <div className="d-flex flex-column justify-content-center gap-2">
-                <h4 className="text-center">You are just one step away</h4>
                 <div
                   className="progress rounded-pill"
                   style={{ width: "300px", backgroundColor: "#e0e0e0" }}
@@ -95,7 +78,7 @@ const Next = () => {
           </div>
         </div>
 
-        <h3 className="mt-4 bg-dark opacity-75 p-2 text-white text-center d-flex flex-wrap justify-content-center z-2">
+        <h3 className="mt-5 p-2 text-center d-flex flex-wrap justify-content-center z-2 rounded float-glow">
           {words.map((word, index) => (
             <motion.span
               key={index}
@@ -109,7 +92,7 @@ const Next = () => {
           ))}
         </h3>
       </div>
-    </>
+    </div>
   );
 };
 
