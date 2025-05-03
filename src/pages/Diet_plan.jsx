@@ -681,9 +681,13 @@ const Diet_plan = () => {
                     </div>
                   </div>
                 ))}
-                <div id="page-break"></div>
+
                 {/* header */}
-                <div className="section-title mb-4 text-green">
+                <div
+                  className={`section-title mb-4 text-green ${
+                    shouldDownload ? "page-break" : ""
+                  }`}
+                >
                   <h2>2 Best useful Home Remedies for You</h2>
                 </div>
                 {/* suggested remedies */}
