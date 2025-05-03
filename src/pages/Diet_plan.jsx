@@ -24,11 +24,24 @@ const Diet_plan = () => {
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [apiLoading, setApiLoading] = useState(true); // Track API call status
+
   // loader timer
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 10000); // 10 seconds
+    const timer = setTimeout(() => {
+      if (!apiLoading) {
+        setLoading(false); // Stop loading if API is not loading
+      }
+    }, 10000); // 10 seconds
     return () => clearTimeout(timer);
-  }, []);
+  }, [apiLoading]); // Re-run effect when apiLoading changes
+
+  // Ensure loading remains true if apiLoading is still true
+  useEffect(() => {
+    if (!loading && apiLoading) {
+      setLoading(true); // Ensure loading stays true until apiLoading is false
+    }
+  }, [apiLoading, loading]);
 
   const handlePdfDownload = () => {
     exportToPdf("Diet_Chart_Table", "Diet_Chart_Div", "Diet_Chart_Table.pdf");
@@ -342,6 +355,7 @@ const Diet_plan = () => {
     const apiUrl = "https://healthydost.in/healthydostdjango/api/addenquiry";
 
     async function fetchDietPlan() {
+      setApiLoading(true);
       try {
         const response = await axios.post(apiUrl, filteredData);
 
@@ -417,6 +431,8 @@ const Diet_plan = () => {
         }
       } catch (error) {
         console.error("API call error:", error);
+      } finally {
+        setApiLoading(false);
       }
     }
 
@@ -588,6 +604,7 @@ const Diet_plan = () => {
                   </div>
                 </div>
               </div>
+
               <div className="row" id="Diet_Chart_Div">
                 {/* header */}
                 <div className="section-title mb-4 text-green">
@@ -664,6 +681,7 @@ const Diet_plan = () => {
                     </div>
                   </div>
                 ))}
+                <div id="page-break"></div>
                 {/* header */}
                 <div className="section-title mb-4 text-green">
                   <h2>2 Best useful Home Remedies for You</h2>
@@ -734,7 +752,9 @@ const Diet_plan = () => {
 
                         {section.items.length > 5 && (
                           <button
-                            className="btn btn-link text-end mt-2 p-0 align-self-end"
+                            className={`btn btn-link text-end mt-2 p-0 align-self-end ${
+                              shouldDownload ? "d-none" : ""
+                            }`}
                             onClick={() => toggleExpand(idx)}
                           >
                             {expandedCards[idx] ? "Show less" : "Show more"}

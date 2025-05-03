@@ -232,7 +232,7 @@ textarea::placeholder {
 .section-title::before {
   position: absolute;
   content: "";
-  background-image: url(.\assets\images\shape\shape-3.png);
+  /* background-image: url(.\assets\images\shape\shape-3.png); */
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -452,6 +452,8 @@ img.img-fluid {
   background-position: center 210px;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: -1;
+  opacity: 0.6;
 }
 
 .top_fixed_card {

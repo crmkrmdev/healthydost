@@ -35,7 +35,7 @@ const Daily_routine = () => {
     const newErrors = {};
     dailyRoutine.forEach((item) => {
       if (!item.value) {
-        newErrors[item.name] = "Please select an option";
+        newErrors[item.name] = "*";
       }
     });
     setErrors(newErrors);
@@ -65,7 +65,15 @@ const Daily_routine = () => {
           >
             <div className="text-start ">
               <div className="mb-4">
-                <h3 className="text-center ">Daily Routine</h3>
+                <h3 className="text-center mb-0">Daily Routine</h3>
+                {Object.values(errors).some((e) => e === "*") && (
+                  <div className="text-center">
+                    <span className="text-danger">
+                      Please fill in all required fields marked with an asterisk
+                      (*).
+                    </span>
+                  </div>
+                )}
               </div>
               {dailyRoutine.map((item, index) => (
                 <div key={index} className="mb-1 d-flex gap-3">
@@ -77,7 +85,9 @@ const Daily_routine = () => {
                   >
                     {item.name}
                     {errors[item.name] && (
-                      <span className="text-danger fw-semibold ms-2">*</span>
+                      <span className="text-danger fw-semibold ms-2">
+                        {errors[item.name]}
+                      </span>
                     )}
                   </label>
                   <div className="d-flex flex-wrap gap-2">
