@@ -1,10 +1,19 @@
-const images = import.meta.glob("../assets/images/yoga/*.png", { eager: true });
-
+const yogaImages = import.meta.glob("../assets/images/yoga/*.png", {
+  eager: true,
+});
 const ImportYogaImage = {};
-
-for (const path in images) {
+for (const path in yogaImages) {
   const name = path.split("/").pop().replace(".png", "");
-  ImportYogaImage[name] = images[path].default;
+  ImportYogaImage[name] = yogaImages[path].default;
 }
 
-export default ImportYogaImage;
+const herbsImages = import.meta.glob("../assets/images/herbs/*.png", {
+  eager: true,
+});
+const ImportHerbsImage = {};
+for (const path in herbsImages) {
+  const name = path.split("/").pop().replace(".png", "");
+  ImportHerbsImage[name] = herbsImages[path].default;
+}
+
+export { ImportYogaImage, ImportHerbsImage };

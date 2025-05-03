@@ -8,7 +8,11 @@ import "./Diet_plan.css";
 import axios from "axios";
 import sample from "../assets/missing-bg.png";
 import Home_Remedies_1 from "../assets/images/Home-Remedies-1.jpg";
-import ImportYogaImage from "../utilities/ImportYogaImage";
+import Home_Remedies_2 from "../assets/images/Home-Remedies-2.png";
+import {
+  ImportYogaImage,
+  ImportHerbsImage,
+} from "../utilities/ImportYogaImage";
 
 const Diet_plan = () => {
   const loadingTexts = [
@@ -107,13 +111,13 @@ const Diet_plan = () => {
   const [herbs, setHerbs] = useState([
     {
       name: "Ashwagandha",
-      photo_url: sample,
+      photo_url: ImportHerbsImage[toImageTitle("Ashwagandha")],
       description:
         "An ancient medicinal herb known for its stress-relieving properties.",
     },
     {
-      name: "Tulsi (Holy Basil)",
-      photo_url: sample,
+      name: "Tulsi",
+      photo_url: ImportHerbsImage[toImageTitle("Tulsi")],
       description:
         "A sacred plant in India used for its healing and adaptogenic properties.",
     },
@@ -127,7 +131,7 @@ const Diet_plan = () => {
     },
     {
       name: "Turmeric Milk",
-      photo_url: sample,
+      photo_url: Home_Remedies_2,
       description:
         "A traditional Ayurvedic drink that helps reduce inflammation and fight infection.",
     },
@@ -136,32 +140,7 @@ const Diet_plan = () => {
   const [dietData, setDietData] = useState(sections);
   const [expandedCards, setExpandedCards] = useState({});
   const [shouldDownload, setShouldDownload] = useState(false);
-  const [searchResults, setSearchResults] = useState([
-    {
-      title: "Yoga",
-      items: [
-        {
-          name: "Adho Mukha Svanasana",
-          image: ImportYogaImage["Paschimutasan"],
-        },
-        { name: "Vrikshasana", image: ImportYogaImage["Halasana"] },
-      ],
-    },
-    {
-      title: "Herbs",
-      items: [
-        { name: "Ashwagandha", image: sample },
-        { name: "Tulsi (Holy Basil)", image: sample },
-      ],
-    },
-    {
-      title: "Home Remedies",
-      items: [
-        { name: "Turmeric Milk", image: sample },
-        { name: "Honey and Lemon", image: sample },
-      ],
-    },
-  ]);
+  const [searchResults, setSearchResults] = useState([]);
 
   // expan all toggles of cards before download
   const toggleAllExpand = () => {
@@ -197,36 +176,86 @@ const Diet_plan = () => {
     }));
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const response = fetch(
-      "https://yogaposes-22510563985.us-central1.run.app/search",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt: text,
-        }),
+  function parseSearchResponse(
+    responseText,
+    ImportYogaImage,
+    ImportHerbsImage,
+    HomeRemediesImages = []
+  ) {
+    const toImageTitle = (name) => name.replace(/\s+/g, "_");
+
+    const sections = {
+      Yoga: [],
+      Herbs: [],
+      "Home Remedies": [],
+    };
+
+    const lines = responseText.split("\n");
+    lines.forEach((line) => {
+      if (line.includes("Yoga Poses")) {
+        const items = line
+          .split("-")[1]
+          .split(",")
+          .map((item) => item.trim());
+        sections.Yoga = items.map((name) => ({
+          name,
+          image: ImportYogaImage[toImageTitle(name)],
+        }));
+      } else if (line.includes("Useful Herbs")) {
+        const items = line
+          .split("-")[1]
+          .split(",")
+          .map((item) => item.trim());
+        sections.Herbs = items.map((name) => ({
+          name,
+          image: ImportHerbsImage[toImageTitle(name)],
+        }));
+      } else if (line.includes("Home Remedies")) {
+        const items = line
+          .split("-")[1]
+          .split(",")
+          .map((item) => item.trim());
+        sections["Home Remedies"] = items.map((name, i) => ({
+          name,
+          image: HomeRemediesImages[i], // fallback: [Home_Remedies_1, Home_Remedies_2, ...]
+        }));
       }
-    );
-    response
-      .then((res) => res.json())
-      .then((data) => {
-        const updated = data.result.slice(0, 2).map((item, index) => {
-          const original = yoga[index]; // to keep original duration & days
-          return {
-            ...item.meta_data,
-            duration: original.duration,
-            days: original.days,
-          };
-        });
-        setYoga(updated);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    });
+
+    return [
+      { title: "Yoga", items: sections.Yoga },
+      { title: "Herbs", items: sections.Herbs },
+      { title: "Home Remedies", items: sections["Home Remedies"] },
+    ];
+  }
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const apiUrl = "https://healthydost.in/healthydostdjango/api/search";
+    try {
+      const response = await axios.post(apiUrl, { question: text });
+
+      if (response.data.success) {
+        console.log(response.data.response);
+        const responseText = response.data.response;
+
+        const HomeRemediesImages = [Home_Remedies_1, Home_Remedies_2];
+
+        const results = parseSearchResponse(
+          responseText,
+          ImportYogaImage,
+          ImportHerbsImage,
+          HomeRemediesImages
+        );
+
+        setSearchResults(results);
+        console.log(results);
+      } else {
+        console.error("API returned failure:", response.data);
+      }
+    } catch (error) {
+      console.error("API call error:", error);
+    }
   };
 
   useEffect(() => {
@@ -404,13 +433,13 @@ const Diet_plan = () => {
             {
               name: parsed.herbs[0]?.name || "",
               photo_url:
-                ImportYogaImage[toImageTitle(parsed.herbs[0]?.name)] || sample,
+                ImportHerbsImage[toImageTitle(parsed.herbs[0]?.name)] || sample,
               description: parsed.herbs[0]?.description || "",
             },
             {
               name: parsed.herbs[1]?.name || "",
               photo_url:
-                ImportYogaImage[toImageTitle(parsed.herbs[1]?.name)] || sample,
+                ImportHerbsImage[toImageTitle(parsed.herbs[1]?.name)] || sample,
               description: parsed.herbs[1]?.description || "",
             },
           ]);
@@ -422,7 +451,7 @@ const Diet_plan = () => {
             },
             {
               name: parsed.homeRemedies[1]?.name || "",
-              photo_url: Home_Remedies_1,
+              photo_url: Home_Remedies_2,
               description: parsed.homeRemedies[1]?.description || "",
             },
           ]);
@@ -783,6 +812,11 @@ const Diet_plan = () => {
                     placeholder="Quick Search"
                     className="form-control fs-6 rounded-0"
                     rows={1}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleSearch(e);
+                      }
+                    }}
                   />
                   <button
                     className="btn btn-success btn-sm rounded-0"
