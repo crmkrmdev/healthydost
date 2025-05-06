@@ -12,6 +12,7 @@ import Home_Remedies_2 from "../assets/images/Home-Remedies-2.png";
 import {
   ImportYogaImage,
   ImportHerbsImage,
+  ImportHomeRemediesImage,
 } from "../utilities/ImportYogaImage";
 
 const Diet_plan = () => {
@@ -135,13 +136,17 @@ const Diet_plan = () => {
   const [homeRemedies, setHomeRemedies] = useState([
     {
       name: "Honey and Lemon",
-      photo_url: Home_Remedies_1,
+      photo_url:
+        ImportHomeRemediesImage[toImageTitle("Honey and Lemon")] ||
+        Home_Remedies_1,
       description:
         "A soothing remedy that helps reduce throat irritation and suppress coughing.",
     },
     {
       name: "Turmeric Milk",
-      photo_url: Home_Remedies_2,
+      photo_url:
+        ImportHomeRemediesImage[toImageTitle("Turmeric Milk")] ||
+        Home_Remedies_2,
       description:
         "A traditional Ayurvedic drink that helps reduce inflammation and fight infection.",
     },
@@ -190,7 +195,7 @@ const Diet_plan = () => {
     responseText,
     ImportYogaImage,
     ImportHerbsImage,
-    HomeRemediesImages = []
+    ImportHomeRemediesImage
   ) {
     const sections = {
       Yoga: [],
@@ -222,9 +227,9 @@ const Diet_plan = () => {
         name,
         image: ImportHerbsImage[toImageTitle(name)],
       }));
-      sections["Home Remedies"] = remedyItems.map((name, i) => ({
+      sections["Home Remedies"] = remedyItems.map((name) => ({
         name,
-        image: HomeRemediesImages[i],
+        image: ImportHomeRemediesImage[toImageTitle(name)],
       }));
     } else {
       // Labeled format
@@ -274,16 +279,14 @@ const Diet_plan = () => {
       const response = await axios.post(apiUrl, { question: text });
 
       if (response.data.success) {
-        console.log(response.data.response);
+        // console.log(response.data.response);
         const responseText = response.data.response;
-
-        const HomeRemediesImages = [Home_Remedies_1, Home_Remedies_2];
 
         const results = parseSearchResponse(
           responseText,
           ImportYogaImage,
           ImportHerbsImage,
-          HomeRemediesImages
+          ImportHomeRemediesImage
         );
 
         setSearchResults(results);
@@ -484,12 +487,18 @@ const Diet_plan = () => {
           setHomeRemedies([
             {
               name: parsed.homeRemedies[0]?.name || "",
-              photo_url: Home_Remedies_1,
+              photo_url:
+                ImportHomeRemediesImage[
+                  toImageTitle(parsed.homeRemedies[0]?.name)
+                ] || Home_Remedies_1,
               description: parsed.homeRemedies[0]?.description || "",
             },
             {
               name: parsed.homeRemedies[1]?.name || "",
-              photo_url: Home_Remedies_2,
+              photo_url:
+                ImportHomeRemediesImage[
+                  toImageTitle(parsed.homeRemedies[1]?.name)
+                ] || Home_Remedies_2,
               description: parsed.homeRemedies[1]?.description || "",
             },
           ]);

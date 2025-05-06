@@ -16,4 +16,16 @@ for (const path in herbsImages) {
   ImportHerbsImage[name] = herbsImages[path].default;
 }
 
-export { ImportYogaImage, ImportHerbsImage };
+const homeRemediesImages = import.meta.glob(
+  "../assets/images/homeRemedies/*.png",
+  {
+    eager: true,
+  }
+);
+const ImportHomeRemediesImage = {};
+for (const path in homeRemediesImages) {
+  const name = path.split("/").pop().replace(".png", "");
+  ImportHerbsImage[name] = homeRemediesImages[path].default;
+}
+
+export { ImportYogaImage, ImportHerbsImage, ImportHomeRemediesImage };
