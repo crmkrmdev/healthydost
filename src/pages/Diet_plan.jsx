@@ -31,6 +31,7 @@ const Diet_plan = () => {
   const [loading, setLoading] = useState(true);
   const [pdfLoding, setPdfLoading] = useState(false);
   const [apiLoading, setApiLoading] = useState(true); // Track API call status
+  const isMobile = window.innerWidth <= 768; // screen size is mobile size or not
 
   // loader timer
   useEffect(() => {
@@ -259,7 +260,10 @@ const Diet_plan = () => {
             .map((item) => item.trim());
           sections["Home Remedies"] = items.map((name, i) => ({
             name,
-            image: HomeRemediesImages[i],
+            image:
+              ImportHomeRemediesImage[toImageTitle(name)] || i === 0
+                ? Home_Remedies_1
+                : Home_Remedies_2,
           }));
         }
       });
@@ -290,7 +294,7 @@ const Diet_plan = () => {
         );
 
         setSearchResults(results);
-        console.log(results);
+        // console.log(results);
       } else {
         console.error("API returned failure:", response.data);
       }
@@ -736,7 +740,11 @@ const Diet_plan = () => {
                     </div>
                   ))}
                   {/* header */}
-                  <div className="section-title mb-4 text-green">
+                  <div
+                    className={`section-title mb-4 text-green ${
+                      shouldDownload && isMobile ? "page-break" : ""
+                    }`}
+                  >
                     <h2>2 Best useful Herbs for You</h2>
                   </div>
                   {/* suggested herbs */}
@@ -775,7 +783,11 @@ const Diet_plan = () => {
                   {/* header */}
                   <div
                     className={`section-title mb-4 text-green ${
-                      shouldDownload ? "page-break" : ""
+                      shouldDownload && !isMobile
+                        ? "page-break"
+                        : shouldDownload && isMobile
+                        ? "page-break-2"
+                        : ""
                     }`}
                   >
                     <h2>2 Best useful Home Remedies for You</h2>
@@ -813,7 +825,11 @@ const Diet_plan = () => {
                     </div>
                   ))}
                   {/* header */}
-                  <div className="section-title mb-4 text-green">
+                  <div
+                    className={`section-title mb-4 text-green ${
+                      shouldDownload && isMobile ? "page-break-2" : ""
+                    }`}
+                  >
                     <h2>Other Recommendations for You</h2>
                   </div>
                   {/* diet data in card */}
