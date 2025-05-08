@@ -30,7 +30,8 @@ const Diet_plan = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [pdfLoding, setPdfLoading] = useState(false);
-  const [apiLoading, setApiLoading] = useState(true); // Track API call status
+  const [apiLoading, setApiLoading] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(false);
   const isMobile = window.innerWidth <= 768; // screen size is mobile size or not
 
   // loader timer
@@ -198,6 +199,8 @@ const Diet_plan = () => {
     ImportHerbsImage,
     ImportHomeRemediesImage
   ) {
+    const toImage = (name) => toImageTitle(name.trim());
+
     const sections = {
       Yoga: [],
       Herbs: [],
@@ -206,68 +209,41 @@ const Diet_plan = () => {
 
     const lines = responseText
       .split("\n")
-      .map((line) => line.split("-")[1] || line) // handle both formats
-      .map((item) => item.replace(/^\d+\.\s*/, "").trim()) // remove leading numbers
-      .filter(Boolean); // remove empty
+      .map((l) => l.trim())
+      .filter(Boolean);
 
-    if (
-      !responseText.includes("Yoga") &&
-      !responseText.includes("Herbs") &&
-      !responseText.includes("Remedies")
-    ) {
-      // Assume fixed order: Yoga (2), Herbs (2), Remedies (2)
-      const yogaItems = lines.slice(0, 2);
-      const herbItems = lines.slice(2, 4);
-      const remedyItems = lines.slice(4, 6);
-      sections.Yoga = yogaItems.map((name) => ({
-        name,
-        image: ImportYogaImage[toImageTitle(name)],
-      }));
-      sections.Herbs = herbItems.map((name) => ({
-        name,
-        image: ImportHerbsImage[toImageTitle(name)],
-      }));
-      sections["Home Remedies"] = remedyItems.map((name, i) => ({
-        name,
-        image:
-          ImportHomeRemediesImage[toImageTitle(name)] ||
-          (i === 0 ? Home_Remedies_1 : Home_Remedies_2),
-      }));
-    } else {
-      // Labeled format
-      responseText.split("\n").forEach((line) => {
-        if (line.includes("Yoga Poses")) {
-          const items = line
-            .split("-")[1]
-            .split(",")
-            .map((item) => item.trim());
-          sections.Yoga = items.map((name) => ({
-            name,
-            image: ImportYogaImage[toImageTitle(name)],
-          }));
-        } else if (line.includes("Useful Herbs")) {
-          const items = line
-            .split("-")[1]
-            .split(",")
-            .map((item) => item.trim());
-          sections.Herbs = items.map((name) => ({
-            name,
-            image: ImportHerbsImage[toImageTitle(name)],
-          }));
-        } else if (line.includes("Home Remedies")) {
-          const items = line
-            .split("-")[1]
-            .split(",")
-            .map((item) => item.trim());
-          sections["Home Remedies"] = items.map((name, i) => ({
-            name,
-            image:
-              ImportHomeRemediesImage[toImageTitle(name)] ||
-              (i === 0 ? Home_Remedies_1 : Home_Remedies_2),
-          }));
-        }
-      });
-    }
+    lines.forEach((line) => {
+      if (line.toLowerCase().startsWith("yoga poses")) {
+        const items = line
+          .split("-")[1]
+          .split(",")
+          .map((item) => item.trim());
+        sections.Yoga = items.map((name) => ({
+          name,
+          image: ImportYogaImage[toImage(name)],
+        }));
+      } else if (line.toLowerCase().startsWith("useful herbs")) {
+        const items = line
+          .split("-")[1]
+          .split(",")
+          .map((item) => item.trim());
+        sections.Herbs = items.map((name) => ({
+          name,
+          image: ImportHerbsImage[toImage(name)],
+        }));
+      } else if (line.toLowerCase().startsWith("home remedies")) {
+        const items = line
+          .split("-")[1]
+          .split(",")
+          .map((item) => item.trim());
+        sections["Home Remedies"] = items.map((name, i) => ({
+          name,
+          image:
+            ImportHomeRemediesImage[toImage(name)] ||
+            (i === 0 ? Home_Remedies_1 : Home_Remedies_2),
+        }));
+      }
+    });
 
     return [
       { title: "Yoga", items: sections.Yoga },
@@ -278,6 +254,7 @@ const Diet_plan = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setSearchLoading(true);
     const apiUrl = "https://healthydost.in/healthydostdjango/api/search";
     try {
       const response = await axios.post(apiUrl, { question: text });
@@ -294,12 +271,14 @@ const Diet_plan = () => {
         );
 
         setSearchResults(results);
-        console.log(results);
+        // console.log(results);
       } else {
         console.error("API returned failure:", response.data);
       }
     } catch (error) {
       console.error("API call error:", error);
+    } finally {
+      setSearchLoading(false);
     }
   };
 
@@ -434,7 +413,7 @@ const Diet_plan = () => {
         const response = await axios.post(apiUrl, filteredData);
 
         if (response.data.success) {
-          console.log(response.data.response);
+          // console.log(response.data.response);
           const parsed = parseHealthData(response.data.response);
           // console.log(parsed);
           setDietData([
@@ -443,7 +422,7 @@ const Diet_plan = () => {
               image: sample,
               items:
                 parsed?.allowedFoods.filter(
-                  (e) => e.length > 3 && e.length < 100
+                  (e) => e.length >= 3 && e.length <= 25
                 ) || [],
             },
             {
@@ -451,7 +430,7 @@ const Diet_plan = () => {
               image: sample,
               items:
                 parsed?.foodsToAvoid.filter(
-                  (e) => e.length > 3 && e.length < 100
+                  (e) => e.length >= 3 && e.length <= 25
                 ) || [],
             },
             {
@@ -858,7 +837,12 @@ const Diet_plan = () => {
                               ? section.items
                               : section.items.slice(0, 5)
                             ).map((item, itemIdx) => (
-                              <li key={itemIdx} className="mb-2">
+                              <li
+                                key={itemIdx}
+                                className={`${
+                                  itemIdx === 11 ? "mb-4" : "mb-2"
+                                }`}
+                              >
                                 <i className="bi bi-check-circle-fill text-success me-2"></i>
                                 {item}
                               </li>
@@ -916,35 +900,47 @@ const Diet_plan = () => {
                     Enter Disease / Symptoms to get AI suggested Yoda, Herbs and
                     Home Remedies for you
                   </span>
-                  <div className="fixed-container">
-                    {searchResults.map((item, index) =>
-                      item.items.map((cc, idx) => (
-                        <div
-                          key={`${index}-${idx}`}
-                          className="w-100 glass-card mb-3 d-flex p-0 justify-content-start"
-                          style={{
-                            maxHeight: "80px",
-                          }}
-                        >
-                          <img
-                            src={cc.image || sample}
-                            alt=""
-                            style={{ width: "80px", height: "80px" }}
-                          />
-                          <div className="p-2">
-                            <h6>{item.title}</h6>
-                            <span
-                              style={{
-                                fontSize: "small",
-                              }}
-                            >
-                              {cc.name}
-                            </span>
+
+                  {searchLoading ? (
+                    <div
+                      className=""
+                      style={{
+                        overflow: "hidden",
+                      }}
+                    >
+                      <CircleLoader color="#36d7b7" size={80} />
+                    </div>
+                  ) : (
+                    <div className="fixed-container">
+                      {searchResults.map((item, index) =>
+                        item.items.map((cc, idx) => (
+                          <div
+                            key={`${index}-${idx}`}
+                            className="w-100 glass-card mb-3 d-flex p-0 justify-content-start"
+                            style={{
+                              maxHeight: "80px",
+                            }}
+                          >
+                            <img
+                              src={cc.image || sample}
+                              alt=""
+                              style={{ width: "80px", height: "80px" }}
+                            />
+                            <div className="p-2">
+                              <h6>{item.title}</h6>
+                              <span
+                                style={{
+                                  fontSize: "small",
+                                }}
+                              >
+                                {cc.name}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      ))
-                    )}
-                  </div>
+                        ))
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
 
