@@ -25,7 +25,7 @@ const homeRemediesImages = import.meta.glob(
 const ImportHomeRemediesImage = {};
 for (const path in homeRemediesImages) {
   const name = path.split("/").pop().replace(".png", "");
-  ImportHerbsImage[name] = homeRemediesImages[path].default;
+  ImportHomeRemediesImage[name] = homeRemediesImages[path].default;
 }
 
 export { ImportYogaImage, ImportHerbsImage, ImportHomeRemediesImage };

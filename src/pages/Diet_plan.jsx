@@ -115,8 +115,8 @@ const Diet_plan = () => {
         "A foundational pose that stretches the whole body and builds strength.",
     },
     {
-      name: "Vrikshasana",
-      photo_url: ImportYogaImage[toImageTitle("Vrikshasana")],
+      name: "Virbhadrasan",
+      photo_url: ImportYogaImage[toImageTitle("Virbhadrasan")],
       description: "A balancing posture that promotes focus and calm.",
     },
   ]);
@@ -219,7 +219,6 @@ const Diet_plan = () => {
       const yogaItems = lines.slice(0, 2);
       const herbItems = lines.slice(2, 4);
       const remedyItems = lines.slice(4, 6);
-
       sections.Yoga = yogaItems.map((name) => ({
         name,
         image: ImportYogaImage[toImageTitle(name)],
@@ -228,9 +227,11 @@ const Diet_plan = () => {
         name,
         image: ImportHerbsImage[toImageTitle(name)],
       }));
-      sections["Home Remedies"] = remedyItems.map((name) => ({
+      sections["Home Remedies"] = remedyItems.map((name, i) => ({
         name,
-        image: ImportHomeRemediesImage[toImageTitle(name)],
+        image:
+          ImportHomeRemediesImage[toImageTitle(name)] ||
+          (i === 0 ? Home_Remedies_1 : Home_Remedies_2),
       }));
     } else {
       // Labeled format
@@ -261,9 +262,8 @@ const Diet_plan = () => {
           sections["Home Remedies"] = items.map((name, i) => ({
             name,
             image:
-              ImportHomeRemediesImage[toImageTitle(name)] || i === 0
-                ? Home_Remedies_1
-                : Home_Remedies_2,
+              ImportHomeRemediesImage[toImageTitle(name)] ||
+              (i === 0 ? Home_Remedies_1 : Home_Remedies_2),
           }));
         }
       });
@@ -294,7 +294,7 @@ const Diet_plan = () => {
         );
 
         setSearchResults(results);
-        // console.log(results);
+        console.log(results);
       } else {
         console.error("API returned failure:", response.data);
       }
@@ -1043,7 +1043,7 @@ const Diet_plan = () => {
                                   <ul className="list-unstyled ms-3 mt-2">
                                     <li className="mb-1">
                                       • 8 AM : Juice / Liquid Diet (Launki,
-                                      Safed Petha, Siknangi)
+                                      Safed Petha, Shikanji)
                                     </li>
                                     <li className="mb-1">
                                       • 10 AM : Breakfst (Fruits only)

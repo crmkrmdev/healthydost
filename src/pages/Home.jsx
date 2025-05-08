@@ -37,13 +37,8 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="main d-flex flex-column justify-content-center align-items-center">
+      <div className="main d-flex flex-column align-items-center safe">
         <div className="fn__center_title safe" id="img_gen">
-          {/* <div className="lines">
-            <span className="l"></span>
-            <span className="c"></span>
-            <span className="r"></span>
-          </div> */}
           <div className="text">
             <div className="fn__animated_text ready stop">
               <h1 className="text-green fw-bold mb-2">
@@ -60,7 +55,6 @@ const Home = () => {
               onSubmit={handleSend}
             >
               <div className="d-flex gap-3 flex-wrap justify-content-center">
-                {/* <img src={LOGO} alt="Logo" style={{ height: "150px" }} /> */}
                 <div className="gap-2 d-flex flex justify-content-center align-items-center w-100">
                   <select
                     className="form-select text-white border-light bg-dark bg-opacity-50"
@@ -122,10 +116,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-
-        <div className="footer position-absolute z-2" style={{ zIndex: 2 }}>
-          © 2025 Healthy Dost. All rights reserved.
-        </div>
+      </div>
+      <div className="footer position-absolute z-2" style={{ zIndex: 2 }}>
+        © 2025 Healthy Dost. All rights reserved.
       </div>
     </>
   );
