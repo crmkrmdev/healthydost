@@ -2,13 +2,15 @@ import React, { useState, useRef, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./header";
 import Dish from "../assets/bot_gif.gif";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const navigate = useNavigate();
   const [purpose, setPurpose] = useState("");
   const [customPurpose, setCustomPurpose] = useState("");
   const inputRef = useRef(null);
-
+  const message = "The diet data is approved by Expert B.A.M.S. Doctors";
+  const words = message.split(" ");
   // Focus input when "others" is selected
   useEffect(() => {
     if (purpose === "others" && inputRef.current) {
@@ -37,7 +39,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="main d-flex flex-column align-items-center safe">
+      <div className="d-flex flex-column align-items-center">
         <div className="fn__center_title safe" id="img_gen">
           <div className="text">
             <div className="fn__animated_text ready stop">
@@ -116,6 +118,20 @@ const Home = () => {
             </div>
           </div>
         </div>
+
+        <h3 className="text-center float-glow mb-5">
+          {words.map((word, index) => (
+            <motion.span
+              key={index}
+              initial={{ opacity: 0, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.4 }}
+              className="mx-1"
+            >
+              {word}
+            </motion.span>
+          ))}
+        </h3>
       </div>
       <div className="footer position-absolute z-2" style={{ zIndex: 2 }}>
         © 2025 Healthy Dost. All rights reserved.

@@ -378,10 +378,10 @@ const Diet_plan = () => {
             break;
 
           case "remedies":
-            const remedyMatch = line.match(/^(.*?):\s*(.+)$/);
+            const remedyMatch = line.match(/^\d+\.\s*(.+?)\s*-\s*(.+)$/);
             if (remedyMatch) {
               homeRemedies.push({
-                name: removeNumbering(remedyMatch[1]),
+                name: remedyMatch[1].trim(),
                 description: remedyMatch[2].trim(),
               });
             }
@@ -434,7 +434,7 @@ const Diet_plan = () => {
         const response = await axios.post(apiUrl, filteredData);
 
         if (response.data.success) {
-          // console.log(response.data.response);
+          console.log(response.data.response);
           const parsed = parseHealthData(response.data.response);
           // console.log(parsed);
           setDietData([
