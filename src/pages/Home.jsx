@@ -40,13 +40,19 @@ const Home = () => {
     <>
       <Header />
       <div className="d-flex flex-column align-items-center">
-        <div className="fn__center_title safe" id="img_gen">
+        <div
+          className="fn__center_title"
+          id="img_gen"
+          style={{
+            height: "250px",
+          }}
+        >
           <div className="text">
             <div className="fn__animated_text ready stop">
               <h1 className="text-green fw-bold mb-2">
                 India's First AI Enabled Health System!
               </h1>
-              <p className="text-green mb-4" style={{ fontSize: "1.2rem" }}>
+              <p className="text-green" style={{ fontSize: "1.2rem" }}>
                 स्वस्थस्य स्वास्थ्य रक्षणं, आतुरस्य विकार प्रशमनं
               </p>
             </div>
@@ -112,14 +118,10 @@ const Home = () => {
         </div>
 
         <div className="dish_card_container">
-          <div className="row">
-            <div className="col">
-              <img src={Dish} alt="aaa" className="img-fluid" />
-            </div>
-          </div>
+          <img src={Dish} alt="aaa" className="img-fluid" />
         </div>
 
-        <h3 className="text-center float-glow mb-5">
+        <h3 className="text-center float-glow mb-5 d-flex flex-wrap justify-content-center align-items-center">
           {words.map((word, index) => (
             <motion.span
               key={index}

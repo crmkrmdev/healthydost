@@ -942,6 +942,15 @@ const Diet_plan = () => {
                     </div>
                   )}
                 </div>
+
+                {/* <div className="glass-card my-2 p-3">
+                  <span className="fs-5 text-center">
+                    Contact us on WhatsApp :{" "}
+                    <span className="text-success fw-semibold fs-5">
+                      8585858585
+                    </span>
+                  </span>
+                </div> */}
               </div>
 
               {/* table to be included in pdf */}

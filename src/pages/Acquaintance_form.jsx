@@ -97,15 +97,18 @@ const Daily_routine = () => {
                 )}
               </div>
               {acquaintance.map((item, itemIndex) => (
-                <div key={itemIndex} className="mb-3 d-flex align-items-center">
+                <div
+                  key={itemIndex}
+                  className="mb-sm-3 mb-4 d-flex flex-column flex-sm-row align-items-center"
+                >
                   <h4
-                    className="form-label fw-bold me-3"
+                    className="form-label fw-bold me-sm-3 mb-sm-3 mb-sm-0"
                     style={{ minWidth: "90px" }}
                   >
                     {item.name}
                   </h4>
-                  <div className="d-flex flex-wrap gap-2">
-                    :
+                  <div className="d-flex flex-wrap gap-2 justify-content-center justify-content-sm-start">
+                    <span className="d-none d-sm-block"> :</span>
                     {item.options.map((option, optionIndex) => (
                       <button
                         type="button"
@@ -155,7 +158,7 @@ const Daily_routine = () => {
                   className="btn btn-secondary"
                   onClick={() => navigate(-1)}
                 >
-                  <i class="bi bi-arrow-left"></i>
+                  <i className="bi bi-arrow-left"></i>
                 </button>
                 <button type="submit" className="btn btn-success">
                   Submit
