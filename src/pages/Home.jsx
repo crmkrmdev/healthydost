@@ -140,9 +140,7 @@ const Home = () => {
             </motion.span>
           ))}
         </h3>
-      </div>
-      <div className="footer position-absolute z-2" style={{ zIndex: 2 }}>
-        © 2025 Healthy Dost. All rights reserved.
+        <div className="footer">© 2025 Healthy Dost. All rights reserved.</div>
       </div>
     </>
   );
