@@ -74,17 +74,17 @@ const Home = () => {
                       Choose your purpose of getting a Complimentary Diet /
                       Health Plan
                     </option>
-                    <option value="weight-loss">
+                    <option value="Disease Recovery">
                       I have one or more disease and want to get rid of that
                     </option>
-                    <option value="stay-healthy">
+                    <option value="Prevent Illness">
                       I am healthy and I don't want to get ill
                     </option>
-                    <option value="only-weight-loss">
+                    <option value="Lose Weight">
                       I only want to lose weight
                     </option>
-                    <option value="muscle-gain">I want to gain weight</option>
-                    <option value="general-health">
+                    <option value="Gain Weight">I want to gain weight</option>
+                    <option value="Lifestyle Improvement">
                       Lifestyle Improvement
                     </option>
                     <option value="others">Others</option>

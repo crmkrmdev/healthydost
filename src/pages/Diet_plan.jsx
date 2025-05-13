@@ -27,12 +27,61 @@ const Diet_plan = () => {
     "Initializing...",
     "Almost there...",
   ];
+  const schedules = [
+    {
+      "Wake Up Time": "5:00 AM",
+      "Breakfast 1 Time": "7:00 AM",
+      "Breakfast 2 Time": "9:00 AM",
+      "Lunch Time Range": "12:00 PM - 1:00 PM",
+      "Dinner 1 Time": "6:00 PM",
+      "Dinner 2 Time": "7:30 PM",
+      "Sleep Time": "9:00 PM",
+      "Sleep Duration": "8 hours",
+      "No Meal Time": "14 hours",
+    },
+    {
+      "Wake Up Time": "5:30 AM",
+      "Breakfast 1 Time": "7:30 AM",
+      "Breakfast 2 Time": "9:30 AM",
+      "Lunch Time Range": "12:30 PM - 1:30 PM",
+      "Dinner 1 Time": "6:30 PM",
+      "Dinner 2 Time": "8:00 PM",
+      "Sleep Time": "9:30 PM",
+      "Sleep Duration": "8 hours",
+      "No Meal Time": "14 hours",
+    },
+    {
+      "Wake Up Time": "6:00 AM",
+      "Breakfast 1 Time": "8:00 AM",
+      "Breakfast 2 Time": "10:00 AM",
+      "Lunch Time Range": "1:00 PM - 2:00 PM",
+      "Dinner 1 Time": "7:00 PM",
+      "Dinner 2 Time": "8:30 PM",
+      "Sleep Time": "10:00 PM",
+      "Sleep Duration": "8 hours",
+      "No Meal Time": "14 hours",
+    },
+    {
+      "Wake Up Time": "6:30 AM",
+      "Breakfast 1 Time": "8:30 AM",
+      "Breakfast 2 Time": "10:30 AM",
+      "Lunch Time Range": "1:30 PM - 2:30 PM",
+      "Dinner 1 Time": "7:30 PM",
+      "Dinner 2 Time": "9:00 PM",
+      "Sleep Time": "10:30 PM",
+      "Sleep Duration": "8 hours",
+      "No Meal Time": "14 hours",
+    },
+  ];
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [pdfLoding, setPdfLoading] = useState(false);
   const [apiLoading, setApiLoading] = useState(true);
   const [searchLoading, setSearchLoading] = useState(false);
   const isMobile = window.innerWidth <= 768; // screen size is mobile size or not
+  const randomSchedule =
+    schedules[Math.floor(Math.random() * schedules.length)];
 
   // loader timer
   useEffect(() => {
@@ -254,6 +303,10 @@ const Diet_plan = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    if (!text) {
+      return; // Don't proceed if the input is empty
+    }
+
     setSearchLoading(true);
     const apiUrl = "https://healthydost.in/healthydostdjango/api/search";
     try {
@@ -1019,10 +1072,10 @@ const Diet_plan = () => {
                             >
                               <span className="fs-3">Your Daily Routine :</span>
                               <span className="fs-5">
-                                Sleep Time : 10:00 PM
+                                Sleep Time : {randomSchedule["Sleep Time"]}
                               </span>
                               <span className="fs-5">
-                                Wake Up Time : 6:00 AM
+                                Wake Up Time : {randomSchedule["Wake Up Time"]}
                               </span>
                               <span className="fs-5">
                                 Sleep Duration : 8 Hours
@@ -1049,17 +1102,20 @@ const Diet_plan = () => {
                                   </h5>
                                   <ul className="list-unstyled ms-3 mt-2">
                                     <li className="mb-1">
-                                      • 8 AM : Juice / Liquid Diet (Launki,
-                                      Safed Petha, Shikanji)
+                                      • {randomSchedule["Breakfast 1 Time"]} :
+                                      Juice / Liquid Diet (Launki, Safed Petha,
+                                      Shikanji)
                                     </li>
                                     <li className="mb-1">
-                                      • 10 AM : Breakfst (Fruits only)
+                                      • {randomSchedule["Breakfast 2 Time"]} :
+                                      Breakfast (Fruits only)
                                     </li>
                                   </ul>
                                 </div>
                                 <div className="mb-4">
                                   <h5 className="fw-semibold text-secondary">
-                                    🥗 Lunch (1 PM / 2 PM)
+                                    🥗 Lunch (
+                                    {randomSchedule["Lunch Time Range"]})
                                   </h5>
                                   <ul className="list-unstyled ms-3 mt-2">
                                     <li className="mb-1">• Plate-1 : Salads</li>
@@ -1075,11 +1131,13 @@ const Diet_plan = () => {
                                   </h5>
                                   <ul className="list-unstyled ms-3 mt-2">
                                     <li className="mb-1">
-                                      • 7:00 PM: 2 Dal Katori / 2 Sabji with
-                                      Chapati / Half-portion-rice
+                                      • {randomSchedule["Dinner 1 Time"]}: 2 Dal
+                                      Katori / 2 Sabji with Chapati /
+                                      Half-portion-rice
                                     </li>
                                     <li className="mb-1">
-                                      • 8:30 PM : Glass of Milk (if needed)
+                                      • {randomSchedule["Dinner 2 Time"]} :
+                                      Glass of Milk (if needed)
                                     </li>
                                   </ul>
                                 </div>
