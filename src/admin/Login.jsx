@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <div className="main d-flex justify-content-center align-items-center vh-100 bg-dark">
-      <div className="card p-4 bg-secondary text-white shadow col-6 col-md-4 col-lg-3">
+      <div className="card p-4 shadow col-6 col-md-4 col-lg-3">
         <h3 className="text-center mb-4">Admin Login</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -42,7 +42,7 @@ const Login = () => {
             />
             <button
               type="button"
-              className="btn btn-link text-white m-0 p-0 ms-2"
+              className="btn btn-link text-secondary m-0 p-0 ms-2"
               onClick={() => setToggle(!toggle)}
             >
               {toggle ? (
@@ -52,7 +52,7 @@ const Login = () => {
               )}
             </button>
           </div>
-          <button type="submit" className="btn btn-light w-100">
+          <button type="submit" className="btn btn-primary w-100">
             Login
           </button>
         </form>

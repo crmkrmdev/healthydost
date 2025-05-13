@@ -840,9 +840,7 @@ const Diet_plan = () => {
                               <li
                                 key={itemIdx}
                                 className={`${
-                                  (window.innerWidth <= 600 &&
-                                    itemIdx === 24) ||
-                                  (window.innerWidth > 600 && itemIdx === 11)
+                                  window.innerWidth > 600 && itemIdx === 11
                                     ? "mb-4"
                                     : "mb-2"
                                 }`}

@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Next from "./pages/Next";
 import FinalForm from "./pages/FinalForm";
@@ -65,8 +65,8 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
