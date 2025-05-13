@@ -29,6 +29,10 @@ const FinalForm = () => {
       if (/^[a-zA-Z\s]*$/.test(value)) {
         setUserData((prevFormData) => ({ ...prevFormData, [name]: value }));
       }
+    } else if (name === "allergy") {
+      if (/^[a-zA-Z\s]*$/.test(value)) {
+        setUserData((prevFormData) => ({ ...prevFormData, [name]: value }));
+      }
     } else {
       setUserData((prevFormData) => ({ ...prevFormData, [name]: value }));
     }
@@ -134,7 +138,7 @@ const FinalForm = () => {
                 onChange={handleChange}
                 value={userData.weight || ""}
                 max={300}
-                min={5}
+                min={30}
                 required
                 type="number"
                 className="form-control text-dark border-light"

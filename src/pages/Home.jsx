@@ -98,17 +98,23 @@ const Home = () => {
                       placeholder="Please specify your purpose"
                       value={customPurpose}
                       onChange={(e) => setCustomPurpose(e.target.value)}
-                      style={{
-                        "::placeholder": {
-                          color: "#bbb",
-                        },
-                        color: "#fff",
-                      }}
                       required
+                      style={{
+                        position: "absolute",
+                        top: "30px",
+                      }}
                     />
                   )}
 
-                  <button type="submit" className="btn btn-grad md-px-4">
+                  <button
+                    type="submit"
+                    className="btn btn-grad md-px-4"
+                    style={
+                      window.innerWidth <= 600 && purpose === "others"
+                        ? { top: "20px" }
+                        : {}
+                    }
+                  >
                     Send
                   </button>
                 </div>

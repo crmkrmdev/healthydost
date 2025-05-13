@@ -10,23 +10,63 @@ import Acquaintance_form from "./pages/Acquaintance_form";
 import Diet_plan from "./pages/Diet_plan";
 import Login from "./admin/login";
 import Dashboard from "./admin/Dashboard";
-import Diet_plan_2 from "./pages/Diet_plan_2";
-// import Page from "./diet_plan/page";
+import ProtectedRoute from "./utilities/ProtectedRoute";
 
 const App = () => {
   return (
     <Router>
-      {/* All Routes */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/next" element={<Next />} />
-        <Route path="/symptoms-form" element={<Symptoms_form />} />
-        <Route path="/daily-routine" element={<Daily_routine />} />
-        <Route path="/acquaintance" element={<Acquaintance_form />} />
-        <Route path="/final-form" element={<FinalForm />} />
-        <Route path="/diet-plan" element={<Diet_plan />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/next"
+          element={
+            <ProtectedRoute>
+              <Next />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/symptoms-form"
+          element={
+            <ProtectedRoute>
+              <Symptoms_form />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/daily-routine"
+          element={
+            <ProtectedRoute>
+              <Daily_routine />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/acquaintance"
+          element={
+            <ProtectedRoute>
+              <Acquaintance_form />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/final-form"
+          element={
+            <ProtectedRoute>
+              <FinalForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/diet-plan"
+          element={
+            <ProtectedRoute>
+              <Diet_plan />
+            </ProtectedRoute>
+          }
+        />
+        {/* <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} /> */}
       </Routes>
     </Router>
   );

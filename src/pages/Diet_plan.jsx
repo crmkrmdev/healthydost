@@ -374,12 +374,12 @@ const Diet_plan = () => {
 
   useEffect(() => {
     const finalData = {
-      purpose: localStorage.getItem("purpose"),
-      illnesses: JSON.parse(localStorage.getItem("illnesses")),
-      symptoms: JSON.parse(localStorage.getItem("symptoms")),
-      dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")),
-      acquaintance: JSON.parse(localStorage.getItem("acquaintance")),
-      userData: JSON.parse(localStorage.getItem("userData")),
+      purpose: localStorage.getItem("purpose") || "",
+      illnesses: JSON.parse(localStorage.getItem("illnesses")) || [],
+      symptoms: JSON.parse(localStorage.getItem("symptoms")) || [],
+      dailyRoutine: JSON.parse(localStorage.getItem("dailyRoutine")) || [],
+      acquaintance: JSON.parse(localStorage.getItem("acquaintance")) || [],
+      userData: JSON.parse(localStorage.getItem("userData")) || {},
     };
     const filteredData = {
       purpose: finalData.purpose,
@@ -840,7 +840,11 @@ const Diet_plan = () => {
                               <li
                                 key={itemIdx}
                                 className={`${
-                                  itemIdx === 11 ? "mb-4" : "mb-2"
+                                  (window.innerWidth <= 600 &&
+                                    itemIdx === 24) ||
+                                  (window.innerWidth > 600 && itemIdx === 11)
+                                    ? "mb-4"
+                                    : "mb-2"
                                 }`}
                               >
                                 <i className="bi bi-check-circle-fill text-success me-2"></i>
@@ -897,7 +901,7 @@ const Diet_plan = () => {
                     }}
                     className="ms-2 pb-4 fw-semibold"
                   >
-                    Enter Disease / Symptoms to get AI suggested Yoda, Herbs and
+                    Enter Disease / Symptoms to get AI suggested Yoga, Herbs and
                     Home Remedies for you
                   </span>
 
