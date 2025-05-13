@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { exportToExcel, tableToJson } from "../utilities/Download_Excel";
+import axios from "axios";
 
 const Dashboard = () => {
   const sampleData = [
@@ -87,6 +88,24 @@ const Dashboard = () => {
     exportToExcel(data, "PatientData.xlsx");
   };
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://healthydost.in/healthydostdjango/api/getenquiries"
+  //       );
+  //       if (response.data.success) {
+  //         console.log(response.data.data);
+  //         setData(response.data.data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   return (
     <div className="main">
       <h2 className="text-center text-secondary my-4">Admin Dashboard</h2>
@@ -104,7 +123,13 @@ const Dashboard = () => {
           >
             <thead className="table">
               <tr className="table-dark">
-                <th>Purpose</th>
+                <th
+                  style={{
+                    minWidth: "150px",
+                  }}
+                >
+                  Purpose
+                </th>
                 <th>Name</th>
                 <th>Age</th>
                 <th>Gender</th>
@@ -112,8 +137,20 @@ const Dashboard = () => {
                 <th>Height</th>
                 <th>Contact</th>
                 <th>Allergy</th>
-                <th>Symptoms</th>
-                <th>Illness</th>
+                <th
+                  style={{
+                    minWidth: "150px",
+                  }}
+                >
+                  Symptoms
+                </th>
+                <th
+                  style={{
+                    minWidth: "150px",
+                  }}
+                >
+                  Illness
+                </th>
                 <th
                   style={{
                     minWidth: "200px",
