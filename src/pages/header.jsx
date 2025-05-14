@@ -6,7 +6,7 @@ const Header = () => {
     <div
       className={`header d-flex flex-column flex-sm-row justify-content-between align-items-center`}
       style={{
-        top: 0,
+        top: "5px",
       }}
     >
       <img
