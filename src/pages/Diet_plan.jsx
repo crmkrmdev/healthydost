@@ -14,6 +14,7 @@ import {
   ImportHerbsImage,
   ImportHomeRemediesImage,
 } from "../utilities/ImportYogaImage";
+import YogaList from "../utilities/YogaList";
 
 const Diet_plan = () => {
   const loadingTexts = [
@@ -157,6 +158,7 @@ const Diet_plan = () => {
       ],
     },
   ];
+
   const [yoga, setYoga] = useState([
     {
       name: "Adho Mukha Svanasana",
@@ -457,6 +459,12 @@ const Diet_plan = () => {
         value: e.value,
       })),
     };
+    // function to get two random yoga poses
+    const getRandomYogas = (list, count = 2) => {
+      const shuffled = [...list].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    };
+    const randomYogas = getRandomYogas(YogaList);
 
     const apiUrl = "https://healthydost.in/healthydostdjango/api/addenquiry";
 
@@ -494,16 +502,16 @@ const Diet_plan = () => {
           ]);
           setYoga([
             {
-              name: parsed.yoga[0]?.name || "",
+              name: randomYogas[0]?.yoga || "",
               photo_url:
-                ImportYogaImage[toImageTitle(parsed.yoga[0]?.name)] || sample,
-              description: parsed.yoga[0]?.description || "",
+                ImportYogaImage[toImageTitle(randomYogas[0]?.yoga)] || sample,
+              description: randomYogas[0]?.description || "",
             },
             {
-              name: parsed.yoga[1]?.name || "",
+              name: randomYogas[1]?.yoga || "",
               photo_url:
-                ImportYogaImage[toImageTitle(parsed.yoga[1]?.name)] || sample,
-              description: parsed.yoga[1]?.description || "",
+                ImportYogaImage[toImageTitle(randomYogas[1]?.yoga)] || sample,
+              description: randomYogas[1]?.description || "",
             },
           ]);
           setHerbs([
